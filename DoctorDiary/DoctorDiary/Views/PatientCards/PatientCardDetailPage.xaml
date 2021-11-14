@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoctorDiary.Views.PatientCards.PatientCardDetailPage"
+             Title="{Binding Title}">
+
+    <StackLayout Spacing="20" Padding="15">
+        <!-- <Label Text="FirstName:" FontSize="Medium" /> -->
+        <!-- <Label Text="{Binding FirstName}" FontSize="Small"/> -->
+        
+        <Label Text="{Binding FirstName, StringFormat='FirstName: {0}'}"/>
+        
+        <Label Text="LastName:" FontSize="Medium" />
+        <Label Text="{Binding LastName}" FontSize="Small"/>
+        
+        <Label Text="Patronymic:" FontSize="Medium" />
+        <Label Text="{Binding Patronymic}" FontSize="Small"/>
+        
+        <Label Text="Address:" FontSize="Medium" />
+        <Label Text="{Binding Address}" FontSize="Small"/>
+        
+        <Label Text="Birthday:" FontSize="Medium" />
+        <Label Text="{Binding Birthday}" FontSize="Small"/>
+        
+        <Label Text="Snils:" FontSize="Medium" />
+        <Label Text="{Binding Snils}" FontSize="Small"/>
+        
+        <Label Text="Description:" FontSize="Medium" />
+        <Label Text="{Binding Description}" FontSize="Small"/>
+    </StackLayout>
+    
+</ContentPage>
