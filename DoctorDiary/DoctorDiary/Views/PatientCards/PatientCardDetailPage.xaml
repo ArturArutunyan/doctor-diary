@@ -25,6 +25,9 @@
         <Label Text="Snils:" FontSize="Medium" />
         <Label Text="{Binding Snils}" FontSize="Small"/>
         
+        <Label Text="PhoneNumber:" FontSize="Medium" />
+        <Label Text="{Binding PhoneNumber}" FontSize="Small"/>
+        
         <Label Text="Description:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
     </StackLayout>

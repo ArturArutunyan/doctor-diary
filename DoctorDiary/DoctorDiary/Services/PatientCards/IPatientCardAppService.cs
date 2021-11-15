@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Shared.Application;
 
@@ -20,7 +19,8 @@ namespace DoctorDiary.Services.PatientCards
             string address,
             DateTime birthday,
             string snils,
-            string description);
+            string description,
+            string phoneNumber);
 
         Task UpdateAsync(
             Guid id,
@@ -30,7 +30,8 @@ namespace DoctorDiary.Services.PatientCards
             string address,
             DateTime birthday,
             string snils,
-            string description);
+            string description,
+            string phoneNumber);
 
         Task DeleteAsync(Guid id);
     }

@@ -36,7 +36,8 @@ namespace DoctorDiary.Services.PatientCards
             string address, 
             DateTime birthday, 
             string snils,
-            string description)
+            string description,
+            string phoneNumber)
         {
             var patientCard = new PatientCard(
                 id: Guid.NewGuid(),
@@ -46,7 +47,8 @@ namespace DoctorDiary.Services.PatientCards
                 address: address,
                 birthday: birthday,
                 snils: snils,
-                description: description);
+                description: description,
+                phoneNumber: phoneNumber);
 
             await _patientCardRepository.InsertAsync(patientCard);
         }
@@ -59,7 +61,8 @@ namespace DoctorDiary.Services.PatientCards
             string address, 
             DateTime birthday, 
             string snils,
-            string description)
+            string description,
+            string phoneNumber)
         {
             var patientCard = await _patientCardRepository.GetAsync(id);
             
@@ -70,7 +73,8 @@ namespace DoctorDiary.Services.PatientCards
             patientCard.ChangeBirthday(birthday);
             patientCard.ChangeSnils(snils);
             patientCard.ChangeDescription(description);
-
+            patientCard.ChangePhoneNumber(phoneNumber);
+            
             await _patientCardRepository.UpdateAsync(patientCard);
         }
 

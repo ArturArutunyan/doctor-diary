@@ -17,7 +17,8 @@ namespace DoctorDiary.ViewModels.PatientCards
         private DateTime _birthday;
         private string _snils;
         private string _description;
-        
+        private string _phoneNumber;
+
         private readonly IPatientCardAppService _patientCardAppService;
 
         public NewPatientCardViewModel()
@@ -80,6 +81,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             get => _description;
             set => SetProperty(ref _description, value);
         }
+        
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set => SetProperty(ref _phoneNumber, value);
+        }
 
         private async Task OnCancel()
         {
@@ -96,7 +103,8 @@ namespace DoctorDiary.ViewModels.PatientCards
                 address: Address,
                 birthday: Birthday,
                 snils: Snils,
-                description: Description);
+                description: Description,
+                phoneNumber: PhoneNumber);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

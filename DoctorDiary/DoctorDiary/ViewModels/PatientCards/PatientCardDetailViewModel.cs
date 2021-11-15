@@ -34,7 +34,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 _patientCardId = value;
                 LoadPatientCard(value);
-                LoadSickLeaves(value);
+                //LoadSickLeaves(value);
             }
         }
 
@@ -82,20 +82,20 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _description, value);
         }
 
-        public List<SickLeave> SickLeaves
-        {
-            get => _sickLeaves;
-            set => SetProperty(ref _sickLeaves, value);
-        }
-
-        public AsyncCommand OpenSickLeave { get; }
+        // public List<SickLeave> SickLeaves
+        // {
+        //     get => _sickLeaves;
+        //     set => SetProperty(ref _sickLeaves, value);
+        // }
+        //
+        // public AsyncCommand OpenSickLeave { get; }
 
         public PatientCardDetailViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
-            _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
+            //_sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
 
-            OpenSickLeave = new AsyncCommand(OnOpenSickLeave);
+            //OpenSickLeave = new AsyncCommand(OnOpenSickLeave);
         }
 
         public async void LoadPatientCard(string id)
@@ -119,18 +119,18 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        private async void LoadSickLeaves(string patientCardId)
-        {
-            try
-            {
-                SickLeaves = await _sickLeaveAppService.GetSickLeavesByPatientCardId(Guid.Parse(patientCardId));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
+        // private async void LoadSickLeaves(string patientCardId)
+        // {
+        //     try
+        //     {
+        //         SickLeaves = await _sickLeaveAppService.GetSickLeavesByPatientCardId(Guid.Parse(patientCardId));
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         Console.WriteLine(e);
+        //         throw;
+        //     }
+        // }
 
         public async Task OnOpenSickLeave()
         {

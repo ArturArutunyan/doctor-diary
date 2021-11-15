@@ -26,6 +26,9 @@
             <Label Text="Snils" FontSize="Medium" />
             <Entry Text="{Binding Snils, Mode=TwoWay}" FontSize="Medium" />
             
+            <Label Text="PhoneNumber" FontSize="Medium" />
+            <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" FontSize="Medium" />
+            
             <Label Text="Description" FontSize="Medium" />
             <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             

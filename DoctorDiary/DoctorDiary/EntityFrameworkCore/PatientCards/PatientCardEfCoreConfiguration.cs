@@ -38,6 +38,10 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             builder.Property(x => x.Description)
                 .HasColumnName(nameof(PatientCard.Description))
                 .HasColumnType("NVARCHAR(100)");
+            
+            builder.Property(x => x.PhoneNumber)
+                .HasColumnName(nameof(PatientCard.PhoneNumber))
+                .HasColumnType("NVARCHAR(30)");
         }
     }
 }
