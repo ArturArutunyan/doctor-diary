@@ -13,10 +13,11 @@ namespace DoctorDiary.Models.SickLeaves
         public Guid Id { get; }
         public virtual long Number { get; }
         public virtual Guid PatientCardId { get; protected set; }
-
+        public virtual bool IsActive { get; protected set; }
+        
         private readonly List<Term> _terms = new List<Term>();
         public virtual IReadOnlyList<Term> Terms => _terms.OrderBy(t => t.StartDate).ToList().AsReadOnly();
-        
+
         protected SickLeave()
         {
         }
@@ -30,6 +31,8 @@ namespace DoctorDiary.Models.SickLeaves
             Id = id;
             Number = number;
             PatientCardId = patientCard.Id;
+            IsActive = true;
+            
             _terms.Add(term);
         }
 
@@ -45,6 +48,16 @@ namespace DoctorDiary.Models.SickLeaves
             {
                 _terms.Add(term);
             }
+        }
+
+        public void Close()
+        {
+            IsActive = false;
+        }
+
+        public DateTime LastTermEndDate()
+        {
+            return Terms.Last().EndDate;
         }
     }
 }
