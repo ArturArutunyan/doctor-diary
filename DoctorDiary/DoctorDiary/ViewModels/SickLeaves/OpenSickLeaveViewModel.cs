@@ -47,8 +47,6 @@ namespace DoctorDiary.ViewModels.SickLeaves
             get => _endDate;
             set => SetProperty(ref _endDate, value);
         }
-        
-        public AsyncCommand OpenSickLeaveAsyncCommand { get; }
 
         private async Task OnOpenSickLeave()
         {
@@ -59,5 +57,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
             
             await Shell.Current.GoToAsync("..");
         }
+
+        public AsyncCommand OpenSickLeaveAsyncCommand { get; }
     }
 }
