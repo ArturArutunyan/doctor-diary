@@ -22,9 +22,11 @@ namespace DoctorDiary.Services.SickLeaves
             Guid patientCardId,
             long number,
             Term term);
-
-        Task ExtendSickLeave(Guid id, Term term);
-
+        
+        Task<SickLeave> CloseSickLeave(SickLeave sickLeave);
+        
+        Task<SickLeave> CloseSickLeaveWithCodeThirtyOne(SickLeave sickLeave, Term term);
+        
         Task DeleteAsync(Guid id);
     }
 }

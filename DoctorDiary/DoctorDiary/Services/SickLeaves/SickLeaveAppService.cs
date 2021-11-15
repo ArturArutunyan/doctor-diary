@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.EntityFrameworkCore.SickLeaves;
@@ -35,10 +36,11 @@ namespace DoctorDiary.Services.SickLeaves
 
         public async Task<List<SickLeave>> GetSickLeavesByPatientCardId(Guid patientCardId)
         {
-            return await _sickLeaveRepository.GetListAsync(x => x.PatientCardId == patientCardId);
+            var sickLeaves = await _sickLeaveRepository.GetListAsync(x => x.PatientCardId == patientCardId);
+            return sickLeaves.OrderBy(t => t.LastTermEndDate()).ToList();
         }
 
-        public async Task OpenSickLeaveAsync(Guid patientCardId, Term term)
+        public async Task OpenSickLeaveAsync(Guid patientCardId, long number, Term term)
         {
             var patientCard = await _patientCardRepository.GetAsync(patientCardId);
             var sickLeave = new SickLeave(
@@ -50,13 +52,18 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.InsertAsync(sickLeave);
         }
 
-        public async Task ExtendSickLeave(Guid id, Term term)
+        public async Task<SickLeave> CloseSickLeave(SickLeave sickLeave)
         {
-            var sickLeave = await _sickLeaveRepository.GetAsync(id);
-            
-            sickLeave.ExtendSickLeave(term: term);
+            sickLeave.Close();
 
-            await _sickLeaveRepository.UpdateAsync(sickLeave);
+            return await _sickLeaveRepository.UpdateAsync(sickLeave);
+        }
+
+        public async Task<SickLeave> CloseSickLeaveWithCodeThirtyOne(SickLeave sickLeave, Term term)
+        {
+            sickLeave.ExtendSickLeave(term);
+
+            return await _sickLeaveRepository.UpdateAsync(sickLeave);
         }
 
         public async Task DeleteAsync(Guid id)
