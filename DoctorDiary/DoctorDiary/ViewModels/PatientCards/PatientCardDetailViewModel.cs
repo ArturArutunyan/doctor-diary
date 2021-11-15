@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
-using DoctorDiary.Views.SickLeaves;
-using MvvmHelpers.Commands;
 using Xamarin.Forms;
 
 namespace DoctorDiary.ViewModels.PatientCards
@@ -22,8 +17,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private DateTime _birthday;
         private string _snils;
         private string _description;
-        private List<SickLeave> _sickLeaves;
-        
+
         private readonly IPatientCardAppService _patientCardAppService;
         private readonly ISickLeaveAppService _sickLeaveAppService;
 
@@ -34,7 +28,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 _patientCardId = value;
                 LoadPatientCard(value);
-                //LoadSickLeaves(value);
             }
         }
 
@@ -82,20 +75,9 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _description, value);
         }
 
-        // public List<SickLeave> SickLeaves
-        // {
-        //     get => _sickLeaves;
-        //     set => SetProperty(ref _sickLeaves, value);
-        // }
-        //
-        // public AsyncCommand OpenSickLeave { get; }
-
         public PatientCardDetailViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
-            //_sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
-
-            //OpenSickLeave = new AsyncCommand(OnOpenSickLeave);
         }
 
         public async void LoadPatientCard(string id)
@@ -117,24 +99,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 Debug.WriteLine("Failed to Load patient Card");
             }
-        }
-
-        // private async void LoadSickLeaves(string patientCardId)
-        // {
-        //     try
-        //     {
-        //         SickLeaves = await _sickLeaveAppService.GetSickLeavesByPatientCardId(Guid.Parse(patientCardId));
-        //     }
-        //     catch (Exception e)
-        //     {
-        //         Console.WriteLine(e);
-        //         throw;
-        //     }
-        // }
-
-        public async Task OnOpenSickLeave()
-        {
-            await Shell.Current.GoToAsync($"{nameof(OpenSickLeavePage)}?{nameof(PatientCardId)}={_patientCardId}");
         }
     }
 }
