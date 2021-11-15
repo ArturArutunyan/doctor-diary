@@ -2,10 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Services.PatientCards;
-using DoctorDiary.Views;
 using DoctorDiary.Views.PatientCards;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
@@ -17,9 +15,22 @@ namespace DoctorDiary.ViewModels.PatientCards
         private PatientCard _selectedPatientCard;
         private readonly IPatientCardAppService _patientCardAppService;
 
+        public PatientCard SelectedPatientCard
+        {
+            get => _selectedPatientCard;
+            set
+            {
+                SetProperty(ref _selectedPatientCard, value);
+                OnPatientCardSelected(value);
+            }
+        }
+
         public ObservableCollection<PatientCard> PatientCards { get; }
+
         public AsyncCommand LoadPatientCardsCommand { get; }
+
         public AsyncCommand AddPatientCardCommand { get; }
+
         public AsyncCommand<PatientCard> PatientCardTapped { get; }
 
         public PatientCardsViewModel()
@@ -39,7 +50,13 @@ namespace DoctorDiary.ViewModels.PatientCards
             await Shell.Current.GoToAsync(nameof(NewPatientCardPage));
         }
 
-        async Task ExecuteLoadPatientCardsCommand()
+        public void OnAppearing()
+        {
+            IsBusy = true;
+            SelectedPatientCard = null;
+        }
+
+        private async Task ExecuteLoadPatientCardsCommand()
         {
             IsBusy = true;
 
@@ -49,9 +66,9 @@ namespace DoctorDiary.ViewModels.PatientCards
                 
                 var patientCards = await _patientCardAppService.GetListAsync();
                 
-                foreach (var item in patientCards)
+                foreach (var patientCard in patientCards)
                 {
-                    PatientCards.Add(item);
+                    PatientCards.Add(patientCard);
                 }
             }
             catch (Exception ex)
@@ -61,22 +78,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             finally
             {
                 IsBusy = false;
-            }
-        }
-
-        public void OnAppearing()
-        {
-            IsBusy = true;
-            SelectedPatientCard = null;
-        }
-
-        public PatientCard SelectedPatientCard
-        {
-            get => _selectedPatientCard;
-            set
-            {
-                SetProperty(ref _selectedPatientCard, value);
-                OnPatientCardSelected(value);
             }
         }
 
