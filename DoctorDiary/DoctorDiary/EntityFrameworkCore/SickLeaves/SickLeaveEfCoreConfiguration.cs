@@ -14,6 +14,10 @@ namespace DoctorDiary.EntityFrameworkCore.SickLeaves
         {
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Number)
+                .HasColumnName(nameof(SickLeave.Number))
+                .IsRequired();
+            
             builder.Property(x => x.PatientCardId)
                 .HasColumnName(nameof(SickLeave.PatientCardId))
                 .IsRequired();

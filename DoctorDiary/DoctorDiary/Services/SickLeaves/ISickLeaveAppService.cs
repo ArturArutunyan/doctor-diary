@@ -20,6 +20,7 @@ namespace DoctorDiary.Services.SickLeaves
 
         Task OpenSickLeaveAsync(
             Guid patientCardId,
+            long number,
             Term term);
 
         Task ExtendSickLeave(Guid id, Term term);

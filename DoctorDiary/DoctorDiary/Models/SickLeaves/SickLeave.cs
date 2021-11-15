@@ -11,6 +11,7 @@ namespace DoctorDiary.Models.SickLeaves
     {
         private const int DefaultMaxExtendCount = 3;
         public Guid Id { get; }
+        public virtual long Number { get; }
         public virtual Guid PatientCardId { get; protected set; }
 
         private readonly List<Term> _terms = new List<Term>();
@@ -22,10 +23,12 @@ namespace DoctorDiary.Models.SickLeaves
 
         public SickLeave(
             Guid id,
+            long number,
             PatientCard patientCard,
             Term term)
         {
             Id = id;
+            Number = number;
             PatientCardId = patientCard.Id;
             _terms.Add(term);
         }

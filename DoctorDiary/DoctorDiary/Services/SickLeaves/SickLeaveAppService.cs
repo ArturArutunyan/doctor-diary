@@ -43,6 +43,7 @@ namespace DoctorDiary.Services.SickLeaves
             var patientCard = await _patientCardRepository.GetAsync(patientCardId);
             var sickLeave = new SickLeave(
                 id: Guid.NewGuid(),
+                number: number,
                 patientCard: patientCard,
                 term: term);
 

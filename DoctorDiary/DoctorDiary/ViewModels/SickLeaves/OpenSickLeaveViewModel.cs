@@ -11,6 +11,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
     public class OpenSickLeaveViewModel : BaseViewModel
     {
         private string _patientCardId;
+        private long _number;
         private DateTime _startDate;
         private DateTime _endDate;
         
@@ -28,7 +29,13 @@ namespace DoctorDiary.ViewModels.SickLeaves
             get => _patientCardId;
             set => _patientCardId = value;
         }
-        
+
+        public long Number
+        {
+            get => _number;
+            set => SetProperty(ref _number, value);
+        }
+
         public DateTime StartDate
         {
             get => _startDate;
@@ -47,6 +54,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
         {
             await _sickLeaveAppService.OpenSickLeaveAsync(
                 patientCardId: Guid.Parse(PatientCardId), 
+                number: Number,
                 term: Term.Create(startDate: StartDate, endDate: EndDate));
             
             await Shell.Current.GoToAsync("..");
