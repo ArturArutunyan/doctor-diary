@@ -10,18 +10,24 @@
              xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Number" FontSize="Medium" />
+        <StackLayout VerticalOptions="Center" Padding="20">
+            <Label Text="Номер больничного" FontSize="Medium" />
             <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="StartDate" FontSize="Medium" />
-            <Entry Text="{Binding StartDate, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Дата начала больничного" FontSize="Medium" VerticalOptions="Center"/>
+            <DatePicker 
+                MinimumDate="{Binding StartDate}"
+                Format="MM.dd.yyyy" 
+                Date="{Binding StartDate}"/>
             
-            <Label Text="EndDate" FontSize="Medium" />
-            <Entry Text="{Binding EndDate, Mode=TwoWay}" FontSize="Medium" />
+            <Label Text="Дата окончания больничного" FontSize="Medium" VerticalOptions="Center"/>
+            <DatePicker 
+                MinimumDate="{Binding StartDate}"
+                Format="MM.dd.yyyy" 
+                Date="{Binding EndDate}"/>
             
             <StackLayout Orientation="Horizontal">
-                <Button Text="Save" Command="{Binding OpenSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Text="Открыть" Command="{Binding OpenSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

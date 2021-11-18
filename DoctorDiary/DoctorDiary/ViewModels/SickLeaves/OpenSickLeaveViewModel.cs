@@ -17,13 +17,6 @@ namespace DoctorDiary.ViewModels.SickLeaves
         
         private readonly ISickLeaveAppService _sickLeaveAppService;
 
-        public OpenSickLeaveViewModel()
-        {
-            _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
-
-            OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
-        }
-
         public string PatientCardId
         {
             get => _patientCardId;
@@ -41,11 +34,22 @@ namespace DoctorDiary.ViewModels.SickLeaves
             get => _startDate;
             set => SetProperty(ref _startDate, value);
         }
-        
+
         public DateTime EndDate
         {
             get => _endDate;
             set => SetProperty(ref _endDate, value);
+        }
+
+        public AsyncCommand OpenSickLeaveAsyncCommand { get; }
+
+        public OpenSickLeaveViewModel()
+        {
+            _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
+
+            OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
+
+            InitDefaultProperties();
         }
 
         private async Task OnOpenSickLeave()
@@ -58,6 +62,10 @@ namespace DoctorDiary.ViewModels.SickLeaves
             await Shell.Current.GoToAsync("..");
         }
 
-        public AsyncCommand OpenSickLeaveAsyncCommand { get; }
+        private void InitDefaultProperties()
+        {
+            StartDate = DateTime.Today.Date;
+            EndDate = StartDate.AddDays(14);
+        }
     }
 }
