@@ -9,7 +9,7 @@
              xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" Padding="10">
+        <StackLayout VerticalOptions="Center" Padding="20">
             
             <Label Text="Дата с которой нужно продлить" FontSize="Medium" VerticalOptions="Center"/>
             <DatePicker 
