@@ -21,23 +21,23 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="patientCard:PatientCard" Orientation='Horizontal'>
+                    <StackLayout Padding="20" x:DataType="patientCard:PatientCard" Orientation='Horizontal'>
                         <Label Text="{Binding FirstName}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="16" />
+                            FontSize="Medium" />
                         <Label Text="{Binding LastName}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="16" />
+                            FontSize="Medium" />
                         <Label Text="{Binding Patronymic}" 
                                LineBreakMode="NoWrap"
                                Style="{DynamicResource ListItemDetailTextStyle}"
-                               FontSize="16" />
+                               FontSize="Medium" />
                         <Label Text="{Binding Birthday, StringFormat='{0:MM.dd.yyyy}'}" 
                                LineBreakMode="NoWrap"
                                Style="{DynamicResource ListItemDetailTextStyle}"
-                               FontSize="16" />
+                               FontSize="Medium" />
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"
