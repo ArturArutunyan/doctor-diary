@@ -55,7 +55,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
             {
                 var lastTermEndDate = sickLeave.LastTermEndDate();
                 StartDate = lastTermEndDate.AddDays(1);
-                EndDate = lastTermEndDate.AddDays(14);
+                EndDate = StartDate.AddDays(14);
             }
         }
 
