@@ -97,26 +97,6 @@ namespace DoctorDiary.ViewModels.SickLeaves
             await Shell.Current.GoToAsync($"{nameof(OpenSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
 
-        private async Task OnCloseSickLeave()
-        {
-            var activeSickLeave = SickLeaves.SingleOrDefault(s => s.IsActive);
-
-            if (activeSickLeave != null)
-            {
-                SickLeaves.Replace(await _sickLeaveAppService.CloseSickLeave(activeSickLeave));
-            }
-        }
-        
-        private async Task OnCloseSickLeaveWithCodeThirtyOne()
-        {
-            var activeSickLeave = SickLeaves.SingleOrDefault(s => s.IsActive);
-
-            if (activeSickLeave != null)
-            {
-                SickLeaves.Replace(await _sickLeaveAppService.CloseSickLeaveWithCodeThirtyOne(activeSickLeave, TermForCloseSickLeaveWithCodeThirtyOne));
-            }
-        }
-        
         private async Task OnSickLeaveSelected(SickLeave sickLeave)
         {
             if (sickLeave.IsActive)

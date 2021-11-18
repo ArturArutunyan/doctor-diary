@@ -1648,6 +1648,7 @@
   "projectFileDependencyGroups": {
     ".NETStandard,Version=v2.1": [
       "DoctorDiary.Shared >= 1.0.0",
+      "Microsoft.EntityFrameworkCore >= 5.0.0",
       "Microsoft.EntityFrameworkCore.Sqlite >= 5.0.0",
       "Refractored.MvvmHelpers >= 1.6.2",
       "Xamarin.Essentials >= 1.6.1",
@@ -1704,6 +1705,10 @@
       "netstandard2.1": {
         "targetAlias": "netstandard2.1",
         "dependencies": {
+          "Microsoft.EntityFrameworkCore": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
           "Microsoft.EntityFrameworkCore.Sqlite": {
             "target": "Package",
             "version": "[5.0.0, )"

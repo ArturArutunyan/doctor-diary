@@ -2,34 +2,43 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoctorDiary.Views.PatientCards.PatientCardDetailPage"
-             Title="{Binding Title}">
+             xmlns:viewmodel="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
+             Title="{Binding Title}"
+             x:DataType="viewmodel:PatientCardDetailViewModel">
 
-    <StackLayout Spacing="20" Padding="15">
-        <!-- <Label Text="FirstName:" FontSize="Medium" /> -->
-        <!-- <Label Text="{Binding FirstName}" FontSize="Small"/> -->
+    <ScrollView>
+        <StackLayout VerticalOptions="StartAndExpand" Padding="10" >
+            <StackLayout>
+                <Label Text="{Binding FirstName, StringFormat='Имя: {0}'}" FontSize="Medium"/>
+                <Label Text="{Binding LastName, StringFormat='Фамилия: {0}'}" FontSize="Medium"/>
+                <Label Text="{Binding Patronymic, StringFormat='Отчество: {0}'}" FontSize="Medium"/>
+                <Label Text="{Binding Address, StringFormat='Адрес: {0}'}" FontSize="Medium"/>
+                <Label Text="{Binding Birthday, StringFormat='Дата рождения: {0:MM.dd.yyyy}'}" FontSize="Medium"/>
+                <Label Text="{Binding Snils, StringFormat='СНИЛС: {0}'}" FontSize="Medium"/>
+                <Label Text="{Binding PhoneNumber, StringFormat='Номер телефона: {0}'}" FontSize="Medium"/>
+                <Label Text="{Binding Description, StringFormat='Описание: {0}'}" FontSize="Medium"/>
+            </StackLayout>
         
-        <Label Text="{Binding FirstName, StringFormat='FirstName: {0}'}"/>
+            <BoxView HeightRequest="1" BackgroundColor="Gray" HorizontalOptions="FillAndExpand" Margin="10, 10, 10, 20"/>
+            
+            <Button Text="Открыть больничный" 
+                    IsVisible = "{Binding OpenSickLeaveButtonIsEnabled}" 
+                    FontSize="Large" BorderWidth="1"
+                    HorizontalOptions="Center" 
+                    VerticalOptions="CenterAndExpand"
+                    Command="{Binding OpenSickLeaveAsyncCommand} " />
         
-        <Label Text="LastName:" FontSize="Medium" />
-        <Label Text="{Binding LastName}" FontSize="Small"/>
+            <StackLayout IsVisible="{Binding SickLeaveVisible}" >
+                <Label Text="{Binding Number, StringFormat='Номер больничного: {0}'}" FontSize="Medium" />
+                <Label Text="{Binding StartDate, StringFormat='Начало больничного: {0:MM.dd.yyyy}'}" FontSize="Medium"/>
+                <Label Text="{Binding EndDate, StringFormat='Конец больничного: {0:MM.dd.yyyy}'}" FontSize="Medium"/>
+                <StackLayout Orientation="Horizontal" Margin="10">
+                    <Button Text="Закрыть" Command="{Binding CloseSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Закрыть с кодом 31" Command="{Binding CloseSickLeaveWithCodeAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
         
-        <Label Text="Patronymic:" FontSize="Medium" />
-        <Label Text="{Binding Patronymic}" FontSize="Small"/>
-        
-        <Label Text="Address:" FontSize="Medium" />
-        <Label Text="{Binding Address}" FontSize="Small"/>
-        
-        <Label Text="Birthday:" FontSize="Medium" />
-        <Label Text="{Binding Birthday}" FontSize="Small"/>
-        
-        <Label Text="Snils:" FontSize="Medium" />
-        <Label Text="{Binding Snils}" FontSize="Small"/>
-        
-        <Label Text="PhoneNumber:" FontSize="Medium" />
-        <Label Text="{Binding PhoneNumber}" FontSize="Small"/>
-        
-        <Label Text="Description:" FontSize="Medium" />
-        <Label Text="{Binding Description}" FontSize="Small"/>
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
     
 </ContentPage>

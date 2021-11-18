@@ -6,9 +6,8 @@
              xmlns:local="clr-namespace:DoctorDiary.ViewModels"  
              xmlns:model="clr-namespace:DoctorDiary.Models"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
-             xmlns:patientCards1="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
-             x:Name="BrowseItemsPage">
-
+             xmlns:patientCard="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary">
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddPatientCardCommand}" />
     </ContentPage.ToolbarItems>
@@ -22,7 +21,7 @@
                 SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="10" x:DataType="patientCards1:PatientCard">
+                    <StackLayout Padding="10" x:DataType="patientCard:PatientCard" Orientation='Horizontal'>
                         <Label Text="{Binding FirstName}" 
                             LineBreakMode="NoWrap" 
                             Style="{DynamicResource ListItemTextStyle}" 
@@ -30,7 +29,15 @@
                         <Label Text="{Binding LastName}" 
                             LineBreakMode="NoWrap"
                             Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="13" />
+                            FontSize="16" />
+                        <Label Text="{Binding Patronymic}" 
+                               LineBreakMode="NoWrap"
+                               Style="{DynamicResource ListItemDetailTextStyle}"
+                               FontSize="16" />
+                        <Label Text="{Binding Birthday, StringFormat='{0:MM.dd.yyyy}'}" 
+                               LineBreakMode="NoWrap"
+                               Style="{DynamicResource ListItemDetailTextStyle}"
+                               FontSize="16" />
                         <StackLayout.GestureRecognizers>
                             <TapGestureRecognizer 
                                 NumberOfTapsRequired="1"

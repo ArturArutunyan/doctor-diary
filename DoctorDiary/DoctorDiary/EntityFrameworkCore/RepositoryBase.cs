@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DoctorDiary.Shared;
 using DoctorDiary.Shared.Domain;
@@ -25,6 +26,16 @@ namespace DoctorDiary.EntityFrameworkCore
         public async Task<TEntity> GetAsync(TKey key)
         {
             return await EntityDbSet.SingleAsync(e => e.Id.Equals(key));
+        }
+
+        public async Task<TEntity> GetAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await EntityDbSet.SingleAsync(predicate);
+        }
+
+        public async Task<TEntity> FindAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await EntityDbSet.SingleOrDefaultAsync(predicate);
         }
 
         public async Task<List<TEntity>> GetListAsync(int count, int skipCount, bool asNoTracking = false)

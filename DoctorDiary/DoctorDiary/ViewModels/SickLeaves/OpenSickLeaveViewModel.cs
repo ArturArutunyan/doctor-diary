@@ -50,7 +50,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
 
         private async Task OnOpenSickLeave()
         {
-            await _sickLeaveAppService.OpenSickLeaveAsync(
+            await _sickLeaveAppService.OpenSickLeave(
                 patientCardId: Guid.Parse(PatientCardId), 
                 number: Number,
                 term: Term.Create(startDate: StartDate, endDate: EndDate));

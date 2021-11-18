@@ -6,6 +6,7 @@ using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.SickLeaves;
 using Microsoft.EntityFrameworkCore;
+using Xamarin.Forms;
 
 namespace DoctorDiary.EntityFrameworkCore
 {
@@ -16,6 +17,8 @@ namespace DoctorDiary.EntityFrameworkCore
 
         public ApplicationDbContext()
         {
+            // Database.EnsureDeleted();
+            SQLitePCL.Batteries_V2.Init();
             Database.EnsureCreated();
         }
 

@@ -24,6 +24,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         public NewPatientCardViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
+            Birthday = new DateTime(2000, 1, 1);
             SaveCommand = new AsyncCommand(OnSave, ValidateSave);
             CancelCommand = new AsyncCommand(OnCancel);
             this.PropertyChanged +=
@@ -87,6 +88,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             get => _phoneNumber;
             set => SetProperty(ref _phoneNumber, value);
         }
+        
 
         private async Task OnCancel()
         {

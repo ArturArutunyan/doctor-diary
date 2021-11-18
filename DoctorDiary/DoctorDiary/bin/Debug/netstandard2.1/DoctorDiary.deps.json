@@ -10,6 +10,7 @@
       "DoctorDiary/1.0.0": {
         "dependencies": {
           "DoctorDiary.Shared": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "5.0.0",
           "Microsoft.EntityFrameworkCore.Sqlite": "5.0.0",
           "Refractored.MvvmHelpers": "1.6.2",
           "Xamarin.Essentials": "1.6.1",

@@ -2,12 +2,27 @@
 
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="DoctorDiary.Views.SickLeaves.OpenSickLeavePage">
+             x:Class="DoctorDiary.Views.SickLeaves.OpenSickLeavePage"
+             x:DataType="sickLeaves:OpenSickLeaveViewModel"
+             Shell.PresentationMode="ModalAnimated"
+             Title="New PatientCard"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
+             ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Hello, world!"
-                   VerticalOptions="CenterAndExpand"
-                   HorizontalOptions="CenterAndExpand" />
+            <Label Text="Number" FontSize="Medium" />
+            <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
+            
+            <Label Text="StartDate" FontSize="Medium" />
+            <Entry Text="{Binding StartDate, Mode=TwoWay}" FontSize="Medium" />
+            
+            <Label Text="EndDate" FontSize="Medium" />
+            <Entry Text="{Binding EndDate, Mode=TwoWay}" FontSize="Medium" />
+            
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Save" Command="{Binding OpenSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

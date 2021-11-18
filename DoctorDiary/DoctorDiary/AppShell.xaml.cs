@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using DoctorDiary.Models;
 using DoctorDiary.Views.PatientCards;
+using DoctorDiary.Views.SickLeaves;
 using Xamarin.Forms;
 
 namespace DoctorDiary
@@ -27,6 +28,8 @@ namespace DoctorDiary
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(PatientCardDetailPage), typeof(PatientCardDetailPage));
             Routing.RegisterRoute(nameof(NewPatientCardPage), typeof(NewPatientCardPage));
+            Routing.RegisterRoute(nameof(OpenSickLeavePage), typeof(OpenSickLeavePage));
+            Routing.RegisterRoute(nameof(CloseSickLeaveWithCodePage), typeof(CloseSickLeaveWithCodePage));
         }
     }
 }

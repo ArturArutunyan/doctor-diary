@@ -7,6 +7,7 @@ using DoctorDiary.EntityFrameworkCore.SickLeaves;
 using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Shared.ApplicationContracts;
+using DoctorDiary.Shared.SickLeaves;
 using Xamarin.Forms;
 
 namespace DoctorDiary.Services.SickLeaves
@@ -37,10 +38,15 @@ namespace DoctorDiary.Services.SickLeaves
         public async Task<List<SickLeave>> GetSickLeavesByPatientCardId(Guid patientCardId)
         {
             var sickLeaves = await _sickLeaveRepository.GetListAsync(x => x.PatientCardId == patientCardId);
-            return sickLeaves.OrderBy(t => t.LastTermEndDate()).ToList();
+            return sickLeaves.OrderByDescending(t => t.LastTermEndDate()).ToList();
         }
 
-        public async Task OpenSickLeaveAsync(Guid patientCardId, long number, Term term)
+        public async Task<SickLeave> GetActiveSickLeaveOrDefaultByPatientCardId(Guid patientCardId)
+        {
+            return await _sickLeaveRepository.FindAsync(x => x.PatientCardId == patientCardId && x.IsActive);
+        }
+
+        public async Task OpenSickLeave(Guid patientCardId, long number, Term term)
         {
             var patientCard = await _patientCardRepository.GetAsync(patientCardId);
             var sickLeave = new SickLeave(
@@ -52,11 +58,29 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.InsertAsync(sickLeave);
         }
 
+        public async Task ExtendSickLeave(Guid patientCardId, Term term)
+        {
+            var sickLeave = await GetActiveSickLeaveOrDefaultByPatientCardId(patientCardId);
+            
+            sickLeave.ExtendSickLeave(term);
+
+            await _sickLeaveRepository.UpdateAsync(sickLeave);
+        }
+
         public async Task<SickLeave> CloseSickLeave(SickLeave sickLeave)
         {
             sickLeave.Close();
 
             return await _sickLeaveRepository.UpdateAsync(sickLeave);
+        }
+
+        public async Task CloseSickLeave(Guid sickLeaveId)
+        {
+            var sickLeave = await _sickLeaveRepository.GetAsync(sickLeaveId);
+            
+            sickLeave.Close();
+
+            await _sickLeaveRepository.UpdateAsync(sickLeave);
         }
 
         public async Task<SickLeave> CloseSickLeaveWithCodeThirtyOne(SickLeave sickLeave, Term term)
@@ -65,10 +89,40 @@ namespace DoctorDiary.Services.SickLeaves
 
             return await _sickLeaveRepository.UpdateAsync(sickLeave);
         }
+        
+        public async Task CloseSickLeaveWithCodeThirtyOne(Guid sickLeaveId, Term term)
+        {
+            var sickLeave = await _sickLeaveRepository.GetAsync(sickLeaveId);
+            
+            sickLeave.ExtendSickLeave(term);
+
+            await _sickLeaveRepository.UpdateAsync(sickLeave);
+        }
 
         public async Task DeleteAsync(Guid id)
         {
             await _sickLeaveRepository.DeleteAsync(id);
+        }
+
+        public async Task CloseSickLeave(Guid sickLeaveId, SickLeaveCode code, DateTime? startDate = null, DateTime? endDate = null)
+        {
+            switch (code)
+            {
+                case SickLeaveCode.Empty:
+                    await CloseSickLeave(sickLeaveId);
+                    break;
+                case SickLeaveCode.ThirtyOne:
+                    if (startDate.HasValue && endDate.HasValue)
+                    {
+                        await CloseSickLeaveWithCodeThirtyOne(
+                            sickLeaveId: sickLeaveId, 
+                            term: Term.Create(startDate: startDate.Value, endDate: endDate.Value));    
+                    }
+                    
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

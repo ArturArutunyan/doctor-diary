@@ -59,5 +59,10 @@ namespace DoctorDiary.Models.SickLeaves
         {
             return Terms.Last().EndDate;
         }
+
+        public Term LastTerm()
+        {
+            return Terms.Last();
+        }
     }
 }

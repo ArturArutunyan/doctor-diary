@@ -8,3 +8,13 @@ C:\Users\arutu\source\repos\DoctorDiary\DoctorDiary.Shared\obj\Debug\netstandard
 C:\Users\arutu\source\repos\DoctorDiary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.csproj.CoreCompileInputs.cache
 C:\Users\arutu\source\repos\DoctorDiary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.dll
 C:\Users\arutu\source\repos\DoctorDiary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.pdb
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\bin\Debug\netstandard2.0\DoctorDiary.Shared.deps.json
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\bin\Debug\netstandard2.0\DoctorDiary.Shared.dll
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\bin\Debug\netstandard2.0\DoctorDiary.Shared.pdb
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.AssemblyInfoInputs.cache
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.AssemblyInfo.cs
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.csproj.CoreCompileInputs.cache
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.dll
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.pdb
+C:\Users\arutu\repositories\ITLavash\doctor-diary\DoctorDiary.Shared\obj\Debug\netstandard2.0\DoctorDiary.Shared.csprojAssemblyReference.cache
