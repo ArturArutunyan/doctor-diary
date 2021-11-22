@@ -55,15 +55,13 @@ namespace DoctorDiary.ViewModels.PatientCards
                     
                     return patientCards;
                 },
-                OnCanLoadMore = () => PatientCards.Count < 10
+                OnCanLoadMore = () => PatientCards.Count < 100
             };
             
             Title = "Карточки пациентов";
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             AddPatientCardCommand = new AsyncCommand(OnAddPatientCard);
-
-            LoadPatientCards();
         }
 
         private async Task OnAddPatientCard()
@@ -76,7 +74,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             IsBusy = true;
             SelectedPatientCard = null;
         }
-
+        
         private async Task LoadPatientCards()
         {
             IsBusy = true;
@@ -84,10 +82,9 @@ namespace DoctorDiary.ViewModels.PatientCards
             try
             {
                 PatientCards.Clear();
-                
-                var patientCards = await _patientCardAppService.GetListAsync(
-                    takeCount: PageSize, 
-                    skipCount: 0,
+
+                var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(
+                    takeCount: 10,
                     asNoTracking: true);
 
                 PatientCards.AddRange(patientCards);
