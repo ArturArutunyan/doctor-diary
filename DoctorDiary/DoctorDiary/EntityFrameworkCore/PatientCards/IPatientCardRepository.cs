@@ -1,11 +1,12 @@
 ﻿using System;
-using DoctorDiary.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards;
 
 namespace DoctorDiary.EntityFrameworkCore.PatientCards
 {
     public interface IPatientCardRepository : IRepository<PatientCard, Guid>
     {
-        
+        Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount, bool asNoTracking = false);
     }
 }

@@ -29,6 +29,13 @@ namespace DoctorDiary.Services.PatientCards
             return await _patientCardRepository.GetListAsync(takeCount: takeCount, skipCount: skipCount, asNoTracking: asNoTracking);
         }
 
+        public async Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount, bool asNoTracking)
+        {
+            return await _patientCardRepository.GetLastCreatedPatientCards(
+                takeCount: takeCount, 
+                asNoTracking: asNoTracking);
+        }
+
         public async Task<PatientCard> CreateAsync(
             string firstName, 
             string lastName, 
