@@ -5,8 +5,7 @@ namespace DoctorDiary.Views.PatientCards
 {
     public partial class PatientCardsPage : ContentPage
     {
-        PatientCardsViewModel _patientCardsViewModel;
-        
+        readonly PatientCardsViewModel _patientCardsViewModel;
         public PatientCardsPage()
         {
             InitializeComponent();

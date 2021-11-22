@@ -3,8 +3,10 @@ using DoctorDiary.Views;
 using System;
 using DoctorDiary.EntityFrameworkCore;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
+using DoctorDiary.EntityFrameworkCore.Reminders;
 using DoctorDiary.EntityFrameworkCore.SickLeaves;
 using DoctorDiary.Services.PatientCards;
+using DoctorDiary.Services.Reminders;
 using DoctorDiary.Services.SickLeaves;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -30,6 +32,8 @@ namespace DoctorDiary
             DependencyService.Register<IPatientCardRepository, PatientCardEfCoreRepository>();
             DependencyService.Register<ISickLeaveAppService, SickLeaveAppService>();
             DependencyService.Register<ISickLeaveRepository, SickLeaveEfCoreRepository>();
+            DependencyService.Register<IReminderAppService, ReminderAppService>();
+            DependencyService.Register<IReminderRepository, ReminderEfCoreRepository>();
         }
 
         protected override void OnStart()

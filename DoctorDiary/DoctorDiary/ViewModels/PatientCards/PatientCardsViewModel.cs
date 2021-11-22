@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -7,11 +8,13 @@ using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Views.PatientCards;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
+using Xamarin.Forms.Extended;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {
     public class PatientCardsViewModel : BaseViewModel
     {
+        private const int PageSize = 10;
         private PatientCard _selectedPatientCard;
         private readonly IPatientCardAppService _patientCardAppService;
 
@@ -25,7 +28,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        public ObservableCollection<PatientCard> PatientCards { get; }
+        public InfiniteScrollCollection<PatientCard> PatientCards { get; }
 
         public AsyncCommand LoadPatientCardsCommand { get; }
 
@@ -35,14 +38,32 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         public PatientCardsViewModel()
         {
-            Title = "Карточки пациентов";
-            PatientCards = new ObservableCollection<PatientCard>();
+            _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
             
-            LoadPatientCardsCommand = new AsyncCommand(async () => await ExecuteLoadPatientCardsCommand());
+            PatientCards = new InfiniteScrollCollection<PatientCard>
+            {
+                OnLoadMore = async () =>
+                {
+                    IsBusy = true;
+                    
+                    var patientCards = await _patientCardAppService.GetListAsync(
+                        takeCount: PageSize, 
+                        skipCount: PatientCards.Count,
+                        asNoTracking: true);
+                    
+                    IsBusy = false;
+                    
+                    return patientCards;
+                },
+                OnCanLoadMore = () => PatientCards.Count < 10
+            };
+            
+            Title = "Карточки пациентов";
+            LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             AddPatientCardCommand = new AsyncCommand(OnAddPatientCard);
 
-            _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
+            LoadPatientCards();
         }
 
         private async Task OnAddPatientCard()
@@ -56,7 +77,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             SelectedPatientCard = null;
         }
 
-        private async Task ExecuteLoadPatientCardsCommand()
+        private async Task LoadPatientCards()
         {
             IsBusy = true;
 
@@ -64,12 +85,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 PatientCards.Clear();
                 
-                var patientCards = await _patientCardAppService.GetListAsync();
-                
-                foreach (var patientCard in patientCards)
-                {
-                    PatientCards.Add(patientCard);
-                }
+                var patientCards = await _patientCardAppService.GetListAsync(
+                    takeCount: PageSize, 
+                    skipCount: 0,
+                    asNoTracking: true);
+
+                PatientCards.AddRange(patientCards);
             }
             catch (Exception ex)
             {

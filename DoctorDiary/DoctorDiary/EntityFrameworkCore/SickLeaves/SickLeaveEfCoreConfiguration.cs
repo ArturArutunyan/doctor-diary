@@ -46,6 +46,9 @@ namespace DoctorDiary.EntityFrameworkCore.SickLeaves
             
             builder.Metadata.FindNavigation(nameof(SickLeave.Terms))
                 .SetPropertyAccessMode(PropertyAccessMode.Field);
+            
+            builder.Property(x => x.CreationTime)
+                .HasColumnName(nameof(SickLeave.CreationTime));
         }
     }
 }

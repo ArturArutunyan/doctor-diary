@@ -3,9 +3,8 @@ using DoctorDiary.Shared.Domain;
 
 namespace DoctorDiary.Models.PatientCards
 {
-    public class PatientCard : IEntity<Guid>
+    public class PatientCard : FullAuditedAggregateRoot<Guid>
     {
-        public virtual Guid Id { get; }
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Patronymic { get; protected set; }
@@ -28,9 +27,8 @@ namespace DoctorDiary.Models.PatientCards
             DateTime birthday,
             string snils,
             string description,
-            string phoneNumber)
+            string phoneNumber) : base(id)
         {
-            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Patronymic = patronymic;

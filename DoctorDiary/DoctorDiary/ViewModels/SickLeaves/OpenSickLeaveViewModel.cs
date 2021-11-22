@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
+using DoctorDiary.Services.Reminders;
 using DoctorDiary.Services.SickLeaves;
+using DoctorDiary.ViewModels.PatientCards;
+using DoctorDiary.Views.PatientCards;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
 
@@ -16,6 +19,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
         private DateTime _endDate;
         
         private readonly ISickLeaveAppService _sickLeaveAppService;
+        private readonly IReminderAppService _reminderAppService;
 
         public string PatientCardId
         {
@@ -46,6 +50,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
         public OpenSickLeaveViewModel()
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
+            _reminderAppService = DependencyService.Get<IReminderAppService>();
 
             OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
 
@@ -54,12 +59,21 @@ namespace DoctorDiary.ViewModels.SickLeaves
 
         private async Task OnOpenSickLeave()
         {
+            var route = $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={PatientCardId}";
+            
             await _sickLeaveAppService.OpenSickLeave(
                 patientCardId: Guid.Parse(PatientCardId), 
                 number: Number,
                 term: Term.Create(startDate: StartDate, endDate: EndDate));
-            
-            await Shell.Current.GoToAsync("..");
+
+            // TODO: add fio
+            await _reminderAppService.Create(
+                title: "Заканчивается больничный лист",
+                description: "Нажмите на это напоминание, чтобы перейти в карточку пациента",
+                navigationLinkOnClick: route,
+                time: EndDate);
+                
+            await Shell.Current.GoToAsync(route);
         }
 
         private void InitDefaultProperties()

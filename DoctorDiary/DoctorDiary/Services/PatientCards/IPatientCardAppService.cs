@@ -10,9 +10,9 @@ namespace DoctorDiary.Services.PatientCards
     {
         Task<PatientCard> GetAsync(Guid id);
 
-        Task<List<PatientCard>> GetListAsync(int count = 5, int skipCount = 0);
-
-        Task CreateAsync(
+        Task<List<PatientCard>> GetListAsync(int takeCount, int skipCount, bool asNoTracking = false);
+        
+        Task<PatientCard> CreateAsync(
             string firstName,
             string lastName,
             string patronymic,

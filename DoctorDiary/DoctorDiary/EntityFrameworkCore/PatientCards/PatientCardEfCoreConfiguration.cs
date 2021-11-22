@@ -42,6 +42,9 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             builder.Property(x => x.PhoneNumber)
                 .HasColumnName(nameof(PatientCard.PhoneNumber))
                 .HasColumnType("NVARCHAR(30)");
+            
+            builder.Property(x => x.CreationTime)
+                .HasColumnName(nameof(PatientCard.CreationTime));
         }
     }
 }

@@ -17,11 +17,6 @@ namespace DoctorDiary
             RegisterRoutes();
         }
 
-        private async void OnMenuItemClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("//LoginPage");
-        }
-
         private void RegisterRoutes()
         {
             Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));

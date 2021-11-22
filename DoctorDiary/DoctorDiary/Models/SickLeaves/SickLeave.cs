@@ -7,10 +7,9 @@ using DoctorDiary.Shared.Domain;
 
 namespace DoctorDiary.Models.SickLeaves
 {
-    public class SickLeave : IEntity<Guid>
+    public class SickLeave : FullAuditedAggregateRoot<Guid>
     {
         private const int DefaultMaxExtendCount = 3;
-        public Guid Id { get; }
         public virtual long Number { get; }
         public virtual Guid PatientCardId { get; protected set; }
         public virtual bool IsActive { get; protected set; }
@@ -26,9 +25,8 @@ namespace DoctorDiary.Models.SickLeaves
             Guid id,
             long number,
             PatientCard patientCard,
-            Term term)
+            Term term) : base(id)
         {
-            Id = id;
             Number = number;
             PatientCardId = patientCard.Id;
             IsActive = true;

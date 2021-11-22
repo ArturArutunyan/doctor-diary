@@ -24,12 +24,12 @@ namespace DoctorDiary.Services.PatientCards
             return await _patientCardRepository.GetAsync(id);
         }
 
-        public async Task<List<PatientCard>> GetListAsync(int count = 5, int skipCount = 0)
+        public async Task<List<PatientCard>> GetListAsync(int takeCount, int skipCount, bool asNoTracking = false)
         {
-            return await _patientCardRepository.GetListAsync(count: count, skipCount: skipCount);
+            return await _patientCardRepository.GetListAsync(takeCount: takeCount, skipCount: skipCount, asNoTracking: asNoTracking);
         }
 
-        public async Task CreateAsync(
+        public async Task<PatientCard> CreateAsync(
             string firstName, 
             string lastName, 
             string patronymic, 
@@ -51,6 +51,8 @@ namespace DoctorDiary.Services.PatientCards
                 phoneNumber: phoneNumber);
 
             await _patientCardRepository.InsertAsync(patientCard);
+
+            return patientCard;
         }
 
         public async Task UpdateAsync(

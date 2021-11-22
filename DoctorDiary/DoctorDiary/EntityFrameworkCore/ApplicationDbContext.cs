@@ -17,7 +17,7 @@ namespace DoctorDiary.EntityFrameworkCore
 
         public ApplicationDbContext()
         {
-            // Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             SQLitePCL.Batteries_V2.Init();
             Database.EnsureCreated();
         }

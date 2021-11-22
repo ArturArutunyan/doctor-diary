@@ -38,9 +38,9 @@ namespace DoctorDiary.EntityFrameworkCore
             return await EntityDbSet.SingleOrDefaultAsync(predicate);
         }
 
-        public async Task<List<TEntity>> GetListAsync(int count, int skipCount, bool asNoTracking = false)
+        public async Task<List<TEntity>> GetListAsync(int takeCount, int skipCount, bool asNoTracking = false)
         {
-            var query = EntityDbSet.Skip(skipCount).Take(count);
+            var query = EntityDbSet.Skip(skipCount).Take(takeCount);
 
             if (asNoTracking)
             {
