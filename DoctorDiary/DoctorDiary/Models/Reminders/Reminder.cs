@@ -24,7 +24,7 @@ namespace DoctorDiary.Models.Reminders
             Time = time;
             NavigationLinkOnClick = navigationLinkOnClick;
             IsActive = true;
-            IsClosed = true;
+            IsClosed = false;
         }
 
         public void Disable()
