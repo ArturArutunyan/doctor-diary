@@ -10,25 +10,27 @@
              xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="Center" Padding="20">
-            <Label Text="Номер больничного" FontSize="Medium" />
-            <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
+        <Frame Padding="10">
+            <StackLayout VerticalOptions="Center" Padding="20">
+                <Label Text="Номер больничного" FontSize="Medium" />
+                <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Дата начала больничного" FontSize="Medium" VerticalOptions="Center"/>
-            <DatePicker 
-                MinimumDate="{Binding StartDate}"
-                Format="MM.dd.yyyy" 
-                Date="{Binding StartDate}"/>
+                <Label Text="Дата начала больничного" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker 
+                    MinimumDate="{Binding StartDate}"
+                    Format="MM.dd.yyyy" 
+                    Date="{Binding StartDate}"/>
             
-            <Label Text="Дата окончания больничного" FontSize="Medium" VerticalOptions="Center"/>
-            <DatePicker 
-                MinimumDate="{Binding StartDate}"
-                Format="MM.dd.yyyy" 
-                Date="{Binding EndDate}"/>
+                <Label Text="Дата окончания больничного" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker 
+                    MinimumDate="{Binding StartDate}"
+                    Format="MM.dd.yyyy" 
+                    Date="{Binding EndDate}"/>
             
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Открыть" Command="{Binding OpenSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Открыть" Command="{Binding OpenSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </Frame>
     </ContentPage.Content>
 </ContentPage>
