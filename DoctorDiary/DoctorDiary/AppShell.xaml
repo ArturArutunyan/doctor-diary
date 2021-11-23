@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:DoctorDiary.Views"
        xmlns:patientCards="clr-namespace:DoctorDiary.Views.PatientCards;assembly=DoctorDiary"
+       xmlns:reminders="clr-namespace:DoctorDiary.Views.Reminders;assembly=DoctorDiary"
        Title="DoctorDiary"
        x:Class="DoctorDiary.AppShell">
 
@@ -91,7 +92,7 @@
     </FlyoutItem>
     
     <FlyoutItem Title="Reminders">
-        <ShellContent Route="PatientCardsPage" ContentTemplate="{DataTemplate patientCards:PatientCardsPage}" />
+        <ShellContent Route="RemindersPage" ContentTemplate="{DataTemplate reminders:RemindersPage}" />
     </FlyoutItem>
     <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
     <!-- <MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked"> -->
