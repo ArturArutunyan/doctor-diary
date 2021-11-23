@@ -17,9 +17,9 @@ namespace DoctorDiary.Services.Reminders
             _reminderRepository = DependencyService.Get<IReminderRepository>();
         }
 
-        public async Task<List<Reminder>> GetActiveReminders(int page, int pageSize)
+        public async Task<List<Reminder>> GetLastActiveReminders(int page, int pageSize)
         {
-            return await _reminderRepository.GetActiveReminders(page, pageSize);
+            return await _reminderRepository.GetLastActiveReminders(page, pageSize);
         }
 
         public async Task Create(

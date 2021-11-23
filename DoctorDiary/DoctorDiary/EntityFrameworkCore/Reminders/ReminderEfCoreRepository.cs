@@ -9,7 +9,7 @@ namespace DoctorDiary.EntityFrameworkCore.Reminders
 {
     public class ReminderEfCoreRepository : RepositoryBase<Reminder, Guid>, IReminderRepository
     {
-        public async Task<List<Reminder>> GetActiveReminders(int page, int pageSize, bool asNoTracking = true)
+        public async Task<List<Reminder>> GetLastActiveReminders(int page, int pageSize, bool asNoTracking = true)
         {
             var query = EntityDbSet.Skip(page * pageSize).Take(pageSize);
 
