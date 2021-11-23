@@ -9,10 +9,14 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
 {
     public class PatientCardEfCoreRepository : RepositoryBase<PatientCard, Guid>, IPatientCardRepository
     {
-        public async Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount, bool asNoTracking = false)
+        public async Task<List<PatientCard>> GetLastCreatedPatientCards(
+            int takeCount, 
+            int skipCount,
+            bool asNoTracking = false)
         {
             var query = EntityDbSet
                 .OrderByDescending(x => x.CreationTime)
+                .Skip(skipCount)
                 .Take(takeCount);
 
             if (asNoTracking)
