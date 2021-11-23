@@ -59,21 +59,12 @@ namespace DoctorDiary.ViewModels.SickLeaves
 
         private async Task OnOpenSickLeave()
         {
-            var route = $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={PatientCardId}";
-            
             await _sickLeaveAppService.OpenSickLeave(
                 patientCardId: Guid.Parse(PatientCardId), 
                 number: Number,
-                term: Term.Create(startDate: StartDate, endDate: EndDate));
-
-            // TODO: add fio
-            await _reminderAppService.Create(
-                title: "Заканчивается больничный лист",
-                description: "Нажмите на это напоминание, чтобы перейти в карточку пациента",
-                navigationLinkOnClick: route,
-                time: EndDate);
+                term: Term.Create(startDate: StartDate, endDate: EndDate));        
                 
-            await Shell.Current.GoToAsync(route);
+            await Shell.Current.GoToAsync($"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={PatientCardId}");
         }
 
         private void InitDefaultProperties()

@@ -6,8 +6,11 @@ using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.EntityFrameworkCore.SickLeaves;
 using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
+using DoctorDiary.Services.Reminders;
 using DoctorDiary.Shared.ApplicationContracts;
 using DoctorDiary.Shared.SickLeaves;
+using DoctorDiary.ViewModels.PatientCards;
+using DoctorDiary.Views.PatientCards;
 using Xamarin.Forms;
 
 namespace DoctorDiary.Services.SickLeaves
@@ -16,11 +19,13 @@ namespace DoctorDiary.Services.SickLeaves
     {
         private readonly ISickLeaveRepository _sickLeaveRepository;
         private readonly IPatientCardRepository _patientCardRepository;
+        private readonly IReminderAppService _reminderAppService;
 
         public SickLeaveAppService()
         {
             _sickLeaveRepository = DependencyService.Get<ISickLeaveRepository>();
             _patientCardRepository = DependencyService.Get<IPatientCardRepository>();
+            _reminderAppService = DependencyService.Get<IReminderAppService>();
         }
         
         public async Task<SickLeave> GetAsync(Guid id)
@@ -55,6 +60,20 @@ namespace DoctorDiary.Services.SickLeaves
                 patientCard: patientCard,
                 term: term);
 
+            var fullName = patientCard.LastName + " " + string.Join('.', new[]
+                {
+                    patientCard.FirstName,
+                    patientCard.Patronymic
+                }
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => x[0]));
+            
+            await _reminderAppService.Create(
+                title: $@"У {fullName} сегодня заканчивается больничный лист",
+                description: "Нажмите на это напоминание, чтобы перейти в карточку пациента",
+                navigationLinkOnClick: $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={patientCard.Id}",
+                time: term.EndDate);
+                
             await _sickLeaveRepository.InsertAsync(sickLeave);
         }
 
