@@ -1,22 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Views.PatientCards;
+using MvvmHelpers;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
-using Xamarin.Forms.Extended;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {
     public class PatientCardsViewModel : BaseViewModel
     {
-        private const int PageSize = 10;
+        private const int MaxDefaultPatientCardsTakeCount = 5;
+        private int _remainingItemsThreshold;
+
         private PatientCard _selectedPatientCard;
+
         private readonly IPatientCardAppService _patientCardAppService;
+
+        public int RemainingItemsThreshold
+        {
+            get => _remainingItemsThreshold; 
+            set => SetProperty(ref _remainingItemsThreshold, value);
+        }
 
         public PatientCard SelectedPatientCard
         {
@@ -28,43 +35,60 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        public InfiniteScrollCollection<PatientCard> PatientCards { get; }
+        public ObservableRangeCollection<PatientCard> PatientCards { get; }
 
         public AsyncCommand LoadPatientCardsCommand { get; }
 
         public AsyncCommand AddPatientCardCommand { get; }
 
         public AsyncCommand<PatientCard> PatientCardTapped { get; }
+        public AsyncCommand LoadMoreCommand { get; }
 
         public PatientCardsViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
-            
-            PatientCards = new InfiniteScrollCollection<PatientCard>
-            {
-                OnLoadMore = async () =>
-                {
-                    IsBusy = true;
-                    
-                    var patientCards = await _patientCardAppService.GetListAsync(
-                        takeCount: PageSize, 
-                        skipCount: PatientCards.Count,
-                        asNoTracking: true);
-                    
-                    IsBusy = false;
-                    
-                    return patientCards;
-                },
-                OnCanLoadMore = () => PatientCards.Count < 100
-            };
+
+            PatientCards = new ObservableRangeCollection<PatientCard>();
             
             Title = "Карточки пациентов";
+            RemainingItemsThreshold = 1;
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
-            AddPatientCardCommand = new AsyncCommand(OnAddPatientCard);
+            AddPatientCardCommand = new AsyncCommand(AddPatientCard);
+            LoadMoreCommand = new AsyncCommand(OnPatientCardsThresholdReached);
+        }
+        
+        private async Task OnPatientCardsThresholdReached()
+        {
+            if (IsBusy)
+                return;
+            
+            try
+            {
+                if (RemainingItemsThreshold != -1)
+                {
+                    var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(
+                        takeCount: MaxDefaultPatientCardsTakeCount,
+                        skipCount: PatientCards.Count,
+                        asNoTracking: true);
+
+                    if (patientCards.Count != 0)
+                    {
+                        PatientCards.AddRange(patientCards);  
+                    }
+                    else
+                    {
+                        RemainingItemsThreshold = -1;   
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
         }
 
-        private async Task OnAddPatientCard()
+        private async Task AddPatientCard()
         {
             await Shell.Current.GoToAsync(nameof(NewPatientCardPage));
         }
@@ -82,9 +106,11 @@ namespace DoctorDiary.ViewModels.PatientCards
             try
             {
                 PatientCards.Clear();
-
+                RemainingItemsThreshold = 1;
+                
                 var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(
-                    takeCount: 10,
+                    takeCount: MaxDefaultPatientCardsTakeCount,
+                    skipCount: 0,
                     asNoTracking: true);
 
                 PatientCards.AddRange(patientCards);

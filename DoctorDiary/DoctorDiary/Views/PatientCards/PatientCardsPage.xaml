@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:DoctorDiary.ViewModels"  
              xmlns:model="clr-namespace:DoctorDiary.Models"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
-             xmlns:patientCard="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary">
+             xmlns:patientCard="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
+             BackgroundColor="Gray">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddPatientCardCommand}" />
@@ -18,35 +19,56 @@
     <RefreshView x:DataType="patientCards:PatientCardsViewModel" 
                  Command="{Binding LoadPatientCardsCommand}" 
                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-        <CollectionView x:Name="ItemsListView"
-                ItemsSource="{Binding PatientCards}"
-                SelectionMode="None">
+        <CollectionView RemainingItemsThreshold="{Binding RemainingItemsThreshold}"
+                        RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
+                        ItemsSource="{Binding PatientCards}"
+                        SelectionMode="None"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Margin="5">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Padding="20" x:DataType="patientCard:PatientCard" Orientation='Horizontal'>
-                        <Label Text="{Binding FirstName}" 
-                            LineBreakMode="NoWrap" 
-                            Style="{DynamicResource ListItemTextStyle}" 
-                            FontSize="Medium" />
-                        <Label Text="{Binding LastName}" 
-                            LineBreakMode="NoWrap"
-                            Style="{DynamicResource ListItemDetailTextStyle}"
-                            FontSize="Medium" />
-                        <Label Text="{Binding Patronymic}" 
-                               LineBreakMode="NoWrap"
-                               Style="{DynamicResource ListItemDetailTextStyle}"
-                               FontSize="Medium" />
-                        <Label Text="{Binding Birthday, StringFormat='{0:MM.dd.yyyy}'}" 
-                               LineBreakMode="NoWrap"
-                               Style="{DynamicResource ListItemDetailTextStyle}"
-                               FontSize="Medium" />
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer 
-                                NumberOfTapsRequired="1"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type patientCards:PatientCardsViewModel}}, Path=PatientCardTapped}"		
-                                CommandParameter="{Binding .}">
-                            </TapGestureRecognizer>
-                        </StackLayout.GestureRecognizers>
+                    <StackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Margin="5, 5, 5, 5">
+                        <Frame CornerRadius="1"
+                               HasShadow="False" 
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <StackLayout Padding="20" x:DataType="patientCard:PatientCard" Orientation='Horizontal'>
+                                    <Label Text="{Binding FirstName}" 
+                                           LineBreakMode="NoWrap" 
+                                           Style="{DynamicResource ListItemTextStyle}" 
+                                           FontSize="Medium" />
+                                    <Label Text="{Binding LastName}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="Medium" />
+                                    <Label Text="{Binding Patronymic}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="Medium" />
+                                    <Label Text="{Binding Birthday, StringFormat='{0:MM.dd.yyyy}'}" 
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="Medium" />
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type patientCards:PatientCardsViewModel}}, Path=PatientCardTapped}"		
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Grid>
+                        </Frame>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
