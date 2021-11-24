@@ -4,30 +4,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DoctorDiary.ViewModels.Reminders;assembly=DoctorDiary"  
              xmlns:model="clr-namespace:DoctorDiary.Models.Reminders;assembly=DoctorDiary"  
-             x:Class="DoctorDiary.Views.Reminders.RemindersPage">
+             x:Class="DoctorDiary.Views.Reminders.RemindersPage"
+             BackgroundColor="Silver">
     <ContentPage.Content>
-        <RefreshView x:DataType="local:RemindersViewModel" Command="{Binding LoadRemindersCommand}" 
+        <RefreshView x:DataType="local:RemindersViewModel" 
+                     Command="{Binding LoadRemindersCommand}" 
                      IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
             <CollectionView ItemsSource="{Binding Reminders}"
-                            SelectionMode="None">
+                            SelectionMode="None"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Margin="5">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="10" x:DataType="model:Reminder">
-                            <Label Text="{Binding Title}" 
-                                   LineBreakMode="NoWrap" 
-                                   Style="{DynamicResource ListItemTextStyle}" 
-                                   FontSize="16" />
-                            <Label Text="{Binding Description}" 
-                                   LineBreakMode="NoWrap"
-                                   Style="{DynamicResource ListItemDetailTextStyle}"
-                                   FontSize="13" />
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer 
-                                    NumberOfTapsRequired="1"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=ReminderTapped}"		
-                                    CommandParameter="{Binding .}">
-                                </TapGestureRecognizer>
-                            </StackLayout.GestureRecognizers>
+                        <StackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Margin="5, 5, 5, 5">
+                            <Frame CornerRadius="1"
+                                   HasShadow="False"
+                                   HorizontalOptions="CenterAndExpand"
+                                   VerticalOptions="CenterAndExpand"
+                                   x:DataType="model:Reminder">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label HorizontalTextAlignment="Start"
+                                           HorizontalOptions="StartAndExpand"
+                                           VerticalOptions="StartAndExpand"
+                                           Text="{Binding Title}"
+                                           LineBreakMode="NoWrap"
+                                           Style="{DynamicResource ListItemTextStyle}"
+                                           FontSize="16" />
+                                    <!-- <Label Grid.Row="2" -->
+                                    <!--        Grid.RowSpan="2" -->
+                                    <!--        Text="{Binding Description}" -->
+                                    <!--        LineBreakMode="NoWrap" -->
+                                    <!--        Style="{DynamicResource ListItemDetailTextStyle}" -->
+                                    <!--        FontSize="13" /> -->
+                                </Grid>
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=ReminderTapped}"
+                                        CommandParameter="{Binding .}">
+                                    </TapGestureRecognizer>
+                                </Frame.GestureRecognizers>
+                            </Frame>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
