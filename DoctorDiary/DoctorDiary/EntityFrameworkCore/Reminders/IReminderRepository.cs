@@ -7,6 +7,6 @@ namespace DoctorDiary.EntityFrameworkCore.Reminders
 {
     public interface IReminderRepository : IRepository<Reminder, Guid>
     {
-        Task<List<Reminder>> GetLastActiveReminders(int page, int pageSize, bool asNoTracking = true);
+        Task<List<Reminder>> GetLastActiveReminders(int take, int skip, bool asNoTracking = true);
     }
 }

@@ -7,7 +7,7 @@ namespace DoctorDiary.Services.Reminders
 {
     public interface IReminderAppService
     {
-        Task<List<Reminder>> GetLastActiveReminders(int page, int pageSize);
+        Task<List<Reminder>> GetLastActiveReminders(int take, int skip, bool asNoTracking = false);
 
         Task Create(
             string title,

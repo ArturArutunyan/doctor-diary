@@ -9,9 +9,9 @@ namespace DoctorDiary.EntityFrameworkCore.Reminders
 {
     public class ReminderEfCoreRepository : RepositoryBase<Reminder, Guid>, IReminderRepository
     {
-        public async Task<List<Reminder>> GetLastActiveReminders(int page, int pageSize, bool asNoTracking = true)
+        public async Task<List<Reminder>> GetLastActiveReminders(int take, int skip, bool asNoTracking = true)
         {
-            var query = EntityDbSet.Skip(page * pageSize).Take(pageSize);
+            var query = EntityDbSet;
 
             if (asNoTracking)
             {
@@ -20,6 +20,8 @@ namespace DoctorDiary.EntityFrameworkCore.Reminders
 
             return await query.Where(x => !x.IsClosed)
                 .OrderByDescending(x => x.Time)
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
         }
     }
