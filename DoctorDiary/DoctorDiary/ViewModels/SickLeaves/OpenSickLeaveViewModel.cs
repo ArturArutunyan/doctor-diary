@@ -19,7 +19,6 @@ namespace DoctorDiary.ViewModels.SickLeaves
         private DateTime _endDate;
         
         private readonly ISickLeaveAppService _sickLeaveAppService;
-        private readonly IReminderAppService _reminderAppService;
 
         public string PatientCardId
         {
@@ -50,7 +49,6 @@ namespace DoctorDiary.ViewModels.SickLeaves
         public OpenSickLeaveViewModel()
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
-            _reminderAppService = DependencyService.Get<IReminderAppService>();
 
             OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
 
@@ -64,7 +62,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
                 number: Number,
                 term: Term.Create(startDate: StartDate, endDate: EndDate));        
                 
-            await Shell.Current.GoToAsync($"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={PatientCardId}");
+            await Shell.Current.GoToAsync("..");
         }
 
         private void InitDefaultProperties()
