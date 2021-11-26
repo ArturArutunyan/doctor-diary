@@ -14,7 +14,6 @@ namespace DoctorDiary.ViewModels.PatientCards
     {
         private const int MaxDefaultPatientCardsTakeCount = 5;
         private int _remainingItemsThreshold;
-
         private PatientCard _selectedPatientCard;
 
         private readonly IPatientCardAppService _patientCardAppService;
@@ -51,7 +50,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             PatientCards = new ObservableRangeCollection<PatientCard>();
             
             Title = "Карточки пациентов";
-            RemainingItemsThreshold = 1;
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             AddPatientCardCommand = new AsyncCommand(AddPatientCard);

@@ -7,7 +7,7 @@
              xmlns:model="clr-namespace:DoctorDiary.Models"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:patientCard="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
-             BackgroundColor="Gray">
+             BackgroundColor="Silver">
     
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Add" Command="{Binding AddPatientCardCommand}" />
@@ -30,44 +30,66 @@
                 <DataTemplate>
                     <StackLayout HorizontalOptions="Center"
                                  VerticalOptions="Center"
-                                 Margin="5, 5, 5, 5">
-                        <Frame CornerRadius="1"
-                               HasShadow="False" 
-                               HorizontalOptions="Center"
-                               VerticalOptions="Center">
+                                 Margin="5">
+                        <Frame CornerRadius="10"
+                               HasShadow="False"
+                               HorizontalOptions="CenterAndExpand"
+                               VerticalOptions="CenterAndExpand"
+                               x:DataType="patientCard:PatientCard">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <StackLayout Padding="20" x:DataType="patientCard:PatientCard" Orientation='Horizontal'>
-                                    <Label Text="{Binding FirstName}" 
-                                           LineBreakMode="NoWrap" 
-                                           Style="{DynamicResource ListItemTextStyle}" 
-                                           FontSize="Medium" />
-                                    <Label Text="{Binding LastName}" 
-                                           LineBreakMode="NoWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="Medium" />
-                                    <Label Text="{Binding Patronymic}" 
-                                           LineBreakMode="NoWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="Medium" />
-                                    <Label Text="{Binding Birthday, StringFormat='{0:MM.dd.yyyy}'}" 
-                                           LineBreakMode="NoWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="Medium" />
-                                    <StackLayout.GestureRecognizers>
-                                        <TapGestureRecognizer 
-                                            NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type patientCards:PatientCardsViewModel}}, Path=PatientCardTapped}"		
-                                            CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
-                                    </StackLayout.GestureRecognizers>
-                                </StackLayout>
+                                <Label FontSize="Large"
+                                       FontAttributes="Bold"
+                                       TextColor="#032d3d"
+                                       Grid.Row="0">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="{Binding FirstName}"
+                                                  FontSize="Large" />
+                                            <Span Text=" " />
+                                            <Span Text="{Binding LastName}"
+                                                  FontSize="Large" />
+                                            <Span Text=" " />
+                                            <Span Text="{Binding Patronymic}"
+                                                  FontSize="Large" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <BoxView  Grid.Row="1"
+                                          HeightRequest="1"
+                                          BackgroundColor="#032d3d" />
+                                <Label Grid.Row="2" 
+                                       Text="{Binding Birthday, StringFormat='Дата рождения - {0:MM.dd.yyyy}'}"
+                                       LineBreakMode="CharacterWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="Medium" />
+                                <Label Grid.Row="3" 
+                                       Text="{Binding PhoneNumber, StringFormat='Телефон - {0}'}"
+                                       LineBreakMode="CharacterWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="Medium" />
+                                <Label Grid.Row="4" 
+                                       Text="{Binding Address, StringFormat='Адрес - {0}'}"
+                                       LineBreakMode="CharacterWrap"
+                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                       FontSize="Medium" />
                             </Grid>
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    NumberOfTapsRequired="1"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type patientCards:PatientCardsViewModel}}, Path=PatientCardTapped}"
+                                    CommandParameter="{Binding .}">
+                                </TapGestureRecognizer>
+                            </Frame.GestureRecognizers>
                         </Frame>
                     </StackLayout>
                 </DataTemplate>
