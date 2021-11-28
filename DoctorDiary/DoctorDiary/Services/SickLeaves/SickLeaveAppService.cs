@@ -69,8 +69,8 @@ namespace DoctorDiary.Services.SickLeaves
                 .Select(x => x[0]));
             
             await _reminderAppService.Create(
-                title: $@"У {fullName} сегодня заканчивается больничный лист",
-                description: "Нажмите на это напоминание, чтобы перейти в карточку пациента",
+                title: $@"Заканчивается больничный лист",
+                description: $"У пациента {fullName} проживающего по адресу {patientCard.Address} сегодня ({term.EndDate:MM.dd.yyyy}) заканчивается больничный лист. Номер телефона пациента - {patientCard.PhoneNumber}",
                 navigationLinkOnClick: $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={patientCard.Id}",
                 time: term.EndDate);
                 

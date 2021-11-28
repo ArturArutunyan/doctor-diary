@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Models.Reminders;
 using DoctorDiary.Models.SickLeaves;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,5 +19,6 @@ namespace DoctorDiary.EntityFrameworkCore
     {
         DbSet<PatientCard> PatientCards { get; }
         DbSet<SickLeave> SickLeaves { get; }
+        DbSet<Reminder> Reminders { get; }
     }
 }

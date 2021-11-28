@@ -2,7 +2,6 @@
 using DoctorDiary.Views;
 using System;
 using System.Collections.Generic;
-using DoctorDiary.Models;
 using DoctorDiary.Views.PatientCards;
 using DoctorDiary.Views.SickLeaves;
 using Xamarin.Forms;
@@ -15,6 +14,10 @@ namespace DoctorDiary
         {
             InitializeComponent();
             RegisterRoutes();
+            
+            // TODO: Move to localization file
+            PatientCardsTabTitle.Title = "Карточки";
+            RemindersTabTitle.Title = "Напоминания";
         }
 
         private void RegisterRoutes()
@@ -26,5 +29,6 @@ namespace DoctorDiary
             Routing.RegisterRoute(nameof(OpenSickLeavePage), typeof(OpenSickLeavePage));
             Routing.RegisterRoute(nameof(CloseSickLeaveWithCodePage), typeof(CloseSickLeaveWithCodePage));
         }
+
     }
 }

@@ -11,7 +11,11 @@ namespace DoctorDiary.Models.Reminders
         public string NavigationLinkOnClick { get; }
         public bool IsActive { get; protected set; }
         public bool IsClosed { get; protected set; }
-        
+
+        protected Reminder()
+        {
+        }
+
         public Reminder(
             Guid id,
             string title,

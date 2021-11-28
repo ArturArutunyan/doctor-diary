@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{9BA4E3A5-BA7C-4DB3-90EB-B835CD43C74F}</ProjectGuid>
+    <ProjectGuid>{CF9C0014-F784-4A87-8D82-99450B7B402D}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TemplateGuid>{89a4fe7c-635d-49c9-8d8c-5cd363c0d68d}</TemplateGuid>
     <OutputType>Exe</OutputType>
@@ -134,12 +134,11 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
-    <PackageReference Include="Xamarin.Forms.Extended.InfiniteScrolling" Version="1.0.0-preview2" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\DoctorDiary\DoctorDiary.csproj">
-      <Project>{04F4C13B-C00F-482C-BE79-9EB44827005D}</Project>
+      <Project>{CED7A004-B309-40A7-AED4-3F93BC1603DA}</Project>
       <Name>DoctorDiary</Name>
     </ProjectReference>
   </ItemGroup>

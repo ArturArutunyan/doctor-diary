@@ -10,7 +10,7 @@
              BackgroundColor="Silver">
     
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Command="{Binding AddPatientCardCommand}" />
+        <ToolbarItem Text="Добавить" Command="{Binding AddPatientCardCommand}" />
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.

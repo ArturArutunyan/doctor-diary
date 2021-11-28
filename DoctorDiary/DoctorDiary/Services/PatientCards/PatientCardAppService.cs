@@ -57,9 +57,9 @@ namespace DoctorDiary.Services.PatientCards
                 snils: snils,
                 description: description,
                 phoneNumber: phoneNumber);
-
+            
             await _patientCardRepository.InsertAsync(patientCard);
-
+            
             return patientCard;
         }
 

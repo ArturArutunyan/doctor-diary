@@ -7,10 +7,10 @@ using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Shared.SickLeaves;
-using DoctorDiary.ViewModels.SickLeaves;
 using DoctorDiary.Views.SickLeaves;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
+using Xamarin.Forms.Internals;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {
@@ -98,7 +98,12 @@ namespace DoctorDiary.ViewModels.PatientCards
         #region SickLeave
         private Guid? _sickLeaveId;
         private long? _number;
-        private List<Term> _terms;
+        private DateTime? _firstRowStartDate;
+        private DateTime? _firstRowEndDate;
+        private DateTime? _secondRowStartDate;
+        private DateTime? _secondRowEndDate;
+        private DateTime? _thirdRowStartDate;
+        private DateTime? _thirdRowEndDate;
 
         public Guid? SickLeaveId
         {
@@ -112,6 +117,41 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _number, value);
         }
 
+        public DateTime? FirstRowStartDate
+        {
+            get => _firstRowStartDate;
+            set => SetProperty(ref _firstRowStartDate, value);
+        }
+        
+        public DateTime? FirstRowEndDate
+        {
+            get => _firstRowEndDate;
+            set => SetProperty(ref _firstRowEndDate, value);
+        }
+        
+        public DateTime? SecondRowStartDate
+        {
+            get => _secondRowStartDate;
+            set => SetProperty(ref _secondRowStartDate, value);
+        }
+        
+        public DateTime? SecondRowEndDate
+        {
+            get => _secondRowEndDate;
+            set => SetProperty(ref _secondRowEndDate, value);
+        }
+        
+        public DateTime? ThirdRowStartDate
+        {
+            get => _thirdRowStartDate;
+            set => SetProperty(ref _thirdRowStartDate, value);
+        }
+        
+        public DateTime? ThirdRowEndDate
+        {
+            get => _thirdRowEndDate;
+            set => SetProperty(ref _thirdRowEndDate, value);
+        }
         #endregion
 
         #region Buttons
@@ -126,35 +166,20 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         #region Others
         // TODO: Move to another page
-        private SickLeaveCode? _sickLeaveCode;
-        private DateTime? _startDate;
-        private DateTime? _endDate;
         private bool _sickLeaveVisible;
+        private bool _closeSickLeaveWithCodeButtonIsEnabled;
 
-        public SickLeaveCode? SickLeaveCode
-        {
-            get => _sickLeaveCode;
-            set => SetProperty(ref _sickLeaveCode, value);
-        }
-
-        public DateTime? StartDate
-        {
-            get => _startDate;
-            set => SetProperty(ref _startDate, value);
-        }
-
-        public DateTime? EndDate
-        {
-            get => _endDate;
-            set => SetProperty(ref _endDate, value);
-        }
-        
         public bool SickLeaveVisible
         {
             get => _sickLeaveVisible;
             set => SetProperty(ref _sickLeaveVisible, value);
         }
 
+        public bool CloseSickLeaveWithCodeButtonIsEnabled
+        {
+            get => _closeSickLeaveWithCodeButtonIsEnabled;
+            set => SetProperty(ref _closeSickLeaveWithCodeButtonIsEnabled, value);
+        }
         #endregion
 
         public AsyncCommand OpenSickLeaveAsyncCommand { get; }
@@ -203,18 +228,40 @@ namespace DoctorDiary.ViewModels.PatientCards
                 {
                     OpenSickLeaveButtonIsEnabled = true;
                     SickLeaveVisible = false;
+                    CloseSickLeaveWithCodeButtonIsEnabled = false;
                 }
                 else
                 {
                     OpenSickLeaveButtonIsEnabled = false;
                     SickLeaveVisible = true;
-
-                    var lastTerm = sickLeave.LastTerm();
-
+                    CloseSickLeaveWithCodeButtonIsEnabled = true;
+                    
                     SickLeaveId = sickLeave.Id;
                     Number = sickLeave.Number;
-                    StartDate = lastTerm.StartDate;
-                    EndDate = lastTerm.EndDate;
+
+                    // TODO: Removed this shit!
+                    if (sickLeave.Terms.Count == 3)
+                    {
+                        FirstRowStartDate = sickLeave.Terms[2].StartDate;
+                        FirstRowEndDate = sickLeave.Terms[2].EndDate;
+                        SecondRowStartDate = sickLeave.Terms[1].StartDate;
+                        SecondRowEndDate = sickLeave.Terms[1].EndDate;
+                        ThirdRowStartDate = sickLeave.Terms[0].StartDate;
+                        ThirdRowEndDate = sickLeave.Terms[0].EndDate;
+                        CloseSickLeaveWithCodeButtonIsEnabled = false;
+                    }
+                    else if (sickLeave.Terms.Count == 2)
+                    {
+                        FirstRowStartDate = sickLeave.Terms[1].StartDate;
+                        FirstRowEndDate = sickLeave.Terms[1].EndDate;
+                        SecondRowStartDate = sickLeave.Terms[0].StartDate;
+                        SecondRowEndDate = sickLeave.Terms[0].EndDate;
+                    }
+                    else if (sickLeave.Terms.Count == 1)
+                    {
+                        FirstRowStartDate = sickLeave.Terms[0].StartDate;
+                        FirstRowEndDate = sickLeave.Terms[0].EndDate;
+                    }
                 }
             }
             catch (Exception)

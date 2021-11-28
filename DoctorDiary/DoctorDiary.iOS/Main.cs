@@ -5,6 +5,10 @@ using System.Linq;
 using Foundation;
 using UIKit;
 
+[assembly: Preserve(typeof(Queryable), AllMembers = true)]
+[assembly: Preserve(typeof(DateTime), AllMembers = true)]
+[assembly: Preserve(typeof(Enumerable), AllMembers = true)]
+[assembly: Preserve(typeof(IQueryable), AllMembers = true)]
 namespace DoctorDiary.iOS
 {
     public class Application
