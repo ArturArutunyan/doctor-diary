@@ -35,6 +35,7 @@
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Label FontSize="Large"
                                            FontAttributes="Bold"
@@ -55,6 +56,12 @@
                                            LineBreakMode="CharacterWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"
                                            FontSize="Medium" />
+                                    <Label Grid.Row="3" 
+                                           Text="{Binding Time, StringFormat='{0:MM.dd.yyyy}'}"
+                                           LineBreakMode="CharacterWrap"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="Small" 
+                                           HorizontalOptions="End"/>
                                 </Grid>
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer
