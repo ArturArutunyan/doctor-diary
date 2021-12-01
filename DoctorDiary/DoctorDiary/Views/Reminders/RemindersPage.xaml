@@ -34,13 +34,23 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
+                                    <ImageButton Grid.Row="0" 
+                                                 Source="cancel.png" 
+                                                 BackgroundColor="Transparent"
+                                                 WidthRequest="9"
+                                                 HeightRequest="9"
+                                                 HorizontalOptions="End"
+                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=CloseReminderCommand}"
+                                                 CommandParameter="{Binding .}">
+                                    </ImageButton>
                                     <Label FontSize="Large"
                                            FontAttributes="Bold"
                                            TextColor="#032d3d"
-                                           Grid.Row="0">
+                                           Grid.Row="1">
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="{Binding Title}"
@@ -48,15 +58,15 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <BoxView  Grid.Row="1"
+                                    <BoxView  Grid.Row="2"
                                               HeightRequest="1"
                                               BackgroundColor="#032d3d" />
-                                    <Label Grid.Row="2" 
+                                    <Label Grid.Row="3" 
                                            Text="{Binding Description}"
                                            LineBreakMode="CharacterWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"
                                            FontSize="Medium" />
-                                    <Label Grid.Row="3" 
+                                    <Label Grid.Row="4" 
                                            Text="{Binding Time, StringFormat='{0:MM.dd.yyyy}'}"
                                            LineBreakMode="CharacterWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"

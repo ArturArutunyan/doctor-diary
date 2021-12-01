@@ -40,6 +40,8 @@ namespace DoctorDiary.ViewModels.Reminders
         
         public AsyncCommand LoadMoreCommand { get; }
         
+        public AsyncCommand<Reminder> CloseReminderCommand { get; }
+        
         public RemindersViewModel()
         {
             _reminderAppService = DependencyService.Get<IReminderAppService>();
@@ -49,8 +51,23 @@ namespace DoctorDiary.ViewModels.Reminders
             LoadRemindersCommand = new AsyncCommand(LoadReminders);
             ReminderTapped = new AsyncCommand<Reminder>(OnReminderSelected);
             LoadMoreCommand = new AsyncCommand(OnRemindersThresholdReached);
+            CloseReminderCommand = new AsyncCommand<Reminder>(OnCloseReminderCommand);
         }
-        
+
+        private async Task OnCloseReminderCommand(Reminder reminder)
+        {
+            try
+            {
+                await _reminderAppService.Close(reminder.Id);
+                IsBusy = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         private async Task OnRemindersThresholdReached()
         {
             if (IsBusy)
