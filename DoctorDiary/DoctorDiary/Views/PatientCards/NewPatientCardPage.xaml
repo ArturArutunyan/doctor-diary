@@ -9,36 +9,38 @@
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <StackLayout Spacing="3" Padding="15">
-            <Label Text="Имя" FontSize="Medium" />
-            <Entry Text="{Binding FirstName, Mode=TwoWay}" FontSize="Medium" />
+        <ScrollView>
+            <StackLayout Spacing="3" Padding="15">
+                <Label Text="Имя" FontSize="Medium" />
+                <Entry Text="{Binding FirstName, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Фамилия" FontSize="Medium" />
-            <Entry Text="{Binding LastName, Mode=TwoWay}" FontSize="Medium" />
+                <Label Text="Фамилия" FontSize="Medium" />
+                <Entry Text="{Binding LastName, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Отчество" FontSize="Medium" />
-            <Entry Text="{Binding Patronymic, Mode=TwoWay}" FontSize="Medium" />
+                <Label Text="Отчество" FontSize="Medium" />
+                <Entry Text="{Binding Patronymic, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Адрес" FontSize="Medium" />
-            <Entry Text="{Binding Address, Mode=TwoWay}" FontSize="Medium" />
+                <Label Text="Адрес" FontSize="Medium" />
+                <Entry Text="{Binding Address, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Дата рождения" FontSize="Medium"/> 
-            <DatePicker Format="MM.dd.yyyy" Date="{Binding Birthday}"/>
+                <Label Text="Дата рождения" FontSize="Medium"/> 
+                <DatePicker Format="MM.dd.yyyy" Date="{Binding Birthday}"/>
 
-            <Label Text="СНИЛС" FontSize="Medium" />
-            <Entry Text="{Binding Snils, Mode=TwoWay}" FontSize="Medium" />
+                <Label Text="СНИЛС" FontSize="Medium" />
+                <Entry Text="{Binding Snils, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Номер телефона" FontSize="Medium" />
-            <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" FontSize="Medium" />
+                <Label Text="Номер телефона" FontSize="Medium" />
+                <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" FontSize="Medium" />
             
-            <Label Text="Описание" FontSize="Medium" />
-            <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
-            
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                <Button Text="Сохранить" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Label Text="Описание" FontSize="Medium" />
+                <Editor Text="{Binding Description, Mode=TwoWay}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+              
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Сохранить" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
             </StackLayout>
-        </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
     
 </ContentPage>
