@@ -167,7 +167,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         #region Others
         // TODO: Move to another page
         private bool _sickLeaveVisible;
-        private bool _closeSickLeaveWithCodeButtonIsEnabled;
+        private bool _extendSickLeaveButtonIsEnabled;
 
         public bool SickLeaveVisible
         {
@@ -175,16 +175,16 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _sickLeaveVisible, value);
         }
 
-        public bool CloseSickLeaveWithCodeButtonIsEnabled
+        public bool ExtendSickLeaveButtonIsEnabled
         {
-            get => _closeSickLeaveWithCodeButtonIsEnabled;
-            set => SetProperty(ref _closeSickLeaveWithCodeButtonIsEnabled, value);
+            get => _extendSickLeaveButtonIsEnabled;
+            set => SetProperty(ref _extendSickLeaveButtonIsEnabled, value);
         }
         #endregion
 
         public AsyncCommand OpenSickLeaveAsyncCommand { get; }
         public AsyncCommand CloseSickLeaveAsyncCommand { get; }
-        public AsyncCommand CloseSickLeaveWithCodeAsyncCommand { get; }
+        public AsyncCommand ExtendSickLeaveAsyncCommand { get; }
 
         public PatientCardDetailViewModel()
         {
@@ -193,7 +193,7 @@ namespace DoctorDiary.ViewModels.PatientCards
 
             OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
             CloseSickLeaveAsyncCommand = new AsyncCommand(OnCloseSickLeave);
-            CloseSickLeaveWithCodeAsyncCommand = new AsyncCommand(OnCloseSickLeaveWithCode);
+            ExtendSickLeaveAsyncCommand = new AsyncCommand(OnExtendSickLeave);
         }
 
         private async void LoadPatientCard(string patientCardId)
@@ -228,13 +228,13 @@ namespace DoctorDiary.ViewModels.PatientCards
                 {
                     OpenSickLeaveButtonIsEnabled = true;
                     SickLeaveVisible = false;
-                    CloseSickLeaveWithCodeButtonIsEnabled = false;
+                    ExtendSickLeaveButtonIsEnabled = false;
                 }
                 else
                 {
                     OpenSickLeaveButtonIsEnabled = false;
                     SickLeaveVisible = true;
-                    CloseSickLeaveWithCodeButtonIsEnabled = true;
+                    ExtendSickLeaveButtonIsEnabled = true;
                     
                     SickLeaveId = sickLeave.Id;
                     Number = sickLeave.Number;
@@ -248,7 +248,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                         SecondRowEndDate = sickLeave.Terms[1].EndDate;
                         ThirdRowStartDate = sickLeave.Terms[0].StartDate;
                         ThirdRowEndDate = sickLeave.Terms[0].EndDate;
-                        CloseSickLeaveWithCodeButtonIsEnabled = false;
+                        ExtendSickLeaveButtonIsEnabled = false;
                     }
                     else if (sickLeave.Terms.Count == 2)
                     {
@@ -300,9 +300,9 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        private async Task OnCloseSickLeaveWithCode()
+        private async Task OnExtendSickLeave()
         {
-            await Shell.Current.GoToAsync($"{nameof(CloseSickLeaveWithCodePage)}?{nameof(PatientCardId)}={PatientCardId}");
+            await Shell.Current.GoToAsync($"{nameof(ExtendSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
     }
 }

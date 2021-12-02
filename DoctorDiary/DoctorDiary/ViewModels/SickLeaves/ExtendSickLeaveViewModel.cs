@@ -9,7 +9,7 @@ using Xamarin.Forms;
 namespace DoctorDiary.ViewModels.SickLeaves
 {
     [QueryProperty(nameof(PatientCardId), nameof(PatientCardId))]
-    public class CloseSickLeaveWithCodeViewModel : BaseViewModel
+    public class ExtendSickLeaveViewModel : BaseViewModel
     {
         private string _patientCardId;
         private DateTime _startDate;
@@ -41,7 +41,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
         
         public AsyncCommand ExtendSickLeaveAsyncCommand { get; }
 
-        public CloseSickLeaveWithCodeViewModel()
+        public ExtendSickLeaveViewModel()
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
             

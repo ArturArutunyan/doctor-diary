@@ -133,9 +133,9 @@
                                     Command="{Binding CloseSickLeaveAsyncCommand}"
                                     HorizontalOptions="FillAndExpand">
                             </Button>
-                            <Button Text="Закрыть с кодом 31"
-                                    Command="{Binding CloseSickLeaveWithCodeAsyncCommand}"
-                                    IsVisible="{Binding CloseSickLeaveWithCodeButtonIsEnabled}"
+                            <Button Text="Продлить"
+                                    Command="{Binding ExtendSickLeaveAsyncCommand}"
+                                    IsVisible="{Binding ExtendSickLeaveButtonIsEnabled}"
                                     HorizontalOptions="FillAndExpand">
                             </Button>
                         </StackLayout>

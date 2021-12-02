@@ -6,14 +6,14 @@ using Xamarin.Forms.Xaml;
 namespace DoctorDiary.Views.SickLeaves
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class CloseSickLeaveWithCodePage : ContentPage
+    public partial class ExtendSickLeavePage : ContentPage
     {
         public SickLeave SickLeave { get; set; }
         
-        public CloseSickLeaveWithCodePage()
+        public ExtendSickLeavePage()
         {
             InitializeComponent();
-            BindingContext = new CloseSickLeaveWithCodeViewModel();
+            BindingContext = new ExtendSickLeaveViewModel();
         }
     }
 }
