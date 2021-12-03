@@ -9,8 +9,7 @@ namespace DoctorDiary.Models.SickLeaves
 {
     public class SickLeave : FullAuditedAggregateRoot<Guid>
     {
-        private const int DefaultMaxExtendCount = 3;
-        public virtual long Number { get; }
+        public virtual long Number { get; protected set; }
         public virtual Guid PatientCardId { get; protected set; }
         public virtual bool IsActive { get; protected set; }
         
