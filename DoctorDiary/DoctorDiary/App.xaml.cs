@@ -6,6 +6,7 @@ using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.EntityFrameworkCore.Reminders;
 using DoctorDiary.EntityFrameworkCore.SickLeaves;
 using DoctorDiary.Services;
+using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.Reminders;
 using DoctorDiary.Services.SickLeaves;
@@ -35,6 +36,7 @@ namespace DoctorDiary
             DependencyService.Register<ISickLeaveRepository, SickLeaveEfCoreRepository>();
             DependencyService.Register<IReminderAppService, ReminderAppService>();
             DependencyService.Register<IReminderRepository, ReminderEfCoreRepository>();
+            DependencyService.Register<IMessageBoxAppService, MessageBoxAppService>();
         }
 
         private async void InitializeDatabase()

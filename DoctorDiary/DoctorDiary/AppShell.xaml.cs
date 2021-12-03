@@ -28,6 +28,7 @@ namespace DoctorDiary
             Routing.RegisterRoute(nameof(NewPatientCardPage), typeof(NewPatientCardPage));
             Routing.RegisterRoute(nameof(OpenSickLeavePage), typeof(OpenSickLeavePage));
             Routing.RegisterRoute(nameof(ExtendSickLeavePage), typeof(ExtendSickLeavePage));
+            Routing.RegisterRoute(nameof(CloseSickLeaveWithThirtyOneCodePage), typeof(CloseSickLeaveWithThirtyOneCodePage));
         }
 
     }
