@@ -61,7 +61,7 @@
                 <Button Text="Открыть больничный"
                         FontSize="Medium" BorderWidth="1"
                         HorizontalOptions="FillAndExpand"
-                        Command="{Binding OpenSickLeaveAsyncCommand}"
+                        Command="{Binding OpenSickLeaveCommand}"
                         IsVisible="{Binding OpenSickLeaveButtonIsEnabled}" 
                         Margin="0,20, 0,0">
                 </Button>
@@ -130,12 +130,17 @@
                         <StackLayout Grid.Row="1"
                                      Orientation="Horizontal">
                             <Button Text="Закрыть"
-                                    Command="{Binding CloseSickLeaveAsyncCommand}"
+                                    Command="{Binding CloseSickLeaveCommand}"
                                     HorizontalOptions="FillAndExpand">
                             </Button>
                             <Button Text="Продлить"
-                                    Command="{Binding ExtendSickLeaveAsyncCommand}"
+                                    Command="{Binding ExtendSickLeaveCommand}"
                                     IsVisible="{Binding ExtendSickLeaveButtonIsEnabled}"
+                                    HorizontalOptions="FillAndExpand">
+                            </Button>
+                            <Button Text="Закрыть с кодом"
+                                    Command="{Binding CloseSickLeaveWithCodeCommand}"
+                                    IsVisible="{Binding CloseSickLeaveWithCodeIsEnabled}"
                                     HorizontalOptions="FillAndExpand">
                             </Button>
                         </StackLayout>

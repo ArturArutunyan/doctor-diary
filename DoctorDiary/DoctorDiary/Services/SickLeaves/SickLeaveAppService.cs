@@ -33,6 +33,11 @@ namespace DoctorDiary.Services.SickLeaves
             return await _sickLeaveRepository.GetAsync(id);
         }
 
+        public async Task<SickLeave> LastSickLeaveForPatientCard(Guid patientCardId)
+        {
+            return await _sickLeaveRepository.LastSickLeaveForPatientCard(patientCardId);
+        }
+
         public async Task<List<SickLeave>> GetListAsync(
             int count = 5,
             int skipCount = 0)
@@ -102,20 +107,50 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.UpdateAsync(sickLeave);
         }
 
-        public async Task<SickLeave> CloseSickLeaveWithCodeThirtyOne(SickLeave sickLeave, Term term)
+        public async Task CloseSickLeaveWithCode(
+            Guid sickLeaveId, 
+            SickLeaveCode code, 
+            long? number, 
+            DateTime? startDate,
+            DateTime? endDate)
         {
-            sickLeave.ExtendSickLeave(term);
-
-            return await _sickLeaveRepository.UpdateAsync(sickLeave);
+            switch (code)
+            {
+                case SickLeaveCode.ThirtyOne:
+                    await CloseSickLeaveWithCodeThirtyOne(
+                        sickLeaveId: sickLeaveId, 
+                        number: number, 
+                        startDate: startDate, 
+                        endDate: endDate);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(code), code, "Неизвестный код больничного листа");
+            }
         }
-        
-        public async Task CloseSickLeaveWithCodeThirtyOne(Guid sickLeaveId, Term term)
+
+        public async Task CloseSickLeaveWithCodeThirtyOne(
+            Guid sickLeaveId, 
+            long? number,
+            DateTime? startDate,
+            DateTime? endDate)
         {
             var sickLeave = await _sickLeaveRepository.GetAsync(sickLeaveId);
             
-            sickLeave.ExtendSickLeave(term);
-
+            sickLeave.Close();
+            
             await _sickLeaveRepository.UpdateAsync(sickLeave);
+
+            // TODO: Validate - startDate & endDate of new sick leave should be greater than previous
+            if (number.HasValue && startDate.HasValue && endDate.HasValue)
+            {
+                var newSickLeave = new SickLeave(
+                    id: Guid.NewGuid(),
+                    number: number.Value,
+                    patientCardId: sickLeave.PatientCardId,
+                    term: Term.Create(startDate: startDate.Value, endDate: endDate.Value));
+                
+                await _sickLeaveRepository.InsertAsync(newSickLeave);
+            }
         }
 
         public async Task DeleteAsync(Guid id)
@@ -123,25 +158,14 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.DeleteAsync(id);
         }
 
-        public async Task CloseSickLeave(Guid sickLeaveId, SickLeaveCode code, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task ChangeSickLeave(Guid id, long number, IEnumerable<Term> terms)
         {
-            switch (code)
-            {
-                case SickLeaveCode.Empty:
-                    await CloseSickLeave(sickLeaveId);
-                    break;
-                case SickLeaveCode.ThirtyOne:
-                    if (startDate.HasValue && endDate.HasValue)
-                    {
-                        await CloseSickLeaveWithCodeThirtyOne(
-                            sickLeaveId: sickLeaveId, 
-                            term: Term.Create(startDate: startDate.Value, endDate: endDate.Value));    
-                    }
-                    
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+            var sickLeave = await _sickLeaveRepository.GetAsync(id);
+
+            sickLeave.ChangeNumber(number: number);
+            sickLeave.ChangeTerms(terms: terms);
+
+            await _sickLeaveRepository.UpdateAsync(sickLeave);
         }
     }
 }

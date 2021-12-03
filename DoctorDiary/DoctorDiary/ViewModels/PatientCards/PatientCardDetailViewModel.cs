@@ -1,25 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using DoctorDiary.Models.SickLeaves.ValueObjects;
+using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Shared.SickLeaves;
 using DoctorDiary.Views.SickLeaves;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
-using Xamarin.Forms.Internals;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {
     [QueryProperty(nameof(PatientCardId), nameof(PatientCardId))]
     public class PatientCardDetailViewModel : BaseViewModel
     {
-        
         private readonly IPatientCardAppService _patientCardAppService;
         private readonly ISickLeaveAppService _sickLeaveAppService;
+        private readonly IMessageBoxAppService _messageBoxAppService;
 
         #region PatientCard
         private string _patientCardId;
@@ -156,23 +153,19 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         #region Buttons
         private bool _sickSickLeaveButtonIsEnabled;
+        private bool _closeSickLeaveWithCodeIsEnabled;
+        private bool _extendSickLeaveButtonIsEnabled;
 
         public bool OpenSickLeaveButtonIsEnabled
         {
             get => _sickSickLeaveButtonIsEnabled;
             set => SetProperty(ref _sickSickLeaveButtonIsEnabled, value);
         }
-        #endregion
 
-        #region Others
-        // TODO: Move to another page
-        private bool _sickLeaveVisible;
-        private bool _extendSickLeaveButtonIsEnabled;
-
-        public bool SickLeaveVisible
+        public bool CloseSickLeaveWithCodeIsEnabled
         {
-            get => _sickLeaveVisible;
-            set => SetProperty(ref _sickLeaveVisible, value);
+            get => _closeSickLeaveWithCodeIsEnabled;
+            set => SetProperty(ref _closeSickLeaveWithCodeIsEnabled, value);
         }
 
         public bool ExtendSickLeaveButtonIsEnabled
@@ -182,18 +175,33 @@ namespace DoctorDiary.ViewModels.PatientCards
         }
         #endregion
 
-        public AsyncCommand OpenSickLeaveAsyncCommand { get; }
-        public AsyncCommand CloseSickLeaveAsyncCommand { get; }
-        public AsyncCommand ExtendSickLeaveAsyncCommand { get; }
+        #region Others
+        // TODO: Move to another page
+        private bool _sickLeaveVisible;
+
+        public bool SickLeaveVisible
+        {
+            get => _sickLeaveVisible;
+            set => SetProperty(ref _sickLeaveVisible, value);
+        }
+        #endregion
+
+        public AsyncCommand OpenSickLeaveCommand { get; }
+        public AsyncCommand CloseSickLeaveCommand { get; }
+        public AsyncCommand CloseSickLeaveWithCodeCommand { get; }
+        public AsyncCommand ExtendSickLeaveCommand { get; }
+
 
         public PatientCardDetailViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
-
-            OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
-            CloseSickLeaveAsyncCommand = new AsyncCommand(OnCloseSickLeave);
-            ExtendSickLeaveAsyncCommand = new AsyncCommand(OnExtendSickLeave);
+            _messageBoxAppService = DependencyService.Get<IMessageBoxAppService>();
+            
+            OpenSickLeaveCommand = new AsyncCommand(OnOpenSickLeave);
+            CloseSickLeaveCommand = new AsyncCommand(OnCloseSickLeave);
+            CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode);
+            ExtendSickLeaveCommand = new AsyncCommand(OnExtendSickLeave);
         }
 
         private async void LoadPatientCard(string patientCardId)
@@ -224,6 +232,8 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 var sickLeave = await _sickLeaveAppService.GetActiveSickLeaveOrDefaultByPatientCardId(Guid.Parse(patientCardId));
                 
+                CloseSickLeaveWithCodeIsEnabled = false;
+                
                 if (sickLeave == null)
                 {
                     OpenSickLeaveButtonIsEnabled = true;
@@ -249,6 +259,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                         ThirdRowStartDate = sickLeave.Terms[0].StartDate;
                         ThirdRowEndDate = sickLeave.Terms[0].EndDate;
                         ExtendSickLeaveButtonIsEnabled = false;
+                        CloseSickLeaveWithCodeIsEnabled = true;
                     }
                     else if (sickLeave.Terms.Count == 2)
                     {
@@ -264,7 +275,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 Debug.WriteLine("Failed to Load patient Card");
             }
@@ -298,6 +309,38 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 IsBusy = false;
             }
+        }
+
+        private async Task OnCloseSickLeaveWithCode()
+        {
+            try
+            {
+                var code = await _messageBoxAppService.ShowActionSheet(
+                    title: "Выберите код",
+                    cancel: "Отменить",
+                    destruction: null,
+                    buttons: new[] { "31" });
+                
+                switch (code)
+                {
+                    case "31":
+                        if (SickLeaveId.HasValue)
+                        {
+                            await Shell.Current.GoToAsync($"{nameof(CloseSickLeaveWithThirtyOneCodePage)}?{nameof(PatientCardDetailViewModel.SickLeaveId)}={SickLeaveId.Value.ToString()}");
+                        }
+                        
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+            CloseSickLeaveWithCodeIsEnabled = false;
         }
 
         private async Task OnExtendSickLeave()

@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DoctorDiary.Views.SickLeaves.CloseSickLeaveWithThirtyOneCodePage"
+             x:DataType="sickLeaves:CloseSickLeaveWithThirtyOneCodeViewModel"
+             Shell.PresentationMode="ModalAnimated"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
+             ios:Page.UseSafeArea="true">
+    <ContentPage.Content>
+        <Frame Padding="10">
+            <StackLayout VerticalOptions="Center" Padding="20">
+                <Label Text="Номер нового больничного" FontSize="Medium" />
+                <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
+            
+                <Label Text="Дата начала больничного" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker 
+                    MinimumDate="{Binding StartDate}"
+                    Format="MM.dd.yyyy" 
+                    Date="{Binding StartDate}"/>
+            
+                <Label Text="Дата окончания больничного" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker 
+                    MinimumDate="{Binding StartDate}"
+                    Format="MM.dd.yyyy" 
+                    Date="{Binding EndDate}"/>
+            
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Закрыть с кодом 31" Command="{Binding CloseSickLeaveWithCodeCommand}" HorizontalOptions="FillAndExpand"></Button>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

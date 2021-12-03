@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
@@ -12,6 +13,8 @@ namespace DoctorDiary.Services.SickLeaves
     {
         Task<SickLeave> GetAsync(Guid id);
 
+        Task<SickLeave> LastSickLeaveForPatientCard(Guid patientCardId);
+        
         Task<List<SickLeave>> GetListAsync(
             int count = 5,
             int skipCount = 0);
@@ -31,10 +34,15 @@ namespace DoctorDiary.Services.SickLeaves
 
         Task CloseSickLeave(Guid sickLeaveId);
         
-        Task<SickLeave> CloseSickLeaveWithCodeThirtyOne(SickLeave sickLeave, Term term);
+        Task CloseSickLeaveWithCode(
+            Guid sickLeaveId, 
+            SickLeaveCode code, 
+            long? number, 
+            DateTime? startDate,
+            DateTime? endDate);
         
         Task DeleteAsync(Guid id);
-        
-        Task CloseSickLeave(Guid sickLeaveId, SickLeaveCode code, DateTime? startDate = null, DateTime? endDate = null);
+
+        Task ChangeSickLeave(Guid id, long number, IEnumerable<Term> terms);
     }
 }

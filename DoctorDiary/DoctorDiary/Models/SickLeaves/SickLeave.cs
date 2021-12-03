@@ -4,6 +4,7 @@ using System.Linq;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Shared.Domain;
+using DoctorDiary.Shared.SickLeaves;
 
 namespace DoctorDiary.Models.SickLeaves
 {
@@ -23,14 +24,29 @@ namespace DoctorDiary.Models.SickLeaves
         public SickLeave(
             Guid id,
             long number,
-            PatientCard patientCard,
+            Guid patientCardId,
             Term term) : base(id)
         {
             Number = number;
-            PatientCardId = patientCard.Id;
+            PatientCardId = patientCardId;
             IsActive = true;
             
             _terms.Add(term);
+        }
+        
+        public SickLeave(
+            Guid id,
+            long number,
+            PatientCard patientCard,
+            Term term) : this(id, number, patientCard.Id, term)
+        {
+           
+        }
+
+        public void ChangeNumber(long number)
+        {
+            // TODO: Add number validation. Should be 16? digits number.
+            Number = number;
         }
 
         public void ChangeTerms(IEnumerable<Term> terms)
@@ -41,10 +57,12 @@ namespace DoctorDiary.Models.SickLeaves
 
         public void ExtendSickLeave(Term term)
         {
-            if (Terms.Count < DefaultMaxExtendCount)
+            if (Terms.Count == SickLeaveConsts.DefaultMaxExtendCount)
             {
-                _terms.Add(term);
+                throw new InvalidOperationException("Больничный не может быть продлен более трех раз");
             }
+            
+            _terms.Add(term);
         }
 
         public void Close()
