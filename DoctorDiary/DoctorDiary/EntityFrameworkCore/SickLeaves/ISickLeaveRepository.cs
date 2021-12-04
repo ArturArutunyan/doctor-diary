@@ -6,6 +6,8 @@ namespace DoctorDiary.EntityFrameworkCore.SickLeaves
 {
     public interface ISickLeaveRepository : IRepository<SickLeave, Guid>
     {
-        Task<SickLeave> LastSickLeaveForPatientCard(Guid patientCardId);
+        Task<SickLeave> LastOrDefaultSickLeaveForPatientCard(Guid patientCardId);
+        
+        Task<SickLeave> LastOrDefaultClosedSickLeaveForPatientCard(Guid patientCardId);
     }
 }

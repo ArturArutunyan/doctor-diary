@@ -13,8 +13,10 @@ namespace DoctorDiary.Services.SickLeaves
     {
         Task<SickLeave> GetAsync(Guid id);
 
-        Task<SickLeave> LastSickLeaveForPatientCard(Guid patientCardId);
+        Task<SickLeave> LastOrDefaultSickLeaveForPatientCard(Guid patientCardId);
         
+        Task<SickLeave> LastOrDefaultClosedSickLeaveForPatientCard(Guid patientCardId);
+
         Task<List<SickLeave>> GetListAsync(
             int count = 5,
             int skipCount = 0);

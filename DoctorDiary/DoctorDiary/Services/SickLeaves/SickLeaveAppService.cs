@@ -33,9 +33,14 @@ namespace DoctorDiary.Services.SickLeaves
             return await _sickLeaveRepository.GetAsync(id);
         }
 
-        public async Task<SickLeave> LastSickLeaveForPatientCard(Guid patientCardId)
+        public async Task<SickLeave> LastOrDefaultSickLeaveForPatientCard(Guid patientCardId)
         {
-            return await _sickLeaveRepository.LastSickLeaveForPatientCard(patientCardId);
+            return await _sickLeaveRepository.LastOrDefaultSickLeaveForPatientCard(patientCardId);
+        }
+
+        public async Task<SickLeave> LastOrDefaultClosedSickLeaveForPatientCard(Guid patientCardId)
+        {
+            return await _sickLeaveRepository.LastOrDefaultClosedSickLeaveForPatientCard(patientCardId);
         }
 
         public async Task<List<SickLeave>> GetListAsync(
