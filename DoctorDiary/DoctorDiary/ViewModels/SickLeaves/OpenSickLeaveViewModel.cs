@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
-using DoctorDiary.Services.Reminders;
 using DoctorDiary.Services.SickLeaves;
-using DoctorDiary.ViewModels.PatientCards;
-using DoctorDiary.Views.PatientCards;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
 
@@ -17,13 +14,18 @@ namespace DoctorDiary.ViewModels.SickLeaves
         private long _number;
         private DateTime _startDate;
         private DateTime _endDate;
-        
+        private DateTime? _lastClosedEndDate;
+
         private readonly ISickLeaveAppService _sickLeaveAppService;
 
         public string PatientCardId
         {
             get => _patientCardId;
-            set => _patientCardId = value;
+            set
+            {
+                _patientCardId = value; 
+                InitPropertiesToDefaultValues();
+            }
         }
 
         public long Number
@@ -50,9 +52,8 @@ namespace DoctorDiary.ViewModels.SickLeaves
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
 
-            OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave);
-
-            InitDefaultProperties();
+            OpenSickLeaveAsyncCommand = new AsyncCommand(OnOpenSickLeave, ValidateInput);
+            PropertyChanged += (_, __) => OpenSickLeaveAsyncCommand.RaiseCanExecuteChanged();
         }
 
         private async Task OnOpenSickLeave()
@@ -65,10 +66,38 @@ namespace DoctorDiary.ViewModels.SickLeaves
             await Shell.Current.GoToAsync("..");
         }
 
-        private void InitDefaultProperties()
+        private async void InitPropertiesToDefaultValues()
         {
-            StartDate = DateTime.Today.Date;
-            EndDate = StartDate.AddDays(14);
+            var lastSickLeave = await _sickLeaveAppService.LastOrDefaultSickLeaveForPatientCard(Guid.Parse(PatientCardId));
+
+            if (lastSickLeave != null)
+            {
+                if (lastSickLeave.IsActive)
+                {
+                    // TODO: add custom exception
+                    throw new InvalidOperationException("Невозможно открыть больничный лист, так как уже существует другой открытый больничный лист");
+                }
+                
+                _lastClosedEndDate = lastSickLeave.LastTerm().EndDate;
+                
+                StartDate = lastSickLeave.LastTermEndDate().AddDays(1);
+                EndDate = StartDate.AddDays(14);
+            }
+            else
+            {
+                StartDate = DateTime.Today.Date;
+                EndDate = StartDate.AddDays(14);   
+            }
+        }
+
+        private bool ValidateInput(object arg)
+        {
+            if (_lastClosedEndDate.HasValue)
+            {
+                return StartDate > _lastClosedEndDate && EndDate >= StartDate;
+            }
+
+            return true;
         }
     }
 }

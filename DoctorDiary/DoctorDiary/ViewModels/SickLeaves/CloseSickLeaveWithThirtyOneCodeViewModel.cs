@@ -11,9 +11,10 @@ namespace DoctorDiary.ViewModels.SickLeaves
     public class CloseSickLeaveWithThirtyOneCodeViewModel : BaseViewModel
     {
         private string _sickLeaveId;
-        private DateTime? _startDate;
-        private DateTime? _endDate;
         private long? _number;
+        private DateTime _startDate;
+        private DateTime _endDate;
+        private DateTime _lastClosedEndDate;
         private readonly ISickLeaveAppService _sickLeaveAppService;
 
         public string SickLeaveId
@@ -22,17 +23,17 @@ namespace DoctorDiary.ViewModels.SickLeaves
             set
             {
                 _sickLeaveId = value;  
-                InitDefaultValues();
+                InitPropertiesToDefaultValues();
             }
         }
 
-        public DateTime? StartDate
+        public DateTime StartDate
         {
             get => _startDate;
             set => SetProperty(ref _startDate, value);
         }
 
-        public DateTime? EndDate
+        public DateTime EndDate
         {
             get => _endDate;
             set => SetProperty(ref _endDate, value);
@@ -46,21 +47,22 @@ namespace DoctorDiary.ViewModels.SickLeaves
         
         public AsyncCommand CloseSickLeaveWithCodeCommand { get; }
         
-
         public CloseSickLeaveWithThirtyOneCodeViewModel()
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
             
-            CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode);
+            CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode, ValidateInput);
+            PropertyChanged += (_, __) => CloseSickLeaveWithCodeCommand.RaiseCanExecuteChanged();
         }
 
-        private async void InitDefaultValues()
+        private async void InitPropertiesToDefaultValues()
         {
             var lastSickLeave = await _sickLeaveAppService.GetAsync(Guid.Parse(SickLeaveId));
-            var lastTermEndDate = lastSickLeave.LastTermEndDate();
+            
+            _lastClosedEndDate = lastSickLeave.LastTermEndDate();
 
-            StartDate = lastTermEndDate.AddDays(1);
-            EndDate = lastTermEndDate.AddDays(15);
+            StartDate = _lastClosedEndDate.AddDays(1);
+            EndDate = StartDate.AddDays(14);
         }
 
         private async Task OnCloseSickLeaveWithCode()
@@ -81,6 +83,11 @@ namespace DoctorDiary.ViewModels.SickLeaves
                 Console.WriteLine(e);
                 throw;
             }
+        }
+        
+        private bool ValidateInput(object arg)
+        {
+            return StartDate > _lastClosedEndDate && EndDate >= StartDate;
         }
     }
 }

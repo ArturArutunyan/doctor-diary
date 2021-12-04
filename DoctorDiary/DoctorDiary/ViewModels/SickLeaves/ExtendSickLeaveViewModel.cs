@@ -14,7 +14,8 @@ namespace DoctorDiary.ViewModels.SickLeaves
         private string _patientCardId;
         private DateTime _startDate;
         private DateTime _endDate;
-        
+        private DateTime _lastClosedEndDate;
+
         private readonly ISickLeaveAppService _sickLeaveAppService;
 
         public string PatientCardId
@@ -45,19 +46,23 @@ namespace DoctorDiary.ViewModels.SickLeaves
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
             
-            ExtendSickLeaveAsyncCommand = new AsyncCommand(OnExtendSickLeave);
+            ExtendSickLeaveAsyncCommand = new AsyncCommand(OnExtendSickLeave, ValidateInput);
+            PropertyChanged += (_, __) => ExtendSickLeaveAsyncCommand.RaiseCanExecuteChanged();
         }
 
         private async void LoadLastSickLeaveTerm(string patientCardId)
         {
             var sickLeave = await _sickLeaveAppService.GetActiveSickLeaveOrDefaultByPatientCardId(Guid.Parse(patientCardId));
 
-            if (sickLeave != null)
+            if (sickLeave == null)
             {
-                var lastTermEndDate = sickLeave.LastTermEndDate();
-                StartDate = lastTermEndDate.AddDays(1);
-                EndDate = StartDate.AddDays(14);
+                throw new InvalidCastException("Больничный лист для продления не найден");
             }
+
+            _lastClosedEndDate = sickLeave.LastTermEndDate();
+            
+            StartDate = _lastClosedEndDate.AddDays(1);
+            EndDate = StartDate.AddDays(14);
         }
 
         private async Task OnExtendSickLeave()
@@ -67,6 +72,11 @@ namespace DoctorDiary.ViewModels.SickLeaves
                 term: Term.Create(startDate: StartDate, endDate: EndDate));
             
             await Shell.Current.GoToAsync("..");
+        }
+        
+        private bool ValidateInput(object arg)
+        {
+            return StartDate > _lastClosedEndDate && EndDate >= StartDate;
         }
     }
 }
