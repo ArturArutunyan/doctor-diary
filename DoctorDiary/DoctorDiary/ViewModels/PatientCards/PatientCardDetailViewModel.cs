@@ -95,13 +95,9 @@ namespace DoctorDiary.ViewModels.PatientCards
         #region SickLeave
         private Guid? _sickLeaveId;
         private long? _number;
-        private DateTime? _firstRowStartDate;
-        private DateTime? _firstRowEndDate;
-        private DateTime? _secondRowStartDate;
-        private DateTime? _secondRowEndDate;
-        private DateTime? _thirdRowStartDate;
-        private DateTime? _thirdRowEndDate;
-
+        private DateTime? _actualTermStartDate;
+        private DateTime? _actualTermEndDate;
+        
         public Guid? SickLeaveId
         {
             get => _sickLeaveId;
@@ -114,40 +110,16 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _number, value);
         }
 
-        public DateTime? FirstRowStartDate
+        public DateTime? ActualTermStartDate
         {
-            get => _firstRowStartDate;
-            set => SetProperty(ref _firstRowStartDate, value);
+            get => _actualTermStartDate;
+            set => SetProperty(ref _actualTermStartDate, value);
         }
         
-        public DateTime? FirstRowEndDate
+        public DateTime? ActualTermEndDate
         {
-            get => _firstRowEndDate;
-            set => SetProperty(ref _firstRowEndDate, value);
-        }
-        
-        public DateTime? SecondRowStartDate
-        {
-            get => _secondRowStartDate;
-            set => SetProperty(ref _secondRowStartDate, value);
-        }
-        
-        public DateTime? SecondRowEndDate
-        {
-            get => _secondRowEndDate;
-            set => SetProperty(ref _secondRowEndDate, value);
-        }
-        
-        public DateTime? ThirdRowStartDate
-        {
-            get => _thirdRowStartDate;
-            set => SetProperty(ref _thirdRowStartDate, value);
-        }
-        
-        public DateTime? ThirdRowEndDate
-        {
-            get => _thirdRowEndDate;
-            set => SetProperty(ref _thirdRowEndDate, value);
+            get => _actualTermEndDate;
+            set => SetProperty(ref _actualTermEndDate, value);
         }
         #endregion
 
@@ -249,29 +221,14 @@ namespace DoctorDiary.ViewModels.PatientCards
                     SickLeaveId = sickLeave.Id;
                     Number = sickLeave.Number;
 
+                    ActualTermStartDate = sickLeave.LastTerm().StartDate;
+                    ActualTermEndDate = sickLeave.LastTerm().EndDate;
+                    
                     // TODO: Removed this shit!
                     if (sickLeave.Terms.Count == 3)
                     {
-                        FirstRowStartDate = sickLeave.Terms[2].StartDate;
-                        FirstRowEndDate = sickLeave.Terms[2].EndDate;
-                        SecondRowStartDate = sickLeave.Terms[1].StartDate;
-                        SecondRowEndDate = sickLeave.Terms[1].EndDate;
-                        ThirdRowStartDate = sickLeave.Terms[0].StartDate;
-                        ThirdRowEndDate = sickLeave.Terms[0].EndDate;
                         ExtendSickLeaveButtonIsEnabled = false;
                         CloseSickLeaveWithCodeIsEnabled = true;
-                    }
-                    else if (sickLeave.Terms.Count == 2)
-                    {
-                        FirstRowStartDate = sickLeave.Terms[1].StartDate;
-                        FirstRowEndDate = sickLeave.Terms[1].EndDate;
-                        SecondRowStartDate = sickLeave.Terms[0].StartDate;
-                        SecondRowEndDate = sickLeave.Terms[0].EndDate;
-                    }
-                    else if (sickLeave.Terms.Count == 1)
-                    {
-                        FirstRowStartDate = sickLeave.Terms[0].StartDate;
-                        FirstRowEndDate = sickLeave.Terms[0].EndDate;
                     }
                 }
             }

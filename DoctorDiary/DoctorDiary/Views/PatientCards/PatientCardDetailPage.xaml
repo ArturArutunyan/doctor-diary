@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoctorDiary.Views.PatientCards.PatientCardDetailPage"
              xmlns:viewmodel="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
-             xmlns:valueObjects="clr-namespace:DoctorDiary.Models.SickLeaves.ValueObjects;assembly=DoctorDiary"
              Title="{Binding Title}"
              x:DataType="viewmodel:PatientCardDetailViewModel">
 
@@ -87,8 +86,6 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Label Grid.Row="0"
                                            Text="{Binding Number, StringFormat='№ {0}'}"
@@ -97,29 +94,9 @@
                                     <Label Grid.Row="1">
                                         <Label.FormattedText>
                                             <FormattedString>
-                                                <Span Text="{Binding FirstRowStartDate, StringFormat='с {0:MM.dd.yyyy}'}"
+                                                <Span Text="{Binding ActualTermStartDate, StringFormat='с {0:MM.dd.yyyy}'}"
                                                       FontSize="Medium" />
-                                                <Span Text="{Binding FirstRowEndDate, StringFormat=' по {0:MM.dd.yyyy}'}"
-                                                      FontSize="Medium" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Grid.Row="2">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding SecondRowStartDate, StringFormat='с {0:MM.dd.yyyy}'}"
-                                                      FontSize="Medium" />
-                                                <Span Text="{Binding SecondRowEndDate, StringFormat=' по {0:MM.dd.yyyy}'}"
-                                                      FontSize="Medium" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label Grid.Row="3">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding ThirdRowStartDate, StringFormat='с {0:MM.dd.yyyy}'}"
-                                                      FontSize="Medium" />
-                                                <Span Text="{Binding ThirdRowEndDate, StringFormat=' по {0:MM.dd.yyyy}'}"
+                                                <Span Text="{Binding ActualTermEndDate, StringFormat=' по {0:MM.dd.yyyy}'}"
                                                       FontSize="Medium" />
                                             </FormattedString>
                                         </Label.FormattedText>
