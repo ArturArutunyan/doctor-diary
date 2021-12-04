@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
-using DoctorDiary.Shared.SickLeaves;
 using DoctorDiary.Views.SickLeaves;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
@@ -124,14 +123,14 @@ namespace DoctorDiary.ViewModels.PatientCards
         #endregion
 
         #region Buttons
-        private bool _sickSickLeaveButtonIsEnabled;
+        private bool _openSickLeaveButtonIsEnabled;
         private bool _closeSickLeaveWithCodeIsEnabled;
         private bool _extendSickLeaveButtonIsEnabled;
 
         public bool OpenSickLeaveButtonIsEnabled
         {
-            get => _sickSickLeaveButtonIsEnabled;
-            set => SetProperty(ref _sickSickLeaveButtonIsEnabled, value);
+            get => _openSickLeaveButtonIsEnabled;
+            set => SetProperty(ref _openSickLeaveButtonIsEnabled, value);
         }
 
         public bool CloseSickLeaveWithCodeIsEnabled
@@ -162,8 +161,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         public AsyncCommand CloseSickLeaveCommand { get; }
         public AsyncCommand CloseSickLeaveWithCodeCommand { get; }
         public AsyncCommand ExtendSickLeaveCommand { get; }
-
-
+        
         public PatientCardDetailViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
