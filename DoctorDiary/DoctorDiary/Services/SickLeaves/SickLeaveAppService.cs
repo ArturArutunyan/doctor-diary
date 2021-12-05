@@ -142,12 +142,11 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.DeleteAsync(id);
         }
 
-        public async Task ChangeSickLeave(Guid id, long number, IEnumerable<Term> terms)
+        public async Task ChangeSickLeave(Guid id, long number)
         {
             var sickLeave = await _sickLeaveRepository.GetAsync(id);
 
             sickLeave.ChangeNumber(number: number);
-            sickLeave.ChangeTerms(terms: terms);
 
             await _sickLeaveRepository.UpdateAsync(sickLeave);
         }

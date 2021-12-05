@@ -45,6 +45,6 @@ namespace DoctorDiary.Services.SickLeaves
         
         Task DeleteAsync(Guid id);
 
-        Task ChangeSickLeave(Guid id, long number, IEnumerable<Term> terms);
+        Task ChangeSickLeave(Guid id, long number);
     }
 }

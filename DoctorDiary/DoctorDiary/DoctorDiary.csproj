@@ -15,4 +15,11 @@
   <ItemGroup>
     <ProjectReference Include="..\DoctorDiary.Shared\DoctorDiary.Shared.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\SickLeaves\EditSickLeavePage.xaml.cs">
+      <DependentUpon>EditSickLeavePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

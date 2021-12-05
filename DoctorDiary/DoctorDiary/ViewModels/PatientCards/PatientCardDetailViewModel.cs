@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
+using DoctorDiary.Views.PatientCards;
 using DoctorDiary.Views.SickLeaves;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
@@ -161,6 +162,10 @@ namespace DoctorDiary.ViewModels.PatientCards
         public AsyncCommand CloseSickLeaveCommand { get; }
         public AsyncCommand CloseSickLeaveWithCodeCommand { get; }
         public AsyncCommand ExtendSickLeaveCommand { get; }
+        public AsyncCommand EditPatientCardCommand { get; }
+        public AsyncCommand EditSickLeaveCommand { get; }
+        public AsyncCommand DeletePatientCardCommand { get; }
+        public AsyncCommand DeleteSickLeaveCommand { get; }
         
         public PatientCardDetailViewModel()
         {
@@ -172,6 +177,42 @@ namespace DoctorDiary.ViewModels.PatientCards
             CloseSickLeaveCommand = new AsyncCommand(OnCloseSickLeave);
             CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode);
             ExtendSickLeaveCommand = new AsyncCommand(OnExtendSickLeave);
+            EditPatientCardCommand = new AsyncCommand(OnEditPatientCard);
+            EditSickLeaveCommand = new AsyncCommand(OnEditSickLeave);
+            DeletePatientCardCommand = new AsyncCommand(OnDeletePatientCard);
+            DeleteSickLeaveCommand = new AsyncCommand(OnDeleteSickLeave);
+        }
+
+        private async Task OnEditPatientCard()
+        {
+            await Shell.Current.GoToAsync($"{nameof(EditPatientCardPage)}?{nameof(PatientCardId)}={PatientCardId}");
+        }
+
+        private async Task OnEditSickLeave()
+        {
+            if (!SickLeaveId.HasValue)
+                return;
+            
+            await Shell.Current.GoToAsync($"{nameof(EditSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
+        }
+
+        private async Task OnDeletePatientCard()
+        {
+            await _patientCardAppService.DeleteAsync(id: Id);
+            await Shell.Current.GoToAsync("..");
+        }
+
+        private async Task OnDeleteSickLeave()
+        {
+            if (!SickLeaveId.HasValue)
+                return;
+
+            await _sickLeaveAppService.DeleteAsync(SickLeaveId.Value);
+
+            SickLeaveVisible = false;
+            OpenSickLeaveButtonIsEnabled = true;
+            ExtendSickLeaveButtonIsEnabled = false;
+            CloseSickLeaveWithCodeIsEnabled = false;
         }
 
         private async void LoadPatientCard(string patientCardId)

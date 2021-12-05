@@ -26,7 +26,9 @@ namespace DoctorDiary
             Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
             Routing.RegisterRoute(nameof(PatientCardDetailPage), typeof(PatientCardDetailPage));
             Routing.RegisterRoute(nameof(NewPatientCardPage), typeof(NewPatientCardPage));
+            Routing.RegisterRoute(nameof(EditPatientCardPage), typeof(EditPatientCardPage));
             Routing.RegisterRoute(nameof(OpenSickLeavePage), typeof(OpenSickLeavePage));
+            Routing.RegisterRoute(nameof(EditSickLeavePage), typeof(EditSickLeavePage));
             Routing.RegisterRoute(nameof(ExtendSickLeavePage), typeof(ExtendSickLeavePage));
             Routing.RegisterRoute(nameof(CloseSickLeaveWithThirtyOneCodePage), typeof(CloseSickLeaveWithThirtyOneCodePage));
         }
