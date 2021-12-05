@@ -17,6 +17,11 @@ namespace DoctorDiary.Services.Reminders
             _reminderRepository = DependencyService.Get<IReminderRepository>();
         }
 
+        public async Task<List<Reminder>> ActiveRemindersForDate(DateTime date, bool asNoTracking = false)
+        {
+            return await _reminderRepository.ActiveRemindersForDate(date: date, asNoTracking: asNoTracking);
+        }
+
         public async Task<List<Reminder>> GetLastActiveReminders(int take, int skip, bool asNoTracking = false)
         {
             return await _reminderRepository.GetLastActiveReminders(take, skip);
