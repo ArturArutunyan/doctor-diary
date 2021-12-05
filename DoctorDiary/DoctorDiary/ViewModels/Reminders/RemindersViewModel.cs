@@ -65,9 +65,7 @@ namespace DoctorDiary.ViewModels.Reminders
             {
                 Reminders.Clear();
                 
-                var reminders = await _reminderAppService.GetLastActiveReminders(
-                    take: MaxDefaultRemindersTakeCount, 
-                    skip: 0);
+                var reminders = await _reminderAppService.ActiveRemindersForDate(date: DateTime.Now.Date, asNoTracking: true);
                 
                 Reminders.AddRange(reminders);
             }
