@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.EntityFrameworkCore.SickLeaves;
+using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Services.Reminders;
@@ -63,44 +64,25 @@ namespace DoctorDiary.Services.SickLeaves
 
         public async Task OpenSickLeave(Guid patientCardId, long number, Term term)
         {
-            var patientCard = await _patientCardRepository.GetAsync(patientCardId);
             var sickLeave = new SickLeave(
                 id: Guid.NewGuid(),
                 number: number,
-                patientCard: patientCard,
+                patientCardId: patientCardId,
                 term: term);
 
-            var fullName = patientCard.LastName + " " + string.Join('.', new[]
-                {
-                    patientCard.FirstName,
-                    patientCard.Patronymic
-                }
-                .Where(x => !string.IsNullOrEmpty(x))
-                .Select(x => x[0]));
-            
-            await _reminderAppService.Create(
-                title: $@"Заканчивается больничный",
-                description: $"У пациента {fullName} сегодня заканчивается больничный лист",
-                navigationLinkOnClick: $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={patientCard.Id}",
-                time: term.EndDate);
-                
+            await PushReminder(patientCardId: patientCardId, time: term.EndDate);
+
             await _sickLeaveRepository.InsertAsync(sickLeave);
         }
 
         public async Task ExtendSickLeave(Guid patientCardId, Term term)
         {
             var sickLeave = await GetActiveSickLeaveOrDefaultByPatientCardId(patientCardId);
-            
             sickLeave.ExtendSickLeave(term);
 
+            await PushReminder(patientCardId: patientCardId, time: term.EndDate);
+            
             await _sickLeaveRepository.UpdateAsync(sickLeave);
-        }
-
-        public async Task<SickLeave> CloseSickLeave(SickLeave sickLeave)
-        {
-            sickLeave.Close();
-
-            return await _sickLeaveRepository.UpdateAsync(sickLeave);
         }
 
         public async Task CloseSickLeave(Guid sickLeaveId)
@@ -148,13 +130,10 @@ namespace DoctorDiary.Services.SickLeaves
             // TODO: Validate - startDate & endDate of new sick leave should be greater than previous
             if (number.HasValue && startDate.HasValue && endDate.HasValue)
             {
-                var newSickLeave = new SickLeave(
-                    id: Guid.NewGuid(),
-                    number: number.Value,
+                await OpenSickLeave(
                     patientCardId: sickLeave.PatientCardId,
+                    number: number.Value,
                     term: Term.Create(startDate: startDate.Value, endDate: endDate.Value));
-                
-                await _sickLeaveRepository.InsertAsync(newSickLeave);
             }
         }
 
@@ -171,6 +150,25 @@ namespace DoctorDiary.Services.SickLeaves
             sickLeave.ChangeTerms(terms: terms);
 
             await _sickLeaveRepository.UpdateAsync(sickLeave);
+        }
+
+        private async Task PushReminder(Guid patientCardId, DateTime time)
+        {
+            var patientCard = await _patientCardRepository.GetAsync(patientCardId);
+            
+            var fullName = patientCard.LastName + " " + string.Join('.', new[]
+                {
+                    patientCard.FirstName,
+                    patientCard.Patronymic
+                }
+                .Where(x => !string.IsNullOrEmpty(x))
+                .Select(x => x[0]));
+            
+            await _reminderAppService.Push(
+                title: $@"Заканчивается больничный",
+                description: $"У пациента {fullName} сегодня заканчивается больничный лист",
+                navigationLinkOnClick: $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={patientCard.Id}",
+                time: time);
         }
     }
 }

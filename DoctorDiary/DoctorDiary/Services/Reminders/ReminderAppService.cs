@@ -27,7 +27,7 @@ namespace DoctorDiary.Services.Reminders
             return await _reminderRepository.GetLastActiveReminders(take, skip);
         }
 
-        public async Task Create(
+        public async Task Push(
             string title,
             string description,
             string navigationLinkOnClick,

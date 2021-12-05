@@ -11,7 +11,7 @@ namespace DoctorDiary.Services.Reminders
         
         Task<List<Reminder>> GetLastActiveReminders(int take, int skip, bool asNoTracking = false);
 
-        Task Create(
+        Task Push(
             string title,
             string description,
             string navigationLinkOnClick,
