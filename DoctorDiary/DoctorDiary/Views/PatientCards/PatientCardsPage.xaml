@@ -73,10 +73,24 @@
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="Medium" />
                                 <Label Grid.Row="3" 
-                                       Text="{Binding PhoneNumber, StringFormat='Телефон - {0}'}"
                                        LineBreakMode="CharacterWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="Medium" />
+                                       FontSize="Medium">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Телефон - " />
+                                            <Span Text="{Binding PhoneNumber}"
+                                                  TextColor="Blue"
+                                                  TextDecorations="Underline">
+                                                <Span.GestureRecognizers>
+                                                    <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                          Command="{Binding Source={RelativeSource AncestorType={x:Type patientCards:PatientCardsViewModel}}, Path=OpenPhoneDialerCommand}" 
+                                                                          CommandParameter="{Binding .}" />
+                                                </Span.GestureRecognizers>
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                                 <Label Grid.Row="4" 
                                        Text="{Binding Address, StringFormat='Адрес - {0}'}"
                                        LineBreakMode="CharacterWrap"

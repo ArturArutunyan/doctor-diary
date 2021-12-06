@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Views.PatientCards;
 using DoctorDiary.Views.SickLeaves;
 using MvvmHelpers.Commands;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace DoctorDiary.ViewModels.PatientCards
@@ -166,6 +168,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         public AsyncCommand EditSickLeaveCommand { get; }
         public AsyncCommand DeletePatientCardCommand { get; }
         public AsyncCommand DeleteSickLeaveCommand { get; }
+        public Xamarin.Forms.Command OpenPhoneDialerCommand { get; }
         
         public PatientCardDetailViewModel()
         {
@@ -181,8 +184,32 @@ namespace DoctorDiary.ViewModels.PatientCards
             EditSickLeaveCommand = new AsyncCommand(OnEditSickLeave);
             DeletePatientCardCommand = new AsyncCommand(OnDeletePatientCard);
             DeleteSickLeaveCommand = new AsyncCommand(OnDeleteSickLeave);
+            OpenPhoneDialerCommand = new Xamarin.Forms.Command(OnOpenPhoneDialer);
         }
 
+        private void OnOpenPhoneDialer()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(PhoneNumber))
+                {
+                    PhoneDialer.Open(PhoneNumber);
+                }
+            }
+            catch (ArgumentNullException anEx)
+            {
+                Console.WriteLine(anEx);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+        
         private async Task OnEditPatientCard()
         {
             await Shell.Current.GoToAsync($"{nameof(EditPatientCardPage)}?{nameof(PatientCardId)}={PatientCardId}");

@@ -6,7 +6,9 @@ using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Views.PatientCards;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
+using Xamarin.Essentials;
 using Xamarin.Forms;
+using Command = Xamarin.Forms.Command;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {
@@ -37,11 +39,11 @@ namespace DoctorDiary.ViewModels.PatientCards
         public ObservableRangeCollection<PatientCard> PatientCards { get; }
 
         public AsyncCommand LoadPatientCardsCommand { get; }
-
         public AsyncCommand AddPatientCardCommand { get; }
-
         public AsyncCommand<PatientCard> PatientCardTapped { get; }
         public AsyncCommand LoadMoreCommand { get; }
+        public Xamarin.Forms.Command<PatientCard> OpenPhoneDialerCommand { get; }
+
 
         public PatientCardsViewModel()
         {
@@ -54,6 +56,30 @@ namespace DoctorDiary.ViewModels.PatientCards
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             AddPatientCardCommand = new AsyncCommand(AddPatientCard);
             LoadMoreCommand = new AsyncCommand(OnPatientCardsThresholdReached);
+            OpenPhoneDialerCommand = new Xamarin.Forms.Command<PatientCard>(OnOpenPhoneDialer);
+        }
+
+        private void OnOpenPhoneDialer(PatientCard patientCard)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(patientCard.PhoneNumber))
+                {
+                    PhoneDialer.Open(patientCard.PhoneNumber);
+                }
+            }
+            catch (ArgumentNullException anEx)
+            {
+                Console.WriteLine(anEx);
+            }
+            catch (FeatureNotSupportedException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
         
         private async Task OnPatientCardsThresholdReached()
