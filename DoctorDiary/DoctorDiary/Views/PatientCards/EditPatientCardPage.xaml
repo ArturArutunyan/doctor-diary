@@ -26,17 +26,30 @@
                 <Entry Text="{Binding Patronymic, Mode=TwoWay}" 
                        FontSize="Medium" 
                        TextColor="{StaticResource Key=TextColor}" />
-            
-                <Label Text="Адрес" FontSize="Medium" />
-                <Entry Text="{Binding Address, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
-            
-                <Label Text="Дата рождения" FontSize="Medium"/> 
-                <DatePicker Format="dd.MM.yyyy" 
-                            Date="{Binding Birthday}"
-                            TextColor="{StaticResource Key=TextColor}" />
+                
+                <Label Text="Пол" FontSize="Medium" />
+                <Picker SelectedItem="{Binding Path=Gender}">
+                    <Picker.Items>
+                        <x:String>М</x:String>
+                        <x:String>Ж</x:String>
+                        <x:String>Другой</x:String>
+                    </Picker.Items>
+                </Picker>
 
+                <Label Text="Дата рождения" FontSize="Medium"/> 
+                <DatePicker Format="dd.MM.yyyy" Date="{Binding Birthday}"
+                            TextColor="{StaticResource Key=TextColor}" />
+                
+                <Label Text="Полис" FontSize="Medium" />
+                <Entry Text="{Binding InsurancePolicy, Mode=TwoWay}" 
+                       FontSize="Medium" 
+                       Keyboard="Numeric"
+                       TextColor="{StaticResource Key=TextColor}">
+                    <Entry.Behaviors>
+                        <behaviors:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX" />
+                    </Entry.Behaviors> 
+                </Entry>
+                
                 <Label Text="СНИЛС" FontSize="Medium" />
                 <Entry Text="{Binding Snils, Mode=TwoWay}" 
                        FontSize="Medium" 
@@ -46,9 +59,29 @@
                         <behaviors:MaskedBehavior Mask="XXX-XXX-XXX-XX" />
                     </Entry.Behaviors> 
                 </Entry>
-            
+                
+                <Label Text="Город" FontSize="Medium" />
+                <Entry Text="{Binding City, Mode=TwoWay}" 
+                       FontSize="Medium" 
+                       TextColor="{StaticResource Key=TextColor}" />
+
+                <Label Text="Улица" FontSize="Medium" />
+                <Entry Text="{Binding Street, Mode=TwoWay}" 
+                       FontSize="Medium" 
+                       TextColor="{StaticResource Key=TextColor}" />
+                
+                <Label Text="Квартира" FontSize="Medium" />
+                <Entry Text="{Binding Apartment, Mode=TwoWay}" 
+                       FontSize="Medium" 
+                       TextColor="{StaticResource Key=TextColor}" />
+                
+                <Label Text="Дом" FontSize="Medium" />
+                <Entry Text="{Binding House, Mode=TwoWay}" 
+                       FontSize="Medium" 
+                       TextColor="{StaticResource Key=TextColor}" />
+                
                 <Label Text="Номер телефона" FontSize="Medium" />
-                <Entry Text="{Binding PhoneNumber, Mode=TwoWay}"
+                <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" 
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}" />
             
@@ -58,6 +91,20 @@
                         FontSize="Medium" 
                         Margin="0"
                         TextColor="{StaticResource Key=TextColor}" />
+              
+                <Label Text="Место работы" FontSize="Medium" />
+                <Editor Text="{Binding PlaceOfWork, Mode=TwoWay}" 
+                        AutoSize="TextChanges" 
+                        FontSize="Medium" 
+                        Margin="0"
+                        TextColor="{StaticResource Key=TextColor}" />
+                
+                <Label Text="Участок" FontSize="Medium" />
+                <Entry Text="{Binding Precinct, Mode=TwoWay}" 
+                       FontSize="Medium" 
+                       Margin="0"
+                       TextColor="{StaticResource Key=TextColor}" 
+                       Keyboard="Numeric" />
               
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>

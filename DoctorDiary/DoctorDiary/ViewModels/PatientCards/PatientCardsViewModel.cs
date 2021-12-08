@@ -8,7 +8,6 @@ using MvvmHelpers;
 using MvvmHelpers.Commands;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Command = Xamarin.Forms.Command;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {

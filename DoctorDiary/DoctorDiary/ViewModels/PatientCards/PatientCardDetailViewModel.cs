@@ -252,9 +252,9 @@ namespace DoctorDiary.ViewModels.PatientCards
                 FirstName = patientCard.FirstName;
                 LastName = patientCard.LastName;
                 Patronymic = patientCard.Patronymic;
-                Address = patientCard.Address;
+                Address = patientCard.Address.ToString();
                 Birthday = patientCard.Birthday;
-                Snils = patientCard.Snils;
+                Snils = patientCard.Snils.ToString();
                 PhoneNumber = patientCard.PhoneNumber;
                 Description = patientCard.Description;
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Shared.Application;
 
 namespace DoctorDiary.Services.PatientCards
@@ -18,22 +19,30 @@ namespace DoctorDiary.Services.PatientCards
             string firstName,
             string lastName,
             string patronymic,
-            string address,
+            Address address,
             DateTime birthday,
-            string snils,
+            Snils snils,
             string description,
-            string phoneNumber);
+            string phoneNumber,
+            string gender,
+            InsurancePolicy insurancePolicy,
+            string placeOfWork,
+            int precinct);
 
         Task UpdateAsync(
             Guid id,
             string firstName,
             string lastName,
             string patronymic,
-            string address,
+            Address address,
             DateTime birthday,
-            string snils,
+            Snils snils,
             string description,
-            string phoneNumber);
+            string phoneNumber,
+            string gender,
+            InsurancePolicy insurancePolicy,
+            string placeOfWork,
+            int precinct);
 
         Task DeleteAsync(Guid id);
     }

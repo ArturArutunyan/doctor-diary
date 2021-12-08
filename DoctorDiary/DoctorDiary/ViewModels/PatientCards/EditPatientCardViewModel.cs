@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Services.PatientCards;
 using MvvmHelpers.Commands;
 using Xamarin.Forms;
@@ -11,14 +12,21 @@ namespace DoctorDiary.ViewModels.PatientCards
     public class EditPatientCardViewModel : BaseViewModel
     {
         private string _patientCardId;
-        private string _firstName;
         private string _lastName;
+        private string _firstName;
         private string _patronymic;
-        private string _address;
+        private string _city;
+        private string _street;
+        private string _apartment;
+        private string _house;
         private DateTime _birthday;
         private string _snils;
         private string _description;
         private string _phoneNumber;
+        private string _gender;
+        private string _insurancePolicy;
+        private string _placeOfWork;
+        private int _precinct;
 
         private readonly IPatientCardAppService _patientCardAppService;
 
@@ -50,10 +58,28 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _patronymic, value);
         }
         
-        public string Address 
+        public string City 
         {
-            get => _address;
-            set => SetProperty(ref _address, value);
+            get => _city;
+            set => SetProperty(ref _city, value);
+        }
+        
+        public string Street 
+        {
+            get => _street;
+            set => SetProperty(ref _street, value);
+        }
+        
+        public string Apartment 
+        {
+            get => _apartment;
+            set => SetProperty(ref _apartment, value);
+        }
+        
+        public string House 
+        {
+            get => _house;
+            set => SetProperty(ref _house, value);
         }
         
         public DateTime Birthday 
@@ -80,6 +106,30 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _phoneNumber, value);
         }
 
+        public string Gender
+        {
+            get => _gender;
+            set => SetProperty(ref _gender, value);
+        }
+        
+        public string InsurancePolicy
+        {
+            get => _insurancePolicy;
+            set => SetProperty(ref _insurancePolicy, value);
+        }
+        
+        public string PlaceOfWork
+        {
+            get => _placeOfWork;
+            set => SetProperty(ref _placeOfWork, value);
+        }
+        
+        public int Precinct
+        {
+            get => _precinct;
+            set => SetProperty(ref _precinct, value);
+        }
+        
         public AsyncCommand SaveCommand { get; }
 
         public AsyncCommand CancelCommand { get; }
@@ -109,11 +159,16 @@ namespace DoctorDiary.ViewModels.PatientCards
                 FirstName = patientCard.FirstName;
                 LastName = patientCard.LastName;
                 Patronymic = patientCard.Patronymic;
-                Address = patientCard.Address;
+                City = patientCard.Address.City;
+                Street = patientCard.Address.Street;
+                Apartment = patientCard.Address.Apartment;
+                House = patientCard.Address.House;
                 Birthday = patientCard.Birthday;
-                Snils = patientCard.Snils;
+                Snils = patientCard.Snils.Value;
                 PhoneNumber = patientCard.PhoneNumber;
                 Description = patientCard.Description;
+                Gender = patientCard.Gender;
+                InsurancePolicy = patientCard.InsurancePolicy.Value;
             }
             catch (Exception)
             {
@@ -134,11 +189,19 @@ namespace DoctorDiary.ViewModels.PatientCards
                 firstName: FirstName,
                 lastName: LastName,
                 patronymic: Patronymic,
-                address: Address,
+                address: new Address(city: City, street: Street, apartment: Apartment, house: House),
                 birthday: Birthday,
-                snils: Snils,
+                snils: string.IsNullOrEmpty(Snils) 
+                    ? Models.PatientCards.ValueObjects.Snils.Empty() 
+                    : new Snils(Snils),
                 description: Description,
-                phoneNumber: PhoneNumber);
+                phoneNumber: PhoneNumber,
+                gender: Gender,
+                insurancePolicy: string.IsNullOrEmpty(InsurancePolicy) 
+                    ? Models.PatientCards.ValueObjects.InsurancePolicy.Empty() 
+                    : new InsurancePolicy(Snils),
+                placeOfWork: PlaceOfWork,
+                precinct: Precinct);
 
             // This will pop the current page off the navigation stack
             await Shell.Current.GoToAsync("..");

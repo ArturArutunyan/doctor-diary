@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Shared.ApplicationContracts;
 using Xamarin.Forms;
@@ -41,11 +42,15 @@ namespace DoctorDiary.Services.PatientCards
             string firstName, 
             string lastName, 
             string patronymic, 
-            string address, 
+            Address address, 
             DateTime birthday, 
-            string snils,
+            Snils snils,
             string description,
-            string phoneNumber)
+            string phoneNumber,
+            string gender,
+            InsurancePolicy insurancePolicy,
+            string placeOfWork,
+            int precinct)
         {
             var patientCard = new PatientCard(
                 id: Guid.NewGuid(),
@@ -56,7 +61,11 @@ namespace DoctorDiary.Services.PatientCards
                 birthday: birthday,
                 snils: snils,
                 description: description,
-                phoneNumber: phoneNumber);
+                phoneNumber: phoneNumber,
+                gender: gender,
+                insurancePolicy: insurancePolicy,
+                placeOfWork: placeOfWork,
+                precinct: precinct);
             
             await _patientCardRepository.InsertAsync(patientCard);
             
@@ -68,11 +77,15 @@ namespace DoctorDiary.Services.PatientCards
             string firstName, 
             string lastName, 
             string patronymic, 
-            string address, 
+            Address address, 
             DateTime birthday, 
-            string snils,
+            Snils snils,
             string description,
-            string phoneNumber)
+            string phoneNumber,
+            string gender,
+            InsurancePolicy insurancePolicy,
+            string placeOfWork,
+            int precinct)
         {
             var patientCard = await _patientCardRepository.GetAsync(id);
             
@@ -84,7 +97,11 @@ namespace DoctorDiary.Services.PatientCards
             patientCard.ChangeSnils(snils);
             patientCard.ChangeDescription(description);
             patientCard.ChangePhoneNumber(phoneNumber);
-            
+            patientCard.ChangeGender(gender);
+            patientCard.ChangeInsurancePolicy(insurancePolicy);
+            patientCard.ChangePlaceOfWork(placeOfWork);
+            patientCard.ChangePrecinct(precinct);
+
             await _patientCardRepository.UpdateAsync(patientCard);
         }
 

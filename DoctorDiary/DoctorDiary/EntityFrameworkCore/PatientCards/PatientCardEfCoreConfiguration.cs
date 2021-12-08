@@ -1,5 +1,6 @@
 ﻿using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Models.PatientCards.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,19 +23,37 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             builder.Property(x => x.Patronymic)
                 .HasColumnName(nameof(PatientCard.Patronymic))
                 .HasColumnType("NVARCHAR(30)");
-            
-            builder.Property(x => x.Address)
-                .HasColumnName(nameof(PatientCard.Address))
-                .HasColumnType("NVARCHAR(100)");
-            
+
+            builder.OwnsOne(x => x.Address, xa =>
+            {
+                xa.Property(x => x.City)
+                    .HasColumnName(nameof(Address.City))
+                    .HasColumnType("NVARCHAR(100)");
+                
+                xa.Property(x => x.Street)
+                    .HasColumnName(nameof(Address.Street))
+                    .HasColumnType("NVARCHAR(100)");
+                
+                xa.Property(x => x.Apartment)
+                    .HasColumnName(nameof(Address.Apartment))
+                    .HasColumnType("NVARCHAR(100)");
+                
+                xa.Property(x => x.House)
+                    .HasColumnName(nameof(Address.House))
+                    .HasColumnType("NVARCHAR(100)");
+            });
+
             builder.Property(x => x.Birthday)
                 .HasColumnName(nameof(PatientCard.Birthday))
                 .HasColumnType("DATE");
             
-            builder.Property(x => x.Snils)
-                .HasColumnName(nameof(PatientCard.Snils))
-                .HasColumnType("NVARCHAR(30)");
-            
+            builder.OwnsOne(x => x.Snils, xs =>
+            {
+                xs.Property(x => x.Value)
+                    .HasColumnName(nameof(PatientCard.Snils))
+                    .HasColumnType("NVARCHAR(11)");
+            });
+
             builder.Property(x => x.Description)
                 .HasColumnName(nameof(PatientCard.Description))
                 .HasColumnType("NVARCHAR(100)");
@@ -43,8 +62,25 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 .HasColumnName(nameof(PatientCard.PhoneNumber))
                 .HasColumnType("NVARCHAR(30)");
             
+            builder.Property(x => x.Gender)
+                .HasColumnName(nameof(PatientCard.Gender))
+                .HasColumnType("NVARCHAR(30)");
+            
             builder.Property(x => x.CreationTime)
                 .HasColumnName(nameof(PatientCard.CreationTime));
+            
+            builder.OwnsOne(x => x.InsurancePolicy, xs =>
+            {
+                xs.Property(x => x.Value)
+                    .HasColumnName(nameof(PatientCard.InsurancePolicy))
+                    .HasColumnType("NVARCHAR(16)");
+            });
+            
+            builder.Property(x => x.PlaceOfWork)
+                .HasColumnName(nameof(PatientCard.PlaceOfWork));
+            
+            builder.Property(x => x.Precinct)
+                .HasColumnName(nameof(PatientCard.Precinct));
         }
     }
 }

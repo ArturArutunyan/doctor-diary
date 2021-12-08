@@ -1,4 +1,5 @@
 ﻿using System;
+using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Shared.Domain;
 
 namespace DoctorDiary.Models.PatientCards
@@ -8,12 +9,16 @@ namespace DoctorDiary.Models.PatientCards
         public virtual string FirstName { get; protected set; }
         public virtual string LastName { get; protected set; }
         public virtual string Patronymic { get; protected set; }
-        public virtual string Address { get; protected set; }
+        public virtual Address Address { get; protected set; }
         public virtual DateTime Birthday { get; protected set; }
-        public virtual string Snils { get; protected set; }
+        public virtual Snils Snils { get; protected set; }
         public virtual string Description { get; protected set; }
         public virtual string PhoneNumber { get; protected set; }
-
+        public virtual string Gender { get; protected set; }
+        public virtual InsurancePolicy InsurancePolicy { get; protected set; }
+        public virtual string PlaceOfWork { get; protected set; }
+        public virtual int Precinct { get; protected set; }
+        
         protected PatientCard()
         {
         }
@@ -23,11 +28,15 @@ namespace DoctorDiary.Models.PatientCards
             string firstName,
             string lastName,
             string patronymic,
-            string address,
+            Address address,
             DateTime birthday,
-            string snils,
+            Snils snils,
             string description,
-            string phoneNumber) : base(id)
+            string phoneNumber,
+            string gender,
+            InsurancePolicy insurancePolicy,
+            string placeOfWork,
+            int precinct) : base(id)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -37,6 +46,10 @@ namespace DoctorDiary.Models.PatientCards
             Snils = snils;
             Description = description;
             PhoneNumber = phoneNumber;
+            Gender = gender;
+            InsurancePolicy = insurancePolicy;
+            PlaceOfWork = placeOfWork;
+            Precinct = precinct;
         }
 
 
@@ -60,12 +73,12 @@ namespace DoctorDiary.Models.PatientCards
             Birthday = birthday;
         }
         
-        public void ChangeAddress(string address)
+        public void ChangeAddress(Address address)
         {
             Address = address;
         }
         
-        public void ChangeSnils(string snils)
+        public void ChangeSnils(Snils snils)
         {
             Snils = snils;
         }
@@ -78,6 +91,26 @@ namespace DoctorDiary.Models.PatientCards
         public void ChangePhoneNumber(string phoneNumber)
         {
             PhoneNumber = phoneNumber;
+        }
+        
+        public void ChangeGender(string gender)
+        {
+            Gender = gender;
+        }
+        
+        public void ChangeInsurancePolicy(InsurancePolicy insurancePolicy)
+        {
+            InsurancePolicy = insurancePolicy;
+        }
+        
+        public void ChangePlaceOfWork(string placeOfWork)
+        {
+            PlaceOfWork = placeOfWork;
+        }
+        
+        public void ChangePrecinct(int precinct)
+        {
+            Precinct = precinct;
         }
     }
 }
