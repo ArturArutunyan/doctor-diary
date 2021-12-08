@@ -68,7 +68,7 @@
                                           HeightRequest="1"
                                           BackgroundColor="#032d3d" />
                                 <Label Grid.Row="2" 
-                                       Text="{Binding Birthday, StringFormat='Дата рождения - {0:MM.dd.yyyy}'}"
+                                       Text="{Binding Birthday, StringFormat='Дата рождения - {0:dd.MM.yyyy}'}"
                                        LineBreakMode="CharacterWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
                                        FontSize="Medium" />

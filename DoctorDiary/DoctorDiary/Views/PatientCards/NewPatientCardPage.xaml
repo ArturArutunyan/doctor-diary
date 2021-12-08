@@ -24,7 +24,7 @@
                 <Entry Text="{Binding Address, Mode=TwoWay}" FontSize="Medium" />
             
                 <Label Text="Дата рождения" FontSize="Medium"/> 
-                <DatePicker Format="MM.dd.yyyy" Date="{Binding Birthday}"/>
+                <DatePicker Format="dd.MM.yyyy" Date="{Binding Birthday}"/>
 
                 <Label Text="СНИЛС" FontSize="Medium" />
                 <Entry Text="{Binding Snils, Mode=TwoWay}" FontSize="Medium" />

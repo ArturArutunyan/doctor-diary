@@ -67,7 +67,7 @@
                                            Style="{DynamicResource ListItemDetailTextStyle}"
                                            FontSize="Medium" />
                                     <Label Grid.Row="4" 
-                                           Text="{Binding Time, StringFormat='{0:MM.dd.yyyy}'}"
+                                           Text="{Binding Time, StringFormat='{0:dd.MM.yyyy}'}"
                                            LineBreakMode="CharacterWrap"
                                            Style="{DynamicResource ListItemDetailTextStyle}"
                                            FontSize="Small" 

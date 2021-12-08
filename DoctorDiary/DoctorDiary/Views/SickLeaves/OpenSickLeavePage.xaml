@@ -18,13 +18,13 @@
                 <Label Text="Дата начала больничного" FontSize="Medium" VerticalOptions="Center"/>
                 <DatePicker 
                     MinimumDate="{Binding StartDate}"
-                    Format="MM.dd.yyyy" 
+                    Format="dd.MM.yyyy" 
                     Date="{Binding StartDate}"/>
             
                 <Label Text="Дата окончания больничного" FontSize="Medium" VerticalOptions="Center"/>
                 <DatePicker 
                     MinimumDate="{Binding StartDate}"
-                    Format="MM.dd.yyyy" 
+                    Format="dd.MM.yyyy" 
                     Date="{Binding EndDate}"/>
             
                 <StackLayout Orientation="Horizontal">
