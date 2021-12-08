@@ -49,7 +49,7 @@
                                 </Grid.RowDefinitions>
                                 <Label FontSize="Large"
                                        FontAttributes="Bold"
-                                       TextColor="#032d3d"
+                                       TextColor="{StaticResource Key=TextColor}"
                                        Grid.Row="0">
                                     <Label.FormattedText>
                                         <FormattedString>
@@ -68,10 +68,16 @@
                                           HeightRequest="1"
                                           BackgroundColor="#032d3d" />
                                 <Label Grid.Row="2" 
-                                       Text="{Binding Birthday, StringFormat='Дата рождения - {0:dd.MM.yyyy}'}"
                                        LineBreakMode="CharacterWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="Medium" />
+                                       FontSize="Medium">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Дата рождения - " />
+                                            <Span Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}" TextColor="{StaticResource Key=TextColor}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                                 <Label Grid.Row="3" 
                                        LineBreakMode="CharacterWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
@@ -92,10 +98,16 @@
                                     </Label.FormattedText>
                                 </Label>
                                 <Label Grid.Row="4" 
-                                       Text="{Binding Address, StringFormat='Адрес - {0}'}"
                                        LineBreakMode="CharacterWrap"
                                        Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="Medium" />
+                                       FontSize="Medium" >
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Адрес - " />
+                                            <Span Text="{Binding Address, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
                             </Grid>
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
