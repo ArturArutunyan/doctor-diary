@@ -53,10 +53,10 @@
                                        Grid.Row="0">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="{Binding FirstName}"
+                                            <Span Text="{Binding LastName}"
                                                   FontSize="Large" />
                                             <Span Text=" " />
-                                            <Span Text="{Binding LastName}"
+                                            <Span Text="{Binding FirstName}"
                                                   FontSize="Large" />
                                             <Span Text=" " />
                                             <Span Text="{Binding Patronymic}"
