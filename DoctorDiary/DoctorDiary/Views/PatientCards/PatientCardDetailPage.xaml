@@ -158,14 +158,6 @@
                         <Label FontSize="Medium">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Описание: " />
-                                    <Span Text="{Binding Description, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
                                     <Span Text="Место работы: " />
                                     <Span Text="{Binding PlaceOfWork, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
                                 </FormattedString>
@@ -176,6 +168,14 @@
                                 <FormattedString>
                                     <Span Text="Участок: " />
                                     <Span Text="{Binding Precinct, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label FontSize="Medium">
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Описание: " />
+                                    <Span Text="{Binding Description, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
