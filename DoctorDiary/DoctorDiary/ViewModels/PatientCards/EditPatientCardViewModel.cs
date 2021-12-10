@@ -164,11 +164,13 @@ namespace DoctorDiary.ViewModels.PatientCards
                 Apartment = patientCard.Address.Apartment;
                 House = patientCard.Address.House;
                 Birthday = patientCard.Birthday;
-                Snils = patientCard.Snils.Value;
+                Snils = patientCard.Snils.ToReadableFormat();
                 PhoneNumber = patientCard.PhoneNumber;
                 Description = patientCard.Description;
                 Gender = patientCard.Gender;
-                InsurancePolicy = patientCard.InsurancePolicy.Value;
+                InsurancePolicy = patientCard.InsurancePolicy.ToReadableFormat();
+                PlaceOfWork = patientCard.PlaceOfWork;
+                Precinct = patientCard.Precinct;
             }
             catch (Exception)
             {
@@ -199,7 +201,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 gender: Gender,
                 insurancePolicy: string.IsNullOrEmpty(InsurancePolicy) 
                     ? Models.PatientCards.ValueObjects.InsurancePolicy.Empty() 
-                    : new InsurancePolicy(Snils),
+                    : new InsurancePolicy(InsurancePolicy),
                 placeOfWork: PlaceOfWork,
                 precinct: Precinct);
 

@@ -17,17 +17,19 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
         
         public InsurancePolicy(string value)
         {
-            if (value.All(char.IsDigit))
-            {
-                throw new BusinessException($"Полис должен содержать только цифры: {value}");
-            }
-            
-            if (value.Length != PatientCardConsts.InsurancePolicyLength)
-            {
-                throw new BusinessException("Длина полиса должна быть 16 цифр: {value}");
-            }
+            var insurancePolicyClearedFromFormat = value.Replace("-", string.Empty);
+            //
+            // if (insurancePolicyClearedFromFormat.All(char.IsDigit))
+            // {
+            //     throw new BusinessException($"Полис должен содержать только цифры: {value}");
+            // }
+            //
+            // if (insurancePolicyClearedFromFormat.Length != PatientCardConsts.InsurancePolicyLength)
+            // {
+            //     throw new BusinessException("Длина полиса должна быть 16 цифр: {value}");
+            // }
 
-            Value = value;
+            Value = insurancePolicyClearedFromFormat;
         }
 
         public static InsurancePolicy Empty()
@@ -35,6 +37,17 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
             return new InsurancePolicy();
         }
 
+        public string ToReadableFormat()
+        {
+            return string.Join('-', new []
+            {
+                Value[..4],
+                Value[4..8],
+                Value[8..12],
+                Value[12..16]
+            });
+        }
+        
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return Value;

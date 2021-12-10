@@ -7,25 +7,29 @@
              Title="New PatientCard"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
-             xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="3" Padding="15">
                 <Label Text="Фамилия" FontSize="Medium" />
-                <Entry Text="{Binding LastName, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
+                <Entry Text="{Binding LastName, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FirstName}"/>
                 
-                <Label Text="Имя" FontSize="Medium" />
-                <Entry Text="{Binding FirstName, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
+                <Label Text="Имя" FontSize="Medium"/>
+                <Entry Text="{Binding FirstName, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="FirstName"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Patronymic}"/>
                 
                 <Label Text="Отчество" FontSize="Medium" />
-                <Entry Text="{Binding Patronymic, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
+                <Entry Text="{Binding Patronymic, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Patronymic"/>
                 
                 <Label Text="Пол" FontSize="Medium" />
                 <Picker SelectedItem="{Binding Path=Gender}">
@@ -35,76 +39,90 @@
                         <x:String>Другой</x:String>
                     </Picker.Items>
                 </Picker>
-
-                <Label Text="Дата рождения" FontSize="Medium"/> 
+                
+                <Label Text="Дата рождения" FontSize="Medium"/>
                 <DatePicker Format="dd.MM.yyyy" Date="{Binding Birthday}"
-                            TextColor="{StaticResource Key=TextColor}" />
+                            TextColor="{StaticResource Key=TextColor}"/>
                 
                 <Label Text="Полис" FontSize="Medium" />
-                <Entry Text="{Binding InsurancePolicy, Mode=TwoWay}" 
-                       FontSize="Medium" 
+                <Entry Text="{Binding InsurancePolicy, Mode=TwoWay}"
+                       FontSize="Medium"
                        Keyboard="Numeric"
-                       TextColor="{StaticResource Key=TextColor}">
+                       TextColor="{StaticResource Key=TextColor}"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Snils}">
                     <Entry.Behaviors>
-                        <behaviors:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX" />
-                    </Entry.Behaviors> 
+                        <xct:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX"/>
+                    </Entry.Behaviors>
                 </Entry>
                 
                 <Label Text="СНИЛС" FontSize="Medium" />
-                <Entry Text="{Binding Snils, Mode=TwoWay}" 
-                       FontSize="Medium" 
+                <Entry Text="{Binding Snils, Mode=TwoWay}"
+                       FontSize="Medium"
                        Keyboard="Numeric"
-                       TextColor="{StaticResource Key=TextColor}">
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Snils"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference City}">
                     <Entry.Behaviors>
-                        <behaviors:MaskedBehavior Mask="XXX-XXX-XXX-XX" />
-                    </Entry.Behaviors> 
+                        <xct:MaskedBehavior Mask="XXX-XXX-XXX-XX" />
+                    </Entry.Behaviors>
                 </Entry>
                 
                 <Label Text="Город" FontSize="Medium" />
-                <Entry Text="{Binding City, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
-
-                <Label Text="Улица" FontSize="Medium" />
-                <Entry Text="{Binding Street, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
+                <Entry Text="{Binding City, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="City"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}"/>
                 
-                <Label Text="Квартира" FontSize="Medium" />
-                <Entry Text="{Binding Apartment, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
+                <Label Text="Улица" FontSize="Medium" />
+                <Entry Text="{Binding Street, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Street"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference House}"/>
                 
                 <Label Text="Дом" FontSize="Medium" />
-                <Entry Text="{Binding House, Mode=TwoWay}" 
-                       FontSize="Medium" 
-                       TextColor="{StaticResource Key=TextColor}" />
+                <Entry Text="{Binding House, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="House"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Apartment}"/>
+                
+                <Label Text="Квартира" FontSize="Medium" />
+                <Entry Text="{Binding Apartment, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Apartment"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PhoneNumber}"/>
                 
                 <Label Text="Номер телефона" FontSize="Medium" />
-                <Entry Text="{Binding PhoneNumber, Mode=TwoWay}" 
+                <Entry Text="{Binding PhoneNumber, Mode=TwoWay}"
                        FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}" />
-            
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="PhoneNumber"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Description}"/>
+                
                 <Label Text="Описание" FontSize="Medium" />
-                <Editor Text="{Binding Description, Mode=TwoWay}" 
-                        AutoSize="TextChanges" 
-                        FontSize="Medium" 
+                <Editor Text="{Binding Description, Mode=TwoWay}"
+                        AutoSize="TextChanges"
+                        FontSize="Medium"
                         Margin="0"
-                        TextColor="{StaticResource Key=TextColor}" />
-              
+                        TextColor="{StaticResource Key=TextColor}"
+                        x:Name="Description"/>
+                
                 <Label Text="Место работы" FontSize="Medium" />
-                <Editor Text="{Binding PlaceOfWork, Mode=TwoWay}" 
-                        AutoSize="TextChanges" 
-                        FontSize="Medium" 
+                <Editor Text="{Binding PlaceOfWork, Mode=TwoWay}"
+                        AutoSize="TextChanges"
+                        FontSize="Medium"
                         Margin="0"
-                        TextColor="{StaticResource Key=TextColor}" />
+                        TextColor="{StaticResource Key=TextColor}"/>
                 
                 <Label Text="Участок" FontSize="Medium" />
-                <Entry Text="{Binding Precinct, Mode=TwoWay}" 
-                       FontSize="Medium" 
+                <Entry Text="{Binding Precinct, Mode=TwoWay}"
+                       FontSize="Medium"
                        Margin="0"
-                       TextColor="{StaticResource Key=TextColor}" 
-                       Keyboard="Numeric" />
+                       TextColor="{StaticResource Key=TextColor}"
+                       Keyboard="Numeric"/>
               
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>

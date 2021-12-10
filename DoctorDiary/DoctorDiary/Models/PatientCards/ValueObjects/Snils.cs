@@ -16,17 +16,19 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
 
         public Snils(string value)
         {
-            if (value.All(char.IsDigit))
-            {
-                throw new BusinessException($"СНИЛС содержит некорректные символы: {value.Where(c => !char.IsDigit(c))}");
-            }
+            var snilsClearedFromFormat = value.Replace("-", string.Empty);
             
-            if (value.Length != PatientCardConsts.SnilsLength)
-            {
-                throw new BusinessException("Неверная длинна СНИЛСа. Длина СНИЛСа должена составлять 11 цифр.");
-            }
+            // if (snilsClearedFromFormat.All(char.IsDigit))
+            // {
+            //     throw new BusinessException($"СНИЛС содержит некорректные символы: {string.Join("", value.Where(c => !char.IsDigit(c)))}");
+            // }
+            //
+            // if (snilsClearedFromFormat.Length != PatientCardConsts.SnilsLength)
+            // {
+            //     throw new BusinessException("Неверная длинна СНИЛСа. Длина СНИЛСа должена составлять 11 цифр.");
+            // }
 
-            Value = value;
+            Value = snilsClearedFromFormat;
         }
 
         public static Snils Empty()
@@ -34,14 +36,21 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
             return new Snils();
         }
 
-        public override string ToString()
+        // TODO: override ToString
+        public string ToReadableFormat()
         {
-            return Value;
+            return string.Join('-', new []
+            {
+                Value[..3],
+                Value[3..6],
+                Value[6..9],
+                Value[9..11]
+            });
         }
 
         protected override IEnumerable<object> GetAtomicValues()
         {
-            yield return Value;;
+            yield return Value;
         }
     }
 }

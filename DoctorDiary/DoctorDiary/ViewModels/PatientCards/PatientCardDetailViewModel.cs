@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
-using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
@@ -30,6 +29,10 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _snils;
         private string _phoneNumber;
         private string _description;
+        private string _gender;
+        private string _insurancePolicy;
+        private string _placeOfWork;
+        private int _precinct;
         
         public string PatientCardId
         {
@@ -92,6 +95,29 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _description, value);
         }
 
+        public string Gender 
+        {
+            get => _gender;
+            set => SetProperty(ref _gender, value);
+        }
+
+        public string InsurancePolicy
+        {
+            get => _insurancePolicy;
+            set => SetProperty(ref _insurancePolicy, value);
+        }
+        public string PlaceOfWork 
+        {
+            get => _placeOfWork;
+            set => SetProperty(ref _placeOfWork, value);
+        }
+        
+        public int Precinct 
+        {
+            get => _precinct;
+            set => SetProperty(ref _precinct, value);
+        }
+        
         #endregion
         
         #region SickLeave
@@ -254,9 +280,13 @@ namespace DoctorDiary.ViewModels.PatientCards
                 Patronymic = patientCard.Patronymic;
                 Address = patientCard.Address.ToString();
                 Birthday = patientCard.Birthday;
-                Snils = patientCard.Snils.ToString();
+                Snils = patientCard.Snils.ToReadableFormat();
                 PhoneNumber = patientCard.PhoneNumber;
                 Description = patientCard.Description;
+                Gender = patientCard.Gender;
+                InsurancePolicy = patientCard.InsurancePolicy.ToReadableFormat();
+                PlaceOfWork = patientCard.PlaceOfWork;
+                Precinct = patientCard.Precinct;
             }
             catch (Exception)
             {

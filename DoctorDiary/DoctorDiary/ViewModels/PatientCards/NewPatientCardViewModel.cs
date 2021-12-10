@@ -161,7 +161,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 gender: Gender,
                 insurancePolicy: string.IsNullOrEmpty(InsurancePolicy) 
                     ? Models.PatientCards.ValueObjects.InsurancePolicy.Empty() 
-                    : new InsurancePolicy(Snils),
+                    : new InsurancePolicy(InsurancePolicy),
                 placeOfWork: PlaceOfWork,
                 precinct: Precinct);
 
