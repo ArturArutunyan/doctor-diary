@@ -30,8 +30,12 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
             {
                 City,
                 Street,
-                Apartment,
-                House
+                string.IsNullOrEmpty(House) 
+                ? string.Empty
+                : $"дом {House}",
+                string.IsNullOrEmpty(Apartment) 
+                    ? string.Empty
+                    : $"кв. {Apartment}"
             }.Where(x => !string.IsNullOrEmpty(x)));
         }
 
