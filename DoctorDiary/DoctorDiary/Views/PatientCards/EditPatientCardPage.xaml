@@ -34,8 +34,8 @@
                 <Label Text="Пол" FontSize="Medium" />
                 <Picker SelectedItem="{Binding Path=Gender}">
                     <Picker.Items>
-                        <x:String>М</x:String>
-                        <x:String>Ж</x:String>
+                        <x:String>Мужской</x:String>
+                        <x:String>Женский</x:String>
                         <x:String>Другой</x:String>
                     </Picker.Items>
                 </Picker>
