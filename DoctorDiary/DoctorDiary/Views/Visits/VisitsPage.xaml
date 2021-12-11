@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:visitsViewModel="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
+             xmlns:visitModel="clr-namespace:DoctorDiary.Models.Visits;assembly=DoctorDiary"
+             xmlns:patientCards="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
+             x:Class="DoctorDiary.Views.Visits.VisitsPage">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Добавить" Command="{Binding AddVisitCommand}" />
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout Margin="5">
+            <StackLayout VerticalOptions="Center" 
+                         HorizontalOptions="Center" >
+                <Frame CornerRadius="10"
+                       HasShadow="False"
+                       HorizontalOptions="CenterAndExpand"
+                       VerticalOptions="CenterAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <ImageButton Grid.Column="0"
+                                     Source="back.png"
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="20"
+                                     HeightRequest="20"
+                                     HorizontalOptions="End"
+                                     Command="{Binding PreviousDayCommand}"
+                                     Margin="0"
+                                     Padding="2" />
+                        <DatePicker Grid.Column="1"
+                                    Format="dd.MM.yyyy" Date="{Binding Day}"
+                                    TextColor="{StaticResource Key=TextColor}" 
+                                    FontSize="Title"
+                                    HorizontalOptions="Center"
+                                    Margin="10"/>
+                        <ImageButton Grid.Column="2"
+                                     Source="next.png"
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="20"
+                                     HeightRequest="20"
+                                     HorizontalOptions="Start"
+                                     Command="{Binding NextDayCommand}"
+                                     Margin="0"
+                                     Padding="2" />
+                    </Grid>
+                </Frame>
+            </StackLayout>
+            <RefreshView x:DataType="visitsViewModel:VisitsViewModel"
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView ItemsSource="{Binding PatientCards}"
+                                SelectionMode="None"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Margin="5">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         Margin="5">
+                                <Frame CornerRadius="10"
+                                       HasShadow="False"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       x:DataType="patientCards:PatientCard">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Label FontSize="Large"
+                                               FontAttributes="Bold"
+                                               TextColor="{StaticResource Key=TextColor}"
+                                               Grid.Row="0">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding LastName}"
+                                                          FontSize="Large" />
+                                                    <Span Text=" " />
+                                                    <Span Text="{Binding FirstName}"
+                                                          FontSize="Large" />
+                                                    <Span Text=" " />
+                                                    <Span Text="{Binding Patronymic}"
+                                                          FontSize="Large" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <BoxView Grid.Row="1"
+                                                 HeightRequest="1"
+                                                 BackgroundColor="#032d3d" />
+                                        <Label Grid.Row="2"
+                                               LineBreakMode="CharacterWrap"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="Medium">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Дата рождения - " />
+                                                    <Span Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}"
+                                                          TextColor="{StaticResource Key=TextColor}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="3"
+                                               LineBreakMode="CharacterWrap"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="Medium">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Телефон - " />
+                                                    <Span Text="{Binding PhoneNumber}"
+                                                          TextColor="Blue"
+                                                          TextDecorations="Underline">
+                                                        <Span.GestureRecognizers>
+                                                            <TapGestureRecognizer NumberOfTapsRequired="1"
+                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=OpenPhoneDialerCommand}"
+                                                                CommandParameter="{Binding .}" />
+                                                        </Span.GestureRecognizers>
+                                                    </Span>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="4"
+                                               LineBreakMode="CharacterWrap"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontSize="Medium">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Адрес - " />
+                                                    <Span Text="{Binding Address, StringFormat='{0}'}"
+                                                          TextColor="{StaticResource Key=TextColor}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=PatientCardTapped}"
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

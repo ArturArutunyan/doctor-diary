@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoctorDiary.Views.PatientCards.PatientCardsPage"
              Title="{Binding Title}"
-             xmlns:local="clr-namespace:DoctorDiary.ViewModels"  
-             xmlns:model="clr-namespace:DoctorDiary.Models"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:patientCard="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
              BackgroundColor="Silver">

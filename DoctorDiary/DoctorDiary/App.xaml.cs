@@ -5,11 +5,13 @@ using DoctorDiary.EntityFrameworkCore;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.EntityFrameworkCore.Reminders;
 using DoctorDiary.EntityFrameworkCore.SickLeaves;
+using DoctorDiary.EntityFrameworkCore.Visits;
 using DoctorDiary.Services;
 using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.Reminders;
 using DoctorDiary.Services.SickLeaves;
+using DoctorDiary.Services.Visits;
 using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
 
@@ -36,6 +38,8 @@ namespace DoctorDiary
             DependencyService.Register<ISickLeaveRepository, SickLeaveEfCoreRepository>();
             DependencyService.Register<IReminderAppService, ReminderAppService>();
             DependencyService.Register<IReminderRepository, ReminderEfCoreRepository>();
+            DependencyService.Register<IVisitAppService, VisitAppService>();
+            DependencyService.Register<IVisitRepository, VisitEfCoreRepository>();
             DependencyService.Register<IMessageBoxAppService, MessageBoxAppService>();
         }
 

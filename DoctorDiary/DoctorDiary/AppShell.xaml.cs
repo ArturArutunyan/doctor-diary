@@ -16,8 +16,11 @@ namespace DoctorDiary
             RegisterRoutes();
             
             // TODO: Move to localization file
-            PatientCardsTabTitle.Title = "Карточки";
-            RemindersTabTitle.Title = "Напоминания";
+            PatientCards.Title = "Карточки";
+            Visits.Title = "Вызовы";
+            Reminders.Title = "Напоминания";
+
+            CurrentItem = Visits;
         }
 
         private void RegisterRoutes()

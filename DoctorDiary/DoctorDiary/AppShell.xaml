@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:patientCards="clr-namespace:DoctorDiary.Views.PatientCards;assembly=DoctorDiary"
        xmlns:reminders="clr-namespace:DoctorDiary.Views.Reminders;assembly=DoctorDiary"
+       xmlns:visits="clr-namespace:DoctorDiary.Views.Visits;assembly=DoctorDiary"
        Title="DoctorDiary"
        x:Class="DoctorDiary.AppShell">
 
@@ -31,8 +32,9 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent x:Name="PatientCardsTabTitle" Title="Patient cards" Icon="icon_feed.png" ContentTemplate="{DataTemplate patientCards:PatientCardsPage}" />
-        <ShellContent x:Name="RemindersTabTitle" Title="Reminders" Icon="icon_about.png" ContentTemplate="{DataTemplate reminders:RemindersPage}" />
+        <ShellContent x:Name="PatientCards" Icon="business_cards.png" ContentTemplate="{DataTemplate patientCards:PatientCardsPage}" />
+        <ShellContent x:Name="Visits" Icon="house.png" ContentTemplate="{DataTemplate visits:VisitsPage}" />
+        <ShellContent x:Name="Reminders" Icon="reminder.png" ContentTemplate="{DataTemplate reminders:RemindersPage}" />
     </TabBar>
 
     <!--

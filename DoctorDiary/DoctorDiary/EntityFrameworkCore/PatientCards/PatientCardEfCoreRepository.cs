@@ -9,6 +9,12 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
 {
     public class PatientCardEfCoreRepository : RepositoryBase<PatientCard, Guid>, IPatientCardRepository
     {
+        public async Task<List<PatientCard>> PatientCardsByVisits(DateTime date, bool asNoTracking = false)
+        {
+            return null;
+            //EntityDbSet.FromSqlInterpolated("SELECT * FROM Visits").ToListAsync();
+        }
+
         public async Task<List<PatientCard>> GetLastCreatedPatientCards(
             int takeCount, 
             int skipCount,
