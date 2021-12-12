@@ -3,6 +3,7 @@ using System.IO;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.Reminders;
 using DoctorDiary.Models.SickLeaves;
+using DoctorDiary.Models.Visits;
 using Microsoft.EntityFrameworkCore;
 using Xamarin.Forms;
 
@@ -13,6 +14,7 @@ namespace DoctorDiary.EntityFrameworkCore
         public DbSet<PatientCard> PatientCards { get; }
         public DbSet<SickLeave> SickLeaves { get; }
         public DbSet<Reminder> Reminders { get; }
+        public DbSet<Visit> Visits { get; }
 
         public ApplicationDbContext()
         {

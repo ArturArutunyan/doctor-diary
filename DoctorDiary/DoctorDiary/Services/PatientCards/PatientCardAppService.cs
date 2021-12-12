@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
-using DoctorDiary.Models;
+using DoctorDiary.EntityFrameworkCore.Visits;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.PatientCards.ValueObjects;
-using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Shared.ApplicationContracts;
 using Xamarin.Forms;
 
@@ -14,10 +14,12 @@ namespace DoctorDiary.Services.PatientCards
     public class PatientCardAppService : ApplicationServiceBase, IPatientCardAppService
     {
         private readonly IPatientCardRepository _patientCardRepository;
+        private readonly IVisitRepository _visitRepository;
 
         public PatientCardAppService()
         {
             _patientCardRepository = DependencyService.Get<IPatientCardRepository>();
+            _visitRepository = DependencyService.Get<IVisitRepository>();
         }
         
         public async Task<PatientCard> GetAsync(Guid id)
@@ -27,7 +29,10 @@ namespace DoctorDiary.Services.PatientCards
 
         public async Task<List<PatientCard>> PatientCardsByVisits(DateTime date, bool asNoTracking = false)
         {
-            return await _patientCardRepository.PatientCardsByVisits(date: date, asNoTracking: asNoTracking);
+            var visits = await _visitRepository.GetListAsync(x => x.Time == date);
+            var patientCardIds = visits.Select(x => x.PatientCardId);
+
+            return await _patientCardRepository.GetListAsync(x => patientCardIds.Contains(x.Id), asNoTracking: true);
         }
 
         public async Task<List<PatientCard>> GetListAsync(int takeCount, int skipCount, bool asNoTracking = false)

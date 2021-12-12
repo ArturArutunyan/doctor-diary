@@ -1,4 +1,4 @@
-﻿namespace DoctorDiary.Shared.Application
+﻿namespace DoctorDiary.Shared.ApplicationContracts
 {
     public interface IApplicationService
     {

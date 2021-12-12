@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using DoctorDiary.Views.PatientCards;
 using DoctorDiary.Views.SickLeaves;
+using DoctorDiary.Views.Visits;
 using Xamarin.Forms;
 
 namespace DoctorDiary
@@ -19,8 +20,6 @@ namespace DoctorDiary
             PatientCards.Title = "Карточки";
             Visits.Title = "Вызовы";
             Reminders.Title = "Напоминания";
-
-            CurrentItem = Visits;
         }
 
         private void RegisterRoutes()
@@ -34,6 +33,7 @@ namespace DoctorDiary
             Routing.RegisterRoute(nameof(EditSickLeavePage), typeof(EditSickLeavePage));
             Routing.RegisterRoute(nameof(ExtendSickLeavePage), typeof(ExtendSickLeavePage));
             Routing.RegisterRoute(nameof(CloseSickLeaveWithThirtyOneCodePage), typeof(CloseSickLeaveWithThirtyOneCodePage));
+            Routing.RegisterRoute(nameof(CreateDoctorVisitPage), typeof(CreateDoctorVisitPage));
         }
 
     }

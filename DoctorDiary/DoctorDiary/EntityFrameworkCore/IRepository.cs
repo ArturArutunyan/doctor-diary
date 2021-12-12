@@ -18,7 +18,7 @@ namespace DoctorDiary.EntityFrameworkCore
         
         Task<List<TEntity>> GetListAsync(int takeCount, int skipCount, bool asNoTracking = false);
 
-        Task<List<TEntity>> GetListAsync(Func<TEntity, bool> predicate, bool asNoTracking = false);
+        Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, bool asNoTracking = false);
 
         Task<TEntity> InsertAsync(TEntity entity);
         

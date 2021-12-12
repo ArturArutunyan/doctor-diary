@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.PatientCards.ValueObjects;
-using DoctorDiary.Shared.Application;
+using DoctorDiary.Shared.ApplicationContracts;
 
 namespace DoctorDiary.Services.PatientCards
 {

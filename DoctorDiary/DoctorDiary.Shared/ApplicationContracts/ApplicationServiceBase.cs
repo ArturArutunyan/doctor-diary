@@ -1,6 +1,4 @@
-﻿using DoctorDiary.Shared.Application;
-
-namespace DoctorDiary.Shared.ApplicationContracts
+﻿namespace DoctorDiary.Shared.ApplicationContracts
 {
     public class ApplicationServiceBase : IApplicationService
     {

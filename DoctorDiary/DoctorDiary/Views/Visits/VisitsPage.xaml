@@ -3,58 +3,55 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:visitsViewModel="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
-             xmlns:visitModel="clr-namespace:DoctorDiary.Models.Visits;assembly=DoctorDiary"
              xmlns:patientCards="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
-             x:Class="DoctorDiary.Views.Visits.VisitsPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Добавить" Command="{Binding AddVisitCommand}" />
-    </ContentPage.ToolbarItems>
-    <ContentPage.Content>
-        <StackLayout Margin="5">
-            <StackLayout VerticalOptions="Center" 
-                         HorizontalOptions="Center" >
-                <Frame CornerRadius="10"
-                       HasShadow="False"
-                       HorizontalOptions="CenterAndExpand"
-                       VerticalOptions="CenterAndExpand">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-                        <ImageButton Grid.Column="0"
-                                     Source="back.png"
-                                     BackgroundColor="Transparent"
-                                     WidthRequest="20"
-                                     HeightRequest="20"
-                                     HorizontalOptions="End"
-                                     Command="{Binding PreviousDayCommand}"
-                                     Margin="0"
-                                     Padding="2" />
-                        <DatePicker Grid.Column="1"
-                                    Format="dd.MM.yyyy" Date="{Binding Day}"
-                                    TextColor="{StaticResource Key=TextColor}" 
-                                    FontSize="Title"
-                                    HorizontalOptions="Center"
-                                    Margin="10"/>
-                        <ImageButton Grid.Column="2"
-                                     Source="next.png"
-                                     BackgroundColor="Transparent"
-                                     WidthRequest="20"
-                                     HeightRequest="20"
-                                     HorizontalOptions="Start"
-                                     Command="{Binding NextDayCommand}"
-                                     Margin="0"
-                                     Padding="2" />
-                    </Grid>
+             x:Class="DoctorDiary.Views.Visits.VisitsPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="Silver">
+<ContentPage.Content>
+        <StackLayout Margin="5" x:DataType="visitsViewModel:VisitsViewModel">
+            <FlexLayout Direction="Row" AlignItems="Center" AlignContent="Center" JustifyContent="Center">
+                <ImageButton Source="back.png"
+                             BackgroundColor="White"
+                             HorizontalOptions="End"
+                             Command="{Binding PreviousDayCommand}"
+                             Padding="0, 4, 0, 4"
+                             BorderWidth="1"
+                             BorderColor="Black"
+                             CornerRadius="10"
+                             HeightRequest="45" 
+                             WidthRequest="40"/>
+                        
+                <Frame BackgroundColor="White"
+                       BorderColor="Black"
+                       CornerRadius="10"
+                       HorizontalOptions="Center"
+                       HeightRequest="45" 
+                       WidthRequest="100"
+                       Margin="10, 0, 10, 0">
+                    <DatePicker Format="dd.MM.yyyy" 
+                                Date="{Binding Day}" DateSelected="DatePicker_OnDateSelected"
+                                TextColor="{StaticResource Key=TextColor}"
+                                FontSize="Medium"/>
                 </Frame>
-            </StackLayout>
-            <RefreshView x:DataType="visitsViewModel:VisitsViewModel"
-                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                
+                <ImageButton Source="next.png"
+                             BackgroundColor="White"
+                             HorizontalOptions="Start"
+                             Padding="0, 4, 0, 4"
+                             BorderWidth="1"
+                             BorderColor="Black"
+                             CornerRadius="10"
+                             HeightRequest="45" 
+                             WidthRequest="40"
+                             Command="{Binding NextDayCommand}"/>
+                       
+                <!-- <Button BackgroundColor="SeaGreen" Text="Item 1" HeightRequest="100" WidthRequest="90"/> -->
+                <!-- <Button BackgroundColor="LightBlue" Text="Item 2" HeightRequest="90" WidthRequest="100" /> -->
+                <!-- <Button BackgroundColor="LightPink" Text="Item 3" HeightRequest="90" WidthRequest="100" /> -->
+                <!-- <Button BackgroundColor="LightGreen" Text="Item 4" HeightRequest="100" WidthRequest="90"/> -->
+            </FlexLayout>
+            <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                         Command="{Binding LoadPatientCardsCommand}" >
                 <CollectionView ItemsSource="{Binding PatientCards}"
                                 SelectionMode="None"
                                 HorizontalOptions="Center"

@@ -22,12 +22,8 @@ namespace DoctorDiary.ViewModels.Visits
 
         public DateTime Day
         {
-            get => _day;
-            set
-            {
-                SetProperty(ref _day, value);
-                LoadPatientCards();
-            }
+            get => _day.Date;
+            set => SetProperty(ref _day, value);
         }
 
         public PatientCard SelectedPatientCard
@@ -44,7 +40,6 @@ namespace DoctorDiary.ViewModels.Visits
 
         public AsyncCommand LoadPatientCardsCommand { get; }
         public AsyncCommand<PatientCard> PatientCardTapped { get; set; }
-        public AsyncCommand AddVisitCommand { get; }
         public AsyncCommand PreviousDayCommand { get; }
         public AsyncCommand NextDayCommand { get; }
         public Command<PatientCard> OpenPhoneDialerCommand { get;}
@@ -60,7 +55,6 @@ namespace DoctorDiary.ViewModels.Visits
 
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
-            AddVisitCommand = new AsyncCommand(AddVisit);
             PreviousDayCommand = new AsyncCommand(PreviousDay);
             NextDayCommand = new AsyncCommand(NextDay);
             OpenPhoneDialerCommand = new Command<PatientCard>(OpenPhoneDialer);
@@ -102,11 +96,6 @@ namespace DoctorDiary.ViewModels.Visits
             // This will push the ItemDetailPage onto the navigation stack
             await Shell.Current.GoToAsync($"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={patientCard.Id}");
         }
-        
-        private async Task AddVisit()
-        {
-            throw new NotImplementedException();
-        }
 
         private async Task PreviousDay()
         {
@@ -114,6 +103,7 @@ namespace DoctorDiary.ViewModels.Visits
                 return;
 
             Day = Day.AddDays(-1);
+            IsBusy = true;
         }
 
         private async Task NextDay()
@@ -122,6 +112,16 @@ namespace DoctorDiary.ViewModels.Visits
                 return;
 
             Day = Day.AddDays(1);
+            IsBusy = true;
+        }
+        
+        public void SetDay(DateTime time)
+        {
+            if (IsBusy)
+                return;
+
+            Day = time;
+            IsBusy = true;
         }
 
         private void OpenPhoneDialer(PatientCard patientCard)

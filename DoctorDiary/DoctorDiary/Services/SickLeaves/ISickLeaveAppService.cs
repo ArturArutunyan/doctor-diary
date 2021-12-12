@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
-using DoctorDiary.Shared.Application;
+using DoctorDiary.Shared.ApplicationContracts;
 using DoctorDiary.Shared.SickLeaves;
 
 namespace DoctorDiary.Services.SickLeaves

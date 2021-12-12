@@ -50,9 +50,9 @@ namespace DoctorDiary.EntityFrameworkCore
             return await query.ToListAsync();
         }
 
-        public async Task<List<TEntity>> GetListAsync(Func<TEntity, bool> predicate, bool asNoTracking = false)
+        public async Task<List<TEntity>> GetListAsync(Expression<Func<TEntity, bool>> predicate, bool asNoTracking = false)
         {
-            var query = EntityDbSet.Where(predicate).AsQueryable();
+            var query = EntityDbSet.Where(predicate);
                 
             if (asNoTracking)
             {

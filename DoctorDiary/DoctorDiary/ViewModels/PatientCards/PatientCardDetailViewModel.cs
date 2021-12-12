@@ -6,6 +6,7 @@ using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Views.PatientCards;
 using DoctorDiary.Views.SickLeaves;
+using DoctorDiary.Views.Visits;
 using MvvmHelpers.Commands;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -194,6 +195,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         public AsyncCommand EditSickLeaveCommand { get; }
         public AsyncCommand DeletePatientCardCommand { get; }
         public AsyncCommand DeleteSickLeaveCommand { get; }
+        public AsyncCommand CreateDoctorVisitCommand { get; }
         public Xamarin.Forms.Command OpenPhoneDialerCommand { get; }
         
         public PatientCardDetailViewModel()
@@ -202,17 +204,18 @@ namespace DoctorDiary.ViewModels.PatientCards
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
             _messageBoxAppService = DependencyService.Get<IMessageBoxAppService>();
             
-            OpenSickLeaveCommand = new AsyncCommand(OnOpenSickLeave);
-            CloseSickLeaveCommand = new AsyncCommand(OnCloseSickLeave);
-            CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode);
-            ExtendSickLeaveCommand = new AsyncCommand(OnExtendSickLeave);
-            EditPatientCardCommand = new AsyncCommand(OnEditPatientCard);
-            EditSickLeaveCommand = new AsyncCommand(OnEditSickLeave);
-            DeletePatientCardCommand = new AsyncCommand(OnDeletePatientCard);
-            DeleteSickLeaveCommand = new AsyncCommand(OnDeleteSickLeave);
+            OpenSickLeaveCommand = new AsyncCommand(OpenSickLeave);
+            CloseSickLeaveCommand = new AsyncCommand(CloseSickLeave);
+            CloseSickLeaveWithCodeCommand = new AsyncCommand(CloseSickLeaveWithCode);
+            ExtendSickLeaveCommand = new AsyncCommand(ExtendSickLeave);
+            EditPatientCardCommand = new AsyncCommand(EditPatientCard);
+            EditSickLeaveCommand = new AsyncCommand(EditSickLeave);
+            DeletePatientCardCommand = new AsyncCommand(DeletePatientCard);
+            DeleteSickLeaveCommand = new AsyncCommand(DeleteSickLeave);
+            CreateDoctorVisitCommand = new AsyncCommand(CreateDoctorVisit);
             OpenPhoneDialerCommand = new Xamarin.Forms.Command(OnOpenPhoneDialer);
         }
-
+        
         private void OnOpenPhoneDialer()
         {
             try
@@ -236,12 +239,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
         
-        private async Task OnEditPatientCard()
+        private async Task EditPatientCard()
         {
             await Shell.Current.GoToAsync($"{nameof(EditPatientCardPage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
 
-        private async Task OnEditSickLeave()
+        private async Task EditSickLeave()
         {
             if (!SickLeaveId.HasValue)
                 return;
@@ -249,13 +252,13 @@ namespace DoctorDiary.ViewModels.PatientCards
             await Shell.Current.GoToAsync($"{nameof(EditSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
 
-        private async Task OnDeletePatientCard()
+        private async Task DeletePatientCard()
         {
             await _patientCardAppService.DeleteAsync(id: Id);
             await Shell.Current.GoToAsync("..");
         }
 
-        private async Task OnDeleteSickLeave()
+        private async Task DeleteSickLeave()
         {
             if (!SickLeaveId.HasValue)
                 return;
@@ -268,6 +271,11 @@ namespace DoctorDiary.ViewModels.PatientCards
             CloseSickLeaveWithCodeIsEnabled = false;
         }
 
+        private async Task CreateDoctorVisit()
+        {
+            await Shell.Current.GoToAsync($"{nameof(CreateDoctorVisitPage)}?{nameof(PatientCardId)}={PatientCardId}");
+        }
+        
         private async void LoadPatientCard(string patientCardId)
         {
             try
@@ -334,12 +342,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        public async Task OnOpenSickLeave()
+        public async Task OpenSickLeave()
         {
             await Shell.Current.GoToAsync($"{nameof(OpenSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
 
-        private async Task OnCloseSickLeave()
+        private async Task CloseSickLeave()
         {
             try
             {
@@ -364,7 +372,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        private async Task OnCloseSickLeaveWithCode()
+        private async Task CloseSickLeaveWithCode()
         {
             try
             {
@@ -396,7 +404,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             CloseSickLeaveWithCodeIsEnabled = false;
         }
 
-        private async Task OnExtendSickLeave()
+        private async Task ExtendSickLeave()
         {
             await Shell.Current.GoToAsync($"{nameof(ExtendSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
         }

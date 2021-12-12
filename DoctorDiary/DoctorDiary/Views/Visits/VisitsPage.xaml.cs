@@ -25,5 +25,10 @@ namespace DoctorDiary.Views.Visits
             base.OnAppearing();
             _visitsViewModel.OnAppearing();
         }
+
+        private void DatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
+        {
+            _visitsViewModel.SetDay(e.NewDate);
+        }
     }
 }

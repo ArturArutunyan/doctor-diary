@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:visits="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
+             x:Class="DoctorDiary.Views.Visits.CreateDoctorVisitPage"
+             x:DataType="visits:CreateDoctorVisitViewModel">
+    <ContentPage.Content>
+        <Frame Padding="10">
+            <StackLayout VerticalOptions="Center" Padding="20">
+                <Label Text="Дата визита врача" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker Format="dd.MM.yyyy" Date="{Binding Time}"/>
+                
+                <Button Text="Записать" 
+                        Command="{Binding CreateDoctorVisitCommand}" HorizontalOptions="Center" />
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

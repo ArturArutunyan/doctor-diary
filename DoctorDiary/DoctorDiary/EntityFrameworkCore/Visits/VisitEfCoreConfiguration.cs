@@ -1,4 +1,5 @@
-﻿using DoctorDiary.Models.Visits;
+﻿using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Models.Visits;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -11,13 +12,19 @@ namespace DoctorDiary.EntityFrameworkCore.Visits
             builder.HasKey(x => x.Id);
             
             builder.Property(x => x.Time)
-                .HasColumnName(nameof(Visit.Time));
+                .HasColumnName(nameof(Visit.Time))
+                .HasColumnType("DATE");
             
             builder.Property(x => x.IsCompleted)
                 .HasColumnName(nameof(Visit.IsCompleted));
             
             builder.Property(x => x.CreationTime)
                 .HasColumnName(nameof(Visit.CreationTime));
+
+            builder.HasOne<PatientCard>()
+                .WithMany()
+                .HasForeignKey(x => x.PatientCardId)
+                .IsRequired();
         }
     }
 }
