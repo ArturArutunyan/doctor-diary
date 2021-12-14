@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using DoctorDiary.Models;
 using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Services.PatientCards;
-using MvvmHelpers.Commands;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
-using Command = MvvmHelpers.Commands.Command;
 
 namespace DoctorDiary.ViewModels.PatientCards
 {
@@ -35,7 +33,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             Birthday = new DateTime(2000, 1, 1);
             SaveCommand = new AsyncCommand(OnSave, ValidateSave);
             CancelCommand = new AsyncCommand(OnCancel);
-            this.PropertyChanged +=
+            PropertyChanged +=
                 (_, __) => SaveCommand.RaiseCanExecuteChanged();
         }
 
@@ -157,7 +155,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                     ? Models.PatientCards.ValueObjects.Snils.Empty() 
                     : new Snils(Snils),
                 description: Description,
-                phoneNumber: PhoneNumber,
+                phoneNumber: new PhoneNumber(PhoneNumber),
                 gender: Gender,
                 insurancePolicy: string.IsNullOrEmpty(InsurancePolicy) 
                     ? Models.PatientCards.ValueObjects.InsurancePolicy.Empty() 

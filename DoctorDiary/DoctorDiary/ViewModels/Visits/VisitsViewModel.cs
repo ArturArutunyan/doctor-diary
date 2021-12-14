@@ -128,9 +128,9 @@ namespace DoctorDiary.ViewModels.Visits
         {
             try
             {
-                if (!string.IsNullOrEmpty(patientCard.PhoneNumber))
+                if (!string.IsNullOrEmpty(patientCard.PhoneNumber.Value))
                 {
-                    PhoneDialer.Open(patientCard.PhoneNumber);
+                    PhoneDialer.Open(Models.PatientCards.ValueObjects.PhoneNumber.ClearFromFormat(patientCard.PhoneNumber.Value));
                 }
             }
             catch (ArgumentNullException anEx)

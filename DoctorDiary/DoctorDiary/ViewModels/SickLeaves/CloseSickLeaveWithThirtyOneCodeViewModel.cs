@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Shared.SickLeaves;
-using MvvmHelpers.Commands;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace DoctorDiary.ViewModels.SickLeaves

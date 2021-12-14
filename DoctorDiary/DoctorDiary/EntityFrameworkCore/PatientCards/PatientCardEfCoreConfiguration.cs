@@ -58,13 +58,12 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 .HasColumnName(nameof(PatientCard.Description))
                 .HasColumnType("NVARCHAR(100)");
             
-            builder.Property(x => x.PhoneNumber)
-                .HasColumnName(nameof(PatientCard.PhoneNumber))
-                .HasColumnType("NVARCHAR(30)");
-            
-            builder.Property(x => x.Gender)
-                .HasColumnName(nameof(PatientCard.Gender))
-                .HasColumnType("NVARCHAR(30)");
+            builder.OwnsOne(x => x.PhoneNumber, xs =>
+            {
+                xs.Property(x => x.Value)
+                    .HasColumnName(nameof(PatientCard.PhoneNumber))
+                    .HasColumnType("NVARCHAR(15)");
+            });
             
             builder.Property(x => x.CreationTime)
                 .HasColumnName(nameof(PatientCard.CreationTime));

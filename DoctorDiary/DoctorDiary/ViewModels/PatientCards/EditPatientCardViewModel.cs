@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Services.PatientCards;
-using MvvmHelpers.Commands;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace DoctorDiary.ViewModels.PatientCards
@@ -140,7 +140,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             Birthday = new DateTime(2000, 1, 1);
             SaveCommand = new AsyncCommand(OnSave, ValidateSave);
             CancelCommand = new AsyncCommand(OnCancel);
-            this.PropertyChanged +=
+            PropertyChanged +=
                 (_, __) => SaveCommand.RaiseCanExecuteChanged();
         }
 
@@ -159,16 +159,16 @@ namespace DoctorDiary.ViewModels.PatientCards
                 FirstName = patientCard.FirstName;
                 LastName = patientCard.LastName;
                 Patronymic = patientCard.Patronymic;
-                City = patientCard.Address.City;
-                Street = patientCard.Address.Street;
-                Apartment = patientCard.Address.Apartment;
-                House = patientCard.Address.House;
+                City = patientCard.Address?.City;
+                Street = patientCard.Address?.Street;
+                Apartment = patientCard.Address?.Apartment;
+                House = patientCard.Address?.House;
                 Birthday = patientCard.Birthday;
-                Snils = patientCard.Snils.ToReadableFormat();
-                PhoneNumber = patientCard.PhoneNumber;
+                Snils = patientCard.Snils?.ToReadableFormat();
+                PhoneNumber = patientCard.PhoneNumber?.Value;
                 Description = patientCard.Description;
                 Gender = patientCard.Gender;
-                InsurancePolicy = patientCard.InsurancePolicy.ToReadableFormat();
+                InsurancePolicy = patientCard.InsurancePolicy?.ToReadableFormat();
                 PlaceOfWork = patientCard.PlaceOfWork;
                 Precinct = patientCard.Precinct;
             }
@@ -197,7 +197,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                     ? Models.PatientCards.ValueObjects.Snils.Empty() 
                     : new Snils(Snils),
                 description: Description,
-                phoneNumber: PhoneNumber,
+                phoneNumber: new PhoneNumber(PhoneNumber),
                 gender: Gender,
                 insurancePolicy: string.IsNullOrEmpty(InsurancePolicy) 
                     ? Models.PatientCards.ValueObjects.InsurancePolicy.Empty() 

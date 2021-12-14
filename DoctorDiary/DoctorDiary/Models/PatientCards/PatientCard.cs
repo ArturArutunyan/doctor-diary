@@ -13,7 +13,7 @@ namespace DoctorDiary.Models.PatientCards
         public virtual DateTime Birthday { get; protected set; }
         public virtual Snils Snils { get; protected set; }
         public virtual string Description { get; protected set; }
-        public virtual string PhoneNumber { get; protected set; }
+        public virtual PhoneNumber PhoneNumber { get; protected set; }
         public virtual string Gender { get; protected set; }
         public virtual InsurancePolicy InsurancePolicy { get; protected set; }
         public virtual string PlaceOfWork { get; protected set; }
@@ -32,7 +32,7 @@ namespace DoctorDiary.Models.PatientCards
             DateTime birthday,
             Snils snils,
             string description,
-            string phoneNumber,
+            PhoneNumber phoneNumber,
             string gender,
             InsurancePolicy insurancePolicy,
             string placeOfWork,
@@ -88,7 +88,7 @@ namespace DoctorDiary.Models.PatientCards
             Description = description;
         }
         
-        public void ChangePhoneNumber(string phoneNumber)
+        public void ChangePhoneNumber(PhoneNumber phoneNumber)
         {
             PhoneNumber = phoneNumber;
         }

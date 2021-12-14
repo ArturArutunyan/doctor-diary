@@ -101,9 +101,9 @@
                        TextColor="{StaticResource Key=TextColor}"
                        x:Name="PhoneNumber"
                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Description}">
-                    <!-- <Entry.Behaviors> -->
-                    <!--     <xct:MaskedBehavior Mask="+7(XXX)-XXX-XX-XX"/> -->
-                    <!-- </Entry.Behaviors>  -->
+                    <Entry.Behaviors>
+                        <xct:MaskedBehavior Mask="+7(XXX)-XXX-XX-XX"/>
+                    </Entry.Behaviors>
                 </Entry>
                 
                 <Label Text="Описание" FontSize="Medium" />

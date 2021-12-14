@@ -3,8 +3,7 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using DoctorDiary.Models.Reminders;
 using DoctorDiary.Services.Reminders;
-using MvvmHelpers;
-using MvvmHelpers.Commands;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace DoctorDiary.ViewModels.Reminders

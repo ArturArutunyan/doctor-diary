@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Views.SickLeaves;
-using MvvmHelpers;
-using MvvmHelpers.Commands;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
 namespace DoctorDiary.ViewModels.SickLeaves

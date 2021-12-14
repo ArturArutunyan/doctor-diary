@@ -7,7 +7,7 @@ using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Views.PatientCards;
 using DoctorDiary.Views.SickLeaves;
 using DoctorDiary.Views.Visits;
-using MvvmHelpers.Commands;
+using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 
@@ -196,7 +196,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         public AsyncCommand DeletePatientCardCommand { get; }
         public AsyncCommand DeleteSickLeaveCommand { get; }
         public AsyncCommand CreateDoctorVisitCommand { get; }
-        public Xamarin.Forms.Command OpenPhoneDialerCommand { get; }
+        public Command OpenPhoneDialerCommand { get; }
         
         public PatientCardDetailViewModel()
         {
@@ -222,7 +222,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 if (!string.IsNullOrEmpty(PhoneNumber))
                 {
-                    PhoneDialer.Open(PhoneNumber);
+                    PhoneDialer.Open(Models.PatientCards.ValueObjects.PhoneNumber.ClearFromFormat(PhoneNumber));
                 }
             }
             catch (ArgumentNullException anEx)
@@ -286,10 +286,10 @@ namespace DoctorDiary.ViewModels.PatientCards
                 FirstName = patientCard.FirstName;
                 LastName = patientCard.LastName;
                 Patronymic = patientCard.Patronymic;
-                Address = patientCard.Address.ToString();
+                Address = patientCard.Address?.ToString();
                 Birthday = patientCard.Birthday;
                 Snils = patientCard.Snils?.ToReadableFormat();
-                PhoneNumber = patientCard.PhoneNumber;
+                PhoneNumber = patientCard.PhoneNumber?.Value;
                 Description = patientCard.Description;
                 Gender = patientCard.Gender;
                 InsurancePolicy = patientCard.InsurancePolicy?.ToReadableFormat();
