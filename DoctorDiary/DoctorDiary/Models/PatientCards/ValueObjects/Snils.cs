@@ -39,13 +39,9 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
         // TODO: override ToString
         public string ToReadableFormat()
         {
-            return string.Join('-', new []
-            {
-                Value[..3],
-                Value[3..6],
-                Value[6..9],
-                Value[9..11]
-            });
+            return string.IsNullOrEmpty(Value) 
+                ? string.Empty 
+                : string.Join('-', Value[..3], Value[3..6], Value[6..9], Value[9..11]);
         }
 
         protected override IEnumerable<object> GetAtomicValues()

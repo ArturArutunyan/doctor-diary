@@ -288,11 +288,11 @@ namespace DoctorDiary.ViewModels.PatientCards
                 Patronymic = patientCard.Patronymic;
                 Address = patientCard.Address.ToString();
                 Birthday = patientCard.Birthday;
-                Snils = patientCard.Snils.ToReadableFormat();
+                Snils = patientCard.Snils?.ToReadableFormat();
                 PhoneNumber = patientCard.PhoneNumber;
                 Description = patientCard.Description;
                 Gender = patientCard.Gender;
-                InsurancePolicy = patientCard.InsurancePolicy.ToReadableFormat();
+                InsurancePolicy = patientCard.InsurancePolicy?.ToReadableFormat();
                 PlaceOfWork = patientCard.PlaceOfWork;
                 Precinct = patientCard.Precinct;
             }
