@@ -1,4 +1,6 @@
-﻿using DoctorDiary.ViewModels.PatientCards;
+﻿using System;
+using DoctorDiary.ViewModels.PatientCards;
+using Xamarin.CommunityToolkit.Extensions;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,6 +20,11 @@ namespace DoctorDiary.Views.PatientCards
         {
             base.OnAppearing();
             _patientCardsViewModel.OnAppearing();
+        }
+
+        private void SearchPatientCards_Clicked(object sender, EventArgs e)
+        {
+            Navigation.ShowPopup(new SearchPatientCardsPopup(_patientCardsViewModel));
         }
     }
 }

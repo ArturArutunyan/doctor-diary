@@ -40,6 +40,34 @@ namespace DoctorDiary.Services.PatientCards
             return await _patientCardRepository.GetListAsync(takeCount: takeCount, skipCount: skipCount, asNoTracking: asNoTracking);
         }
 
+        public async Task<List<PatientCard>> GetLastCreatedPatientCards(PatientCardsFilter filter)
+        {
+            return await _patientCardRepository.GetLastCreatedPatientCards(
+                takeCount: filter.TakeCount,
+                skipCount: filter.SkipCount,
+                asNoTracking: filter.AsNoTracking,
+                firstName: filter.FirstName,
+                lastName: filter.LastName,
+                patronymic: filter.Patronymic,
+                city: filter.City,
+                street: filter.Street,
+                apartment: filter.Apartment,
+                house: filter.House,
+                birthday: filter.Birthday,
+                snils: filter.Snils,
+                description: filter.Description,
+                phoneNumber: filter.PhoneNumber,
+                gender: filter.Gender,
+                insurancePolicy: filter.InsurancePolicy,
+                placeOfWork: filter.PlaceOfWork,
+                precinct: filter.Precinct);
+        }
+
+        public async Task<List<PatientCard>> GetListByFilterAsync(int takeCount, int skipCount, bool asNoTracking = false)
+        {
+            return await _patientCardRepository.GetListAsync(takeCount: takeCount, skipCount: skipCount, asNoTracking: asNoTracking);
+        }
+        
         public async Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount, int skipCount, bool asNoTracking = false)
         {
             return await _patientCardRepository.GetLastCreatedPatientCards(

@@ -210,7 +210,7 @@
                            HorizontalOptions="StartAndExpand">
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="Больничный лист"
+                                <Span Text="Лист нетрудоспособности"
                                       FontSize="Large" />
                             </FormattedString>
                         </Label.FormattedText>
@@ -271,11 +271,11 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
                                     </Grid.RowDefinitions>
                                     <Label Grid.Row="0"
                                            Text="{Binding Number, StringFormat='№ {0}'}"
-                                           FontSize="Medium">
-                                    </Label>
+                                           FontSize="Medium"/>
                                     <Label Grid.Row="1">
                                         <Label.FormattedText>
                                             <FormattedString>
@@ -283,6 +283,19 @@
                                                       FontSize="Medium" />
                                                 <Span Text="{Binding ActualTermEndDate, StringFormat=' по {0:dd.MM.yyyy}'}"
                                                       FontSize="Medium" />
+                                                <Span Text="{Binding TotalOfDaysOnLastTerm, StringFormat='| {0} дней'}"
+                                                      FontSize="Medium" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label Grid.Row="2">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Всего дней: "
+                                                      FontSize="Medium" />
+                                                <Span Text="{Binding  TotalOfDaysOnSickLeave, StringFormat='{0}'}"
+                                                      FontSize="Medium" 
+                                                      TextColor="{StaticResource Key=TextColor}"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

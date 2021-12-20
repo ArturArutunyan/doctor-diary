@@ -25,6 +25,11 @@ namespace DoctorDiary.Models.SickLeaves.ValueObjects
             return new Term(startDate: startDate, endDate: endDate);
         }
 
+        public int Days()
+        {
+            return (EndDate - StartDate).Days;
+        }
+
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return StartDate;

@@ -2,21 +2,22 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="DoctorDiary.Views.PatientCards.PatientCardsPage"
+             x:DataType="patientCards:PatientCardsViewModel"
              Title="{Binding Title}"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:patientCard="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
              BackgroundColor="Silver">
     
     <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Поиск" Clicked="SearchPatientCards_Clicked"/>
         <ToolbarItem Text="Добавить" Command="{Binding AddPatientCardCommand}" />
     </ContentPage.ToolbarItems>
     <!--
       x:DataType enables compiled bindings for better performance and compile time validation of binding expressions.
       https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/data-binding/compiled-bindings
     -->
-    <RefreshView x:DataType="patientCards:PatientCardsViewModel" 
-                 Command="{Binding LoadPatientCardsCommand}" 
-                 IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+    <RefreshView  Command="{Binding LoadPatientCardsCommand}" 
+                  IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
         <CollectionView RemainingItemsThreshold="{Binding RemainingItemsThreshold}"
                         RemainingItemsThresholdReachedCommand="{Binding LoadMoreCommand}"
                         ItemsSource="{Binding PatientCards}"

@@ -79,5 +79,15 @@ namespace DoctorDiary.Models.SickLeaves
         {
             return Terms.Last();
         }
+
+        public int TotalOfDaysOnSickLeave()
+        {
+            return Terms.Sum(x => x.Days());
+        }
+
+        public int TotalDaysOnLastTerm()
+        {
+            return Terms.Last().Days();
+        }
     }
 }

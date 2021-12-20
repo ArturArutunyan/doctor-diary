@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:maskedEntry="clr-namespace:Xamarin.Forms.MaskedEntry;assembly=Xamarin.Forms.MaskedEntry"
+             xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
+             x:Class="DoctorDiary.Views.PatientCards.SearchPatientCardsPopup"
+             x:DataType="patientCards:PatientCardsViewModel">
+    <ScrollView Margin="5, 20, 5, 20" VerticalScrollBarVisibility="Never">
+            <StackLayout Spacing="3" Padding="15" >
+                <ImageButton Source="pen.png" 
+                             BackgroundColor="Transparent"
+                             WidthRequest="20"
+                             HeightRequest="20"
+                             HorizontalOptions="End"
+                             Margin="0, 5, 2, 0"
+                             Padding="2"
+                             BorderColor="Gray"
+                             Clicked="ClosePopup_OnClicked"/>
+                    
+                <Label Text="Фамилия" FontSize="Medium" />
+                <Entry Text="{Binding Filter.LastName, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FirstName}"/>
+        
+                <Label Text="Имя" FontSize="Medium"/>
+                <Entry Text="{Binding Filter.FirstName, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="FirstName"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Patronymic}"/>
+                
+                <Label Text="Отчество" FontSize="Medium" />
+                <Entry Text="{Binding Filter.Patronymic, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Patronymic"/>
+                
+                <Label Text="Пол" FontSize="Medium" />
+                <Picker SelectedItem="{Binding Path=Filter.Gender}">
+                    <Picker.Items>
+                        <x:String>Мужской</x:String>
+                        <x:String>Женский</x:String>
+                        <x:String>Другой</x:String>
+                    </Picker.Items>
+                </Picker>
+                
+                <Label Text="Полис" FontSize="Medium" />
+                <Entry Text="{Binding Filter.InsurancePolicy, Mode=TwoWay}"
+                       FontSize="Medium"
+                       Keyboard="Numeric"
+                       TextColor="{StaticResource Key=TextColor}"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Snils}">
+                    <Entry.Behaviors>
+                        <xct:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX"/>
+                    </Entry.Behaviors>
+                </Entry>
+                
+                <Label Text="СНИЛС" FontSize="Medium" />
+                <Entry Text="{Binding Filter.Snils, Mode=TwoWay}"
+                       FontSize="Medium"
+                       Keyboard="Numeric"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Snils"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference City}">
+                    <Entry.Behaviors>
+                        <xct:MaskedBehavior Mask="XXX-XXX-XXX-XX" UnMaskedCharacter="X"/>
+                    </Entry.Behaviors>
+                </Entry>
+                
+                <Label Text="Город" FontSize="Medium" />
+                <Entry Text="{Binding Filter.City, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="City"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}"/>
+                
+                <Label Text="Улица" FontSize="Medium" />
+                <Entry Text="{Binding Filter.Street, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Street"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference House}"/>
+                
+                <Label Text="Дом" FontSize="Medium" />
+                <Entry Text="{Binding Filter.House, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="House"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Apartment}"/>
+                
+                <Label Text="Квартира" FontSize="Medium" />
+                <Entry Text="{Binding Filter.Apartment, Mode=TwoWay}"
+                       FontSize="Medium"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Apartment"
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PhoneNumber}"/>
+                
+                <Label Text="Номер телефона" FontSize="Medium" />
+                <maskedEntry:MaskedEntry Text="{Binding Filter.PhoneNumber, Mode=TwoWay}"
+                                     FontSize="Medium"
+                                     TextColor="{StaticResource Key=TextColor}"
+                                     x:Name="PhoneNumber"
+                                     xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Precinct}"
+                                     Mask="+7(XXX)-XXX-XXXX" Keyboard="Numeric">
+                </maskedEntry:MaskedEntry>
+                
+                <Label Text="Участок" FontSize="Medium" />
+                <Entry Text="{Binding Filter.Precinct, Mode=TwoWay}"
+                       FontSize="Medium"
+                       Margin="0"
+                       TextColor="{StaticResource Key=TextColor}"
+                       x:Name="Precinct"
+                       Keyboard="Numeric"/>
+        
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Сбросить" Clicked="Reset_OnClicked"  HorizontalOptions="FillAndExpand"/>
+                    <Button Text="Поиск" Clicked="Search_OnClicked" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+</xct:Popup>

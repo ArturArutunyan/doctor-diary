@@ -34,13 +34,13 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
+        public PatientCardsFilter Filter { get; protected set; }
         public ObservableRangeCollection<PatientCard> PatientCards { get; }
-
         public AsyncCommand LoadPatientCardsCommand { get; }
         public AsyncCommand AddPatientCardCommand { get; }
         public AsyncCommand<PatientCard> PatientCardTapped { get; }
         public AsyncCommand LoadMoreCommand { get; }
-        public Xamarin.Forms.Command<PatientCard> OpenPhoneDialerCommand { get; }
+        public Command<PatientCard> OpenPhoneDialerCommand { get; }
 
 
         public PatientCardsViewModel()
@@ -50,11 +50,13 @@ namespace DoctorDiary.ViewModels.PatientCards
             PatientCards = new ObservableRangeCollection<PatientCard>();
             
             Title = "Карточки пациентов";
+            Filter = PatientCardsFilter.Default(MaxDefaultPatientCardsTakeCount);
+            
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             AddPatientCardCommand = new AsyncCommand(AddPatientCard);
             LoadMoreCommand = new AsyncCommand(OnPatientCardsThresholdReached);
-            OpenPhoneDialerCommand = new Xamarin.Forms.Command<PatientCard>(OnOpenPhoneDialer);
+            OpenPhoneDialerCommand = new Command<PatientCard>(OnOpenPhoneDialer);
         }
 
         private void OnOpenPhoneDialer(PatientCard patientCard)
@@ -80,7 +82,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
         
-        private async Task OnPatientCardsThresholdReached()
+        public async Task OnPatientCardsThresholdReached()
         {
             if (IsBusy)
                 return;
@@ -89,10 +91,9 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 if (RemainingItemsThreshold != -1)
                 {
-                    var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(
-                        takeCount: MaxDefaultPatientCardsTakeCount,
-                        skipCount: PatientCards.Count,
-                        asNoTracking: true);
+                    Filter.SkipCount = PatientCards.Count;
+                    
+                    var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(Filter);
 
                     if (patientCards.Count != 0)
                     {
@@ -121,7 +122,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             SelectedPatientCard = null;
         }
         
-        private async Task LoadPatientCards()
+        public async Task LoadPatientCards()
         {
             IsBusy = true;
 
@@ -129,11 +130,10 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 PatientCards.Clear();
                 RemainingItemsThreshold = 1;
+
+                Filter.SkipCount = 0;
                 
-                var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(
-                    takeCount: MaxDefaultPatientCardsTakeCount,
-                    skipCount: 0,
-                    asNoTracking: true);
+                var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(Filter);
 
                 PatientCards.AddRange(patientCards);
             }
@@ -145,6 +145,11 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 IsBusy = false;
             }
+        }
+
+        public void ResetFilter()
+        {
+            Filter = PatientCardsFilter.Default(MaxDefaultPatientCardsTakeCount);
         }
 
         private async Task OnPatientCardSelected(PatientCard patientCard)

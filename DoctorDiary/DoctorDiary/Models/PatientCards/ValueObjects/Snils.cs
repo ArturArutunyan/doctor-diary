@@ -44,6 +44,11 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
                 : string.Join('-', Value[..3], Value[3..6], Value[6..9], Value[9..11]);
         }
 
+        public override string ToString()
+        {
+            return Value;
+        }
+
         protected override IEnumerable<object> GetAtomicValues()
         {
             yield return Value;

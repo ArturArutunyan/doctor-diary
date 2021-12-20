@@ -15,7 +15,7 @@ namespace DoctorDiary.Services.PatientCards
         
         Task<List<PatientCard>> GetListAsync(int takeCount, int skipCount, bool asNoTracking = false);
         
-        Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount, int skipCount, bool asNoTracking);
+        Task<List<PatientCard>> GetLastCreatedPatientCards(PatientCardsFilter filter);
         
         Task<PatientCard> CreateAsync(
             string firstName,

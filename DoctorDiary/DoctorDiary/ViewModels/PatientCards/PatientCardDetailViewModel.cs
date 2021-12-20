@@ -126,6 +126,8 @@ namespace DoctorDiary.ViewModels.PatientCards
         private long? _number;
         private DateTime? _actualTermStartDate;
         private DateTime? _actualTermEndDate;
+        private int? _totalOfDaysOnLastTerm;
+        private int _totalOfDaysOnSickLeave;
         
         public Guid? SickLeaveId
         {
@@ -149,6 +151,18 @@ namespace DoctorDiary.ViewModels.PatientCards
         {
             get => _actualTermEndDate;
             set => SetProperty(ref _actualTermEndDate, value);
+        }
+        
+        public int? TotalOfDaysOnLastTerm
+        {
+            get => _totalOfDaysOnLastTerm;
+            set => SetProperty(ref _totalOfDaysOnLastTerm, value);
+        }
+        
+        public int TotalOfDaysOnSickLeave
+        {
+            get => _totalOfDaysOnSickLeave;
+            set => SetProperty(ref _totalOfDaysOnSickLeave, value);
         }
         #endregion
 
@@ -327,6 +341,8 @@ namespace DoctorDiary.ViewModels.PatientCards
 
                     ActualTermStartDate = sickLeave.LastTerm().StartDate;
                     ActualTermEndDate = sickLeave.LastTerm().EndDate;
+                    TotalOfDaysOnLastTerm = sickLeave.TotalDaysOnLastTerm();
+                    TotalOfDaysOnSickLeave = sickLeave.TotalOfDaysOnSickLeave();
                     
                     // TODO: Removed this shit!
                     if (sickLeave.Terms.Count == 3)
