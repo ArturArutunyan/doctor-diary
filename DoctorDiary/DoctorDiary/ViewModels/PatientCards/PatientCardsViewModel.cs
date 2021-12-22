@@ -34,7 +34,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
-        public PatientCardsFilter Filter { get; protected set; }
+        public PatientCardsFilter Filter { get; set; }
         public ObservableRangeCollection<PatientCard> PatientCards { get; }
         public AsyncCommand LoadPatientCardsCommand { get; }
         public AsyncCommand AddPatientCardCommand { get; }
@@ -50,7 +50,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             PatientCards = new ObservableRangeCollection<PatientCard>();
             
             Title = "Карточки пациентов";
-            Filter = PatientCardsFilter.Default(MaxDefaultPatientCardsTakeCount);
+            Filter = PatientCardsFilter.Default();
             
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
@@ -145,11 +145,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 IsBusy = false;
             }
-        }
-
-        public void ResetFilter()
-        {
-            Filter = PatientCardsFilter.Default(MaxDefaultPatientCardsTakeCount);
         }
 
         private async Task OnPatientCardSelected(PatientCard patientCard)

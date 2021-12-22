@@ -22,9 +22,15 @@ namespace DoctorDiary.Views.PatientCards
             _patientCardsViewModel.OnAppearing();
         }
 
-        private void SearchPatientCards_Clicked(object sender, EventArgs e)
+        private async void SearchPatientCards_Clicked(object sender, EventArgs e)
         {
-            Navigation.ShowPopup(new SearchPatientCardsPopup(_patientCardsViewModel));
+            var filter = await Navigation.ShowPopupAsync(new SearchPatientCardsPopup(_patientCardsViewModel.Filter));
+
+            if (filter != null)
+            {
+                _patientCardsViewModel.Filter = filter;
+                _patientCardsViewModel.OnAppearing();
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace DoctorDiary.Services.PatientCards
         public string Apartment { get; set; }
         public string House { get; set; } 
         public DateTime? Birthday { get; set; } 
+        public DateTime? YearOfBirth { get; set; } 
         public string Snils { get; set; } 
         public string Description { get; set; }
         public string PhoneNumber { get; set; } 
@@ -23,11 +24,11 @@ namespace DoctorDiary.Services.PatientCards
         public string PlaceOfWork { get; set; }
         public int? Precinct { get; set; }
 
-        public static PatientCardsFilter Default(int maxDefaultPatientCardsTakeCount)
+        public static PatientCardsFilter Default()
         {
             return new PatientCardsFilter()
             {
-                TakeCount = maxDefaultPatientCardsTakeCount,
+                TakeCount = 5,
                 SkipCount = 0,
                 AsNoTracking = true
             };

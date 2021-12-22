@@ -54,6 +54,7 @@ namespace DoctorDiary.Services.PatientCards
                 apartment: filter.Apartment,
                 house: filter.House,
                 birthday: filter.Birthday,
+                yearOfBirth: filter.YearOfBirth,
                 snils: filter.Snils,
                 description: filter.Description,
                 phoneNumber: filter.PhoneNumber,

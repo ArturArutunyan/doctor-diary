@@ -16,23 +16,23 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             //EntityDbSet.FromSqlInterpolated("SELECT * FROM Visits").ToListAsync();
         }
 
-        public async Task<List<PatientCard>> GetLastCreatedPatientCards(
-            int takeCount, 
-            int skipCount, 
-            bool asNoTracking = false, 
+        public async Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount,
+            int skipCount,
+            bool asNoTracking = false,
             string firstName = null,
-            string lastName = null, 
-            string patronymic = null, 
-            string city = null, 
-            string street = null, 
+            string lastName = null,
+            string patronymic = null,
+            string city = null,
+            string street = null,
             string apartment = null,
-            string house = null, 
-            DateTime? birthday = null, 
-            string snils = null, 
+            string house = null,
+            DateTime? birthday = null,
+            DateTime? yearOfBirth = null,
+            string snils = null,
             string description = null,
-            string phoneNumber = null, 
-            string gender = null, 
-            string insurancePolicy = null, 
+            string phoneNumber = null,
+            string gender = null,
+            string insurancePolicy = null,
             string placeOfWork = null,
             int? precinct = null)
         {
@@ -46,6 +46,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 apartment: apartment,
                 house: house,
                 birthday: birthday,
+                yearOfBirth: yearOfBirth,
                 snils: snils,
                 description: description,
                 phoneNumber: phoneNumber,
@@ -97,21 +98,21 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             return await query.ToListAsync();
         }
 
-        private IQueryable<PatientCard> ApplyFilter(
-            IQueryable<PatientCard> query, 
+        private IQueryable<PatientCard> ApplyFilter(IQueryable<PatientCard> query,
             string firstName = null,
-            string lastName = null, 
-            string patronymic = null, 
-            string city = null, 
-            string street = null, 
+            string lastName = null,
+            string patronymic = null,
+            string city = null,
+            string street = null,
             string apartment = null,
-            string house = null, 
-            DateTime? birthday = null, 
-            string snils = null, 
+            string house = null,
+            DateTime? birthday = null,
+            DateTime? yearOfBirth = null,
+            string snils = null,
             string description = null,
-            string phoneNumber = null, 
-            string gender = null, 
-            string insurancePolicy = null, 
+            string phoneNumber = null,
+            string gender = null,
+            string insurancePolicy = null,
             string placeOfWork = null,
             int? precinct = null)
         {
@@ -124,6 +125,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 .WhereIf(!string.IsNullOrEmpty(apartment), p => p.Address.Apartment == apartment)
                 .WhereIf(!string.IsNullOrEmpty(house), p => p.Address.House == house)
                 .WhereIf(birthday.HasValue, p => p.Birthday == birthday)
+                .WhereIf(yearOfBirth.HasValue, p => p.Birthday.Year == yearOfBirth.Value.Year)
                 .WhereIf(!string.IsNullOrEmpty(snils), p => p.Snils.Value == snils)
                 .WhereIf(!string.IsNullOrEmpty(description), p => p.Description == description)
                 .WhereIf(!string.IsNullOrEmpty(phoneNumber), p => p.PhoneNumber.Value == phoneNumber)

@@ -13,24 +13,48 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Spacing="3" Padding="15">
-                <Label Text="Фамилия" FontSize="Medium" />
+                 <Label Text="Фамилия" FontSize="Medium" />
                 <Entry Text="{Binding LastName, Mode=TwoWay}"
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FirstName}"/>
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FirstName}">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </Entry>
                 
                 <Label Text="Имя" FontSize="Medium"/>
                 <Entry Text="{Binding FirstName, Mode=TwoWay}"
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
                        x:Name="FirstName"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Patronymic}"/>
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Patronymic}">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </Entry>
                 
                 <Label Text="Отчество" FontSize="Medium" />
                 <Entry Text="{Binding Patronymic, Mode=TwoWay}"
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
-                       x:Name="Patronymic"/>
+                       x:Name="Patronymic">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </Entry>
                 
                 <Label Text="Пол" FontSize="Medium" />
                 <Picker SelectedItem="{Binding Path=Gender}">
@@ -64,7 +88,7 @@
                        x:Name="Snils"
                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference City}">
                     <Entry.Behaviors>
-                        <xct:MaskedBehavior Mask="XXX-XXX-XXX-XX" />
+                        <xct:MaskedBehavior Mask="XXX-XXX-XXX-XX" UnMaskedCharacter="X"/>
                     </Entry.Behaviors>
                 </Entry>
                 
@@ -73,14 +97,30 @@
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
                        x:Name="City"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}"/>
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </Entry>
                 
                 <Label Text="Улица" FontSize="Medium" />
                 <Entry Text="{Binding Street, Mode=TwoWay}"
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
                        x:Name="Street"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference House}"/>
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference House}">
+                    <Entry.Keyboard>
+                        <Keyboard x:FactoryMethod="Create">
+                            <x:Arguments>
+                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                            </x:Arguments>
+                        </Keyboard>
+                    </Entry.Keyboard>
+                </Entry>
                 
                 <Label Text="Дом" FontSize="Medium" />
                 <Entry Text="{Binding House, Mode=TwoWay}"
@@ -105,6 +145,13 @@
                                      Mask="+7(XXX)-XXX-XXXX" Keyboard="Numeric">
                 </maskedEntry:MaskedEntry>
                 
+                <Label Text="Место работы" FontSize="Medium" />
+                <Editor Text="{Binding PlaceOfWork, Mode=TwoWay}"
+                        AutoSize="TextChanges"
+                        FontSize="Medium"
+                        Margin="0"
+                        TextColor="{StaticResource Key=TextColor}"/>
+                
                 <Label Text="Описание" FontSize="Medium" />
                 <Editor Text="{Binding Description, Mode=TwoWay}"
                         AutoSize="TextChanges"
@@ -112,13 +159,6 @@
                         Margin="0"
                         TextColor="{StaticResource Key=TextColor}"
                         x:Name="Description"/>
-                
-                <Label Text="Место работы" FontSize="Medium" />
-                <Editor Text="{Binding PlaceOfWork, Mode=TwoWay}"
-                        AutoSize="TextChanges"
-                        FontSize="Medium"
-                        Margin="0"
-                        TextColor="{StaticResource Key=TextColor}"/>
                 
                 <Label Text="Участок" FontSize="Medium" />
                 <Entry Text="{Binding Precinct, Mode=TwoWay}"
