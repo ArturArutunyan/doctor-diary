@@ -1,4 +1,6 @@
 ﻿using System;
+using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Services.PatientCards;
 using DoctorDiary.ViewModels.PatientCards;
 using Xamarin.CommunityToolkit.UI.Views;
 using Xamarin.Forms.Xaml;
@@ -6,27 +8,24 @@ using Xamarin.Forms.Xaml;
 namespace DoctorDiary.Views.PatientCards
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SearchPatientCardsPopup : Popup
+    public partial class SearchPatientCardsPopup : Popup<PatientCardsFilter>
     {
-        private readonly PatientCardsViewModel _parentViewModel;
+        private readonly PatientCardsFilter _filter;
 
-        public SearchPatientCardsPopup(PatientCardsViewModel parentViewModel)
+        public SearchPatientCardsPopup(PatientCardsFilter filter)
         {
             InitializeComponent();
-            BindingContext = _parentViewModel = parentViewModel;
+            BindingContext = _filter = filter;
         }
 
-        private async void Search_OnClicked(object sender, EventArgs e)
+        private void Search_OnClicked(object sender, EventArgs e)
         {
-            Dismiss(null);
-            _parentViewModel.OnAppearing();
+            Dismiss(_filter);
         }
 
         private void Reset_OnClicked(object sender, EventArgs e)
         {
-            Dismiss(null);
-            _parentViewModel.ResetFilter();
-            _parentViewModel.OnAppearing();
+            Dismiss(PatientCardsFilter.Default());
         }
 
         private void ClosePopup_OnClicked(object sender, EventArgs e)
