@@ -27,7 +27,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             string apartment = null,
             string house = null,
             DateTime? birthday = null,
-            DateTime? yearOfBirth = null,
+            int? yearOfBirth = null,
             string snils = null,
             string description = null,
             string phoneNumber = null,
@@ -59,11 +59,19 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             {
                 query.AsNoTracking();
             }
-            
-            return await query.OrderByDescending(x => x.CreationTime)
+
+            var patientCards = await query.OrderByDescending(x => x.CreationTime)
                 .Skip(skipCount)
                 .Take(takeCount)
                 .ToListAsync();
+
+            // TODO: move to sql query
+            if (yearOfBirth.HasValue)
+            {
+                patientCards = patientCards.Where(p => p.Birthday.Year == yearOfBirth).ToList();
+            }
+
+            return patientCards;
         }
 
         public async Task<List<PatientCard>> GetLastCreatedPatientCards(
@@ -107,7 +115,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             string apartment = null,
             string house = null,
             DateTime? birthday = null,
-            DateTime? yearOfBirth = null,
+            int? yearOfBirth = null,
             string snils = null,
             string description = null,
             string phoneNumber = null,
@@ -125,7 +133,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 .WhereIf(!string.IsNullOrEmpty(apartment), p => p.Address.Apartment == apartment)
                 .WhereIf(!string.IsNullOrEmpty(house), p => p.Address.House == house)
                 .WhereIf(birthday.HasValue, p => p.Birthday == birthday)
-                .WhereIf(yearOfBirth.HasValue, p => p.Birthday.Year == yearOfBirth.Value.Year)
+                // .WhereIf(yearOfBirth.HasValue, p => p.Birthday.Year == yearOfBirth.Value.Year)
                 .WhereIf(!string.IsNullOrEmpty(snils), p => p.Snils.Value == snils)
                 .WhereIf(!string.IsNullOrEmpty(description), p => p.Description == description)
                 .WhereIf(!string.IsNullOrEmpty(phoneNumber), p => p.PhoneNumber.Value == phoneNumber)

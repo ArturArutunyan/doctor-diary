@@ -15,7 +15,7 @@ namespace DoctorDiary.Services.PatientCards
         public string Apartment { get; set; }
         public string House { get; set; } 
         public DateTime? Birthday { get; set; } 
-        public DateTime? YearOfBirth { get; set; } 
+        public int? YearOfBirth { get; set; } 
         public string Snils { get; set; } 
         public string Description { get; set; }
         public string PhoneNumber { get; set; } 

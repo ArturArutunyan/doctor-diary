@@ -20,7 +20,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             string apartment = null,
             string house = null,
             DateTime? birthday = null,
-            DateTime? yearOfBirth = null,
+            int? yearOfBirth = null,
             string snils = null,
             string description = null,
             string phoneNumber = null,
