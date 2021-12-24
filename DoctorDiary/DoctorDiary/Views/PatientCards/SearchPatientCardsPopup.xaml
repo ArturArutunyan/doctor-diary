@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:local="clr-namespace:DoctorDiary.Services.PatientCards;assembly=DoctorDiary"
+             xmlns:behaviors="clr-namespace:DoctorDiary.Shared.Behaviors;assembly=DoctorDiary.Shared"
              x:TypeArguments="local:PatientCardsFilter"
              x:Class="DoctorDiary.Views.PatientCards.SearchPatientCardsPopup"
              x:DataType="local:PatientCardsFilter"
@@ -48,8 +49,20 @@
                                    FontSize="Medium"
                                    TextColor="{StaticResource Key=TextColor}"
                                    x:Name="Patronymic"
-                                   xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}" />
+                                   xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference YearOfBirth}" />
 
+                            <Label Text="Год рождения" FontSize="Medium" />
+                            <Entry Text="{Binding YearOfBirth, Mode=TwoWay}"
+                                   FontSize="Medium"
+                                   TextColor="{StaticResource Key=TextColor}"
+                                   x:Name="YearOfBirth"
+                                   Keyboard="Numeric"
+                                   xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}">
+                                   <Entry.Behaviors>
+                                          <behaviors:EntryLengthValidatorBehavior MaxLength="4" />
+                                   </Entry.Behaviors>
+                            </Entry>
+                            
                             <Label Text="Улица" FontSize="Medium" />
                             <Entry Text="{Binding Street, Mode=TwoWay}"
                                    FontSize="Medium"
