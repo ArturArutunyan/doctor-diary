@@ -49,7 +49,7 @@ namespace DoctorDiary.ViewModels.PatientCards
 
             PatientCards = new ObservableRangeCollection<PatientCard>();
             
-            Title = "Карточки пациентов";
+            Title = "Амбулаторные карты";
             Filter = PatientCardsFilter.Default();
             
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
