@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
+using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Services.MessageBox;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.SickLeaves;
@@ -124,9 +127,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         #region SickLeave
         private Guid? _sickLeaveId;
         private long? _number;
-        private DateTime? _actualTermStartDate;
-        private DateTime? _actualTermEndDate;
-        private int? _totalOfDaysOnLastTerm;
+        private List<Term> _terms;
         private int _totalOfDaysOnSickLeave;
         
         public Guid? SickLeaveId
@@ -141,24 +142,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _number, value);
         }
 
-        public DateTime? ActualTermStartDate
+        public List<Term> Terms
         {
-            get => _actualTermStartDate;
-            set => SetProperty(ref _actualTermStartDate, value);
+            get => _terms;
+            set => SetProperty(ref _terms, value);
         }
-        
-        public DateTime? ActualTermEndDate
-        {
-            get => _actualTermEndDate;
-            set => SetProperty(ref _actualTermEndDate, value);
-        }
-        
-        public int? TotalOfDaysOnLastTerm
-        {
-            get => _totalOfDaysOnLastTerm;
-            set => SetProperty(ref _totalOfDaysOnLastTerm, value);
-        }
-        
+
         public int TotalOfDaysOnSickLeave
         {
             get => _totalOfDaysOnSickLeave;
@@ -339,9 +328,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                     SickLeaveId = sickLeave.Id;
                     Number = sickLeave.Number;
 
-                    ActualTermStartDate = sickLeave.LastTerm().StartDate;
-                    ActualTermEndDate = sickLeave.LastTerm().EndDate;
-                    TotalOfDaysOnLastTerm = sickLeave.TotalDaysOnLastTerm();
+                    Terms = sickLeave.Terms.ToList();
                     TotalOfDaysOnSickLeave = sickLeave.TotalOfDaysOnSickLeave();
                     
                     // TODO: Removed this shit!

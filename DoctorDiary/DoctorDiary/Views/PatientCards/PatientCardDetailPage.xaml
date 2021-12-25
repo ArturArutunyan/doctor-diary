@@ -4,6 +4,7 @@
              x:Class="DoctorDiary.Views.PatientCards.PatientCardDetailPage"
              xmlns:viewmodel="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:templates="clr-namespace:DoctorDiary.Views.PatientCards.Templates;assembly=DoctorDiary"
+             xmlns:valueObjects="clr-namespace:DoctorDiary.Models.SickLeaves.ValueObjects;assembly=DoctorDiary"
              Title="{Binding Title}"
              x:DataType="viewmodel:PatientCardDetailViewModel"
              ControlTemplate="{DynamicResource OpenSickLeaveView}">
@@ -269,25 +270,42 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
                                         <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <Label Grid.Row="0"
                                            Text="{Binding Number, StringFormat='№ {0}'}"
                                            FontSize="Medium"/>
-                                    <Label Grid.Row="1">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding ActualTermStartDate, StringFormat='с {0:dd.MM.yyyy}'}"
-                                                      FontSize="Medium" />
-                                                <Span Text="{Binding ActualTermEndDate, StringFormat=' по {0:dd.MM.yyyy}'}"
-                                                      FontSize="Medium" />
-                                                <Span Text="{Binding TotalOfDaysOnLastTerm, StringFormat='| {0} дней'}"
-                                                      FontSize="Medium" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
+                                    <CollectionView Grid.Row="1"
+                                                    ItemsSource="{Binding Terms}"
+                                                    SelectionMode="None"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"
+                                                    HeightRequest="75">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="valueObjects:Term">
+                                                <Label Margin="1">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span
+                                                                Text="{Binding StartDate, StringFormat='c {0:dd.MM.yyyy}'}"
+                                                                FontSize="Medium"
+                                                                TextColor="{StaticResource Key=TextColor}" />
+                                                            <Span
+                                                                Text="{Binding EndDate, StringFormat=' по {0:dd.MM.yyyy}'}"
+                                                                FontSize="Medium"
+                                                                TextColor="{StaticResource Key=TextColor}" />
+                                                            <Span Text="{Binding Days, StringFormat=' {0} дней '}"
+                                                                  FontSize="Medium"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                    
                                     <Label Grid.Row="2">
                                         <Label.FormattedText>
                                             <FormattedString>
