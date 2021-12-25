@@ -9,6 +9,8 @@ namespace DoctorDiary.Models.SickLeaves.ValueObjects
         public DateTime StartDate { get; }
         public DateTime EndDate { get; }
 
+        public int Days => (EndDate - StartDate).Days;
+
         protected Term()
         {
         }
@@ -23,11 +25,6 @@ namespace DoctorDiary.Models.SickLeaves.ValueObjects
         public static Term Create(DateTime startDate, DateTime endDate)
         {
             return new Term(startDate: startDate, endDate: endDate);
-        }
-
-        public int Days()
-        {
-            return (EndDate - StartDate).Days;
         }
 
         protected override IEnumerable<object> GetAtomicValues()
