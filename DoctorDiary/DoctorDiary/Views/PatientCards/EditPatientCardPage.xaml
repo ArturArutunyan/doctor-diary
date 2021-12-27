@@ -65,15 +65,60 @@
                     </Picker.Items>
                 </Picker>
                 
-                <Label Text="Дата рождения" FontSize="Medium"/>
-                <DatePicker Format="dd.MM.yyyy" Date="{Binding Birthday}"
-                            TextColor="{StaticResource Key=TextColor}"/>
+                <StackLayout>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0" 
+                               Grid.Column="0" 
+                               Text="Дата рождения" 
+                               FontSize="Medium"
+                               HorizontalOptions="Start"/>
+                        <ImageButton Grid.Row="0" 
+                                     Grid.Column="1" 
+                                     Source="calendar.png" 
+                                     BackgroundColor="Transparent"
+                                     WidthRequest="20"
+                                     HeightRequest="20"
+                                     HorizontalOptions="End"
+                                     Clicked="CalendarButton_OnClicked"
+                                     Margin="0, 0, 2, 0"
+                                     Padding="2"
+                                     BorderColor="Gray"/>
+
+                        <Entry Grid.Row="1" 
+                               Grid.Column="0" 
+                               Grid.ColumnSpan="2" 
+                               x:Name="Birthday"
+                               FontSize="Medium"
+                               Keyboard="Numeric"
+                               Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}', Mode=TwoWay}"
+                               TextColor="{StaticResource Key=TextColor}">
+                            <Entry.Behaviors>
+                                <xct:MaskedBehavior Mask="XX.XX.XXXX"/>
+                            </Entry.Behaviors>
+                        </Entry>
+                    </Grid>
+                    <DatePicker x:Name="CalendarDatePicker" 
+                                IsVisible="False"
+                                IsEnabled="False"
+                                Format="dd.MM.yyyy" 
+                                DateSelected="CalendarDatePicker_OnDateSelected"
+                                Date="{Binding BirthdayDatePicker}"/>
+                </StackLayout>
                 
                 <Label Text="Полис" FontSize="Medium" />
                 <Entry Text="{Binding InsurancePolicy, Mode=TwoWay}"
                        FontSize="Medium"
                        Keyboard="Numeric"
                        TextColor="{StaticResource Key=TextColor}"
+                       x:Name="InsurancePolicy"
                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Snils}">
                     <Entry.Behaviors>
                         <xct:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX"/>

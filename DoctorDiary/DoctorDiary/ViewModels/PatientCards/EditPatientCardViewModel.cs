@@ -19,7 +19,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _street;
         private string _apartment;
         private string _house;
-        private DateTime _birthday;
+        private string _birthday;
         private string _snils;
         private string _description;
         private string _phoneNumber;
@@ -82,11 +82,13 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _house, value);
         }
         
-        public DateTime Birthday 
+        public string Birthday 
         {
             get => _birthday;
             set => SetProperty(ref _birthday, value);
         }
+        
+        public DateTime? BirthdayDatePicker { get; set; }
         
         public string Snils
         {
@@ -137,7 +139,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         public EditPatientCardViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
-            Birthday = new DateTime(2000, 1, 1);
+            BirthdayDatePicker = null;
             SaveCommand = new AsyncCommand(OnSave, ValidateSave);
             CancelCommand = new AsyncCommand(OnCancel);
             PropertyChanged +=
@@ -163,7 +165,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 Street = patientCard.Address?.Street;
                 Apartment = patientCard.Address?.Apartment;
                 House = patientCard.Address?.House;
-                Birthday = patientCard.Birthday;
+                Birthday = patientCard.Birthday.ToString("dd.MM.yyyy");
                 Snils = patientCard.Snils?.ToReadableFormat();
                 PhoneNumber = patientCard.PhoneNumber?.Value;
                 Description = patientCard.Description;
@@ -192,7 +194,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 lastName: LastName,
                 patronymic: Patronymic,
                 address: new Address(city: City, street: Street, apartment: Apartment, house: House),
-                birthday: Birthday,
+                birthday: DateTime.ParseExact(s: Birthday, format: "dd.MM.yyyy", provider: null),
                 snils: string.IsNullOrEmpty(Snils) 
                     ? Models.PatientCards.ValueObjects.Snils.Empty() 
                     : new Snils(Snils),
