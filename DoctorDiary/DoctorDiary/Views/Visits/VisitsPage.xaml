@@ -117,7 +117,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Телефон - " />
-                                                    <Span Text="{Binding PhoneNumber}"
+                                                    <Span Text="{Binding PhoneNumber.Value}"
                                                           TextColor="Blue"
                                                           TextDecorations="Underline">
                                                         <Span.GestureRecognizers>
