@@ -34,6 +34,7 @@
                                HasShadow="False"
                                HorizontalOptions="CenterAndExpand"
                                VerticalOptions="CenterAndExpand"
+                               WidthRequest="340"
                                x:DataType="patientCard:PatientCard">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -44,7 +45,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
                                 <Label FontSize="Large"
                                        FontAttributes="Bold"
@@ -96,17 +97,18 @@
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <Label Grid.Row="4" 
-                                       LineBreakMode="CharacterWrap"
-                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                       FontSize="Medium" >
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="Адрес - " />
-                                            <Span Text="{Binding Address, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
+                                <StackLayout Grid.Row="4">
+                                    <Label LineBreakMode="TailTruncation"
+                                           Style="{DynamicResource ListItemDetailTextStyle}"
+                                           FontSize="Medium" >
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="Адрес - " />
+                                                <Span Text="{Binding Address, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </StackLayout>
                             </Grid>
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer

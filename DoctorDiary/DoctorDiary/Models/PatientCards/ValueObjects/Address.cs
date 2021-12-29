@@ -10,32 +10,59 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
         public string Street { get; }
         public string Apartment { get; }
         public string House { get; }
+        public string Entrance { get; }
+        public string Floor { get; }
 
         protected Address()
         {
             
         }
         
-        public Address(string city, string street, string apartment, string house)
+        public Address(
+            string city, 
+            string street, 
+            string apartment, 
+            string house,
+            string entrance,
+            string floor)
         {
             City = city;
             Street = street;
             Apartment = apartment;
             House = house;
+            Entrance = entrance;
+            Floor = floor;
         }
 
         public override string ToString()
         {
+            var formattedCity = string.IsNullOrEmpty(City)
+                ? string.Empty
+                : $"г.{City}";
+            var formattedStreet = string.IsNullOrEmpty(Street)
+                ? string.Empty
+                : $"ул.{Street}";
+            var formattedHouse = string.IsNullOrEmpty(House)
+                ? string.Empty
+                : $"дом {House}";
+            var formattedEntrance = string.IsNullOrEmpty(Entrance)
+                ? string.Empty
+                : $"{Entrance} подъезд";
+            var formattedFloor = string.IsNullOrEmpty(Floor)
+                ? string.Empty
+                : $"{Floor} этаж";
+            var formattedApartment = string.IsNullOrEmpty(Apartment)
+                ? string.Empty
+                : $"кв. {Apartment}";
+            
             return string.Join(", ", new[]
             {
-                City,
-                Street,
-                string.IsNullOrEmpty(House) 
-                ? string.Empty
-                : $"дом {House}",
-                string.IsNullOrEmpty(Apartment) 
-                    ? string.Empty
-                    : $"кв. {Apartment}"
+                formattedCity,
+                formattedStreet,
+                formattedHouse,
+                formattedEntrance,
+                formattedFloor,
+                formattedApartment
             }.Where(x => !string.IsNullOrEmpty(x)));
         }
 

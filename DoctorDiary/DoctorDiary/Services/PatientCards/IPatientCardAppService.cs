@@ -22,13 +22,14 @@ namespace DoctorDiary.Services.PatientCards
             string lastName,
             string patronymic,
             Address address,
-            DateTime birthday,
+            DateTime? birthday,
             Snils snils,
             string description,
             PhoneNumber phoneNumber,
             string gender,
             InsurancePolicy insurancePolicy,
             string placeOfWork,
+            string employmentPosition,
             int precinct);
 
         Task UpdateAsync(
@@ -37,13 +38,14 @@ namespace DoctorDiary.Services.PatientCards
             string lastName,
             string patronymic,
             Address address,
-            DateTime birthday,
+            DateTime? birthday,
             Snils snils,
             string description,
             PhoneNumber phoneNumber,
             string gender,
             InsurancePolicy insurancePolicy,
             string placeOfWork,
+            string employmentPosition,
             int precinct);
 
         Task DeleteAsync(Guid id);

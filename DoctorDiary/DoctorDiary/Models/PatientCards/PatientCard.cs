@@ -10,13 +10,14 @@ namespace DoctorDiary.Models.PatientCards
         public virtual string LastName { get; protected set; }
         public virtual string Patronymic { get; protected set; }
         public virtual Address Address { get; protected set; }
-        public virtual DateTime Birthday { get; protected set; }
+        public virtual DateTime? Birthday { get; protected set; }
         public virtual Snils Snils { get; protected set; }
         public virtual string Description { get; protected set; }
         public virtual PhoneNumber PhoneNumber { get; protected set; }
         public virtual string Gender { get; protected set; }
         public virtual InsurancePolicy InsurancePolicy { get; protected set; }
         public virtual string PlaceOfWork { get; protected set; }
+        public virtual string EmploymentPosition { get; protected set; }
         public virtual int Precinct { get; protected set; }
         
         protected PatientCard()
@@ -29,13 +30,14 @@ namespace DoctorDiary.Models.PatientCards
             string lastName,
             string patronymic,
             Address address,
-            DateTime birthday,
+            DateTime? birthday,
             Snils snils,
             string description,
             PhoneNumber phoneNumber,
             string gender,
             InsurancePolicy insurancePolicy,
             string placeOfWork,
+            string employmentPosition,
             int precinct) : base(id)
         {
             FirstName = firstName;
@@ -49,9 +51,9 @@ namespace DoctorDiary.Models.PatientCards
             Gender = gender;
             InsurancePolicy = insurancePolicy;
             PlaceOfWork = placeOfWork;
+            EmploymentPosition = employmentPosition;
             Precinct = precinct;
         }
-
 
         public void ChangeFirstName(string firstName)
         {
@@ -68,7 +70,7 @@ namespace DoctorDiary.Models.PatientCards
             Patronymic = patronymic;
         }
         
-        public void ChangeBirthday(DateTime birthday)
+        public void ChangeBirthday(DateTime? birthday)
         {
             Birthday = birthday;
         }
@@ -106,6 +108,11 @@ namespace DoctorDiary.Models.PatientCards
         public void ChangePlaceOfWork(string placeOfWork)
         {
             PlaceOfWork = placeOfWork;
+        }
+        
+        public void ChangeEmploymentPosition(string employmentPosition)
+        {
+            EmploymentPosition = employmentPosition;
         }
         
         public void ChangePrecinct(int precinct)

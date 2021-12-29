@@ -68,7 +68,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             // TODO: move to sql query
             if (yearOfBirth.HasValue)
             {
-                patientCards = patientCards.Where(p => p.Birthday.Year == yearOfBirth).ToList();
+                patientCards = patientCards.Where(p => p.Birthday.HasValue && p.Birthday.Value.Year == yearOfBirth).ToList();
             }
 
             return patientCards;
@@ -125,7 +125,7 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             int? precinct = null)
         {
             return query
-                .WhereIf(!string.IsNullOrEmpty(firstName), p => p.FirstName == firstName)
+                .WhereIf(!string.IsNullOrEmpty(firstName), p => p.FirstName.ToLower().Contains(firstName.ToLower()))
                 .WhereIf(!string.IsNullOrEmpty(lastName), p => p.LastName == lastName)
                 .WhereIf(!string.IsNullOrEmpty(patronymic), p => p.Patronymic == patronymic)
                 .WhereIf(!string.IsNullOrEmpty(city), p => p.Address.City == city)

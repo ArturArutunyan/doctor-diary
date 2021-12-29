@@ -17,6 +17,8 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _street;
         private string _apartment;
         private string _house;
+        private string _entrance;
+        private string _floor;
         private string _birthday;
         private string _snils;
         private string _description;
@@ -24,6 +26,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _gender;
         private string _insurancePolicy;
         private string _placeOfWork;
+        private string _employmentPosition;
         private int _precinct;
 
         private readonly IPatientCardAppService _patientCardAppService;
@@ -90,6 +93,18 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _house, value);
         }
         
+        public string Entrance 
+        {
+            get => _entrance;
+            set => SetProperty(ref _entrance, value);
+        }
+        
+        public string Floor 
+        {
+            get => _floor;
+            set => SetProperty(ref _floor, value);
+        }
+        
         public string Birthday 
         {
             get => _birthday;
@@ -134,6 +149,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _placeOfWork, value);
         }
         
+        public string EmploymentPosition
+        {
+            get => _employmentPosition;
+            set => SetProperty(ref _employmentPosition, value);
+        }
+        
         public int Precinct
         {
             get => _precinct;
@@ -152,8 +173,10 @@ namespace DoctorDiary.ViewModels.PatientCards
                 firstName: FirstName,
                 lastName: LastName,
                 patronymic: Patronymic,
-                address: new Address(city: City, street: Street, apartment: Apartment, house: House),
-                birthday: DateTime.ParseExact(s: Birthday, format: "dd.MM.yyyy", provider: null),
+                address: new Address(city: City, street: Street, apartment: Apartment, house: House, entrance: Entrance, floor: Floor),
+                birthday: !string.IsNullOrEmpty(Birthday) 
+                    ? DateTime.ParseExact(s: Birthday, format: "dd.MM.yyyy", provider: null)
+                    : (DateTime?)null,
                 snils: string.IsNullOrEmpty(Snils) 
                     ? Models.PatientCards.ValueObjects.Snils.Empty() 
                     : new Snils(Snils),
@@ -164,6 +187,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                     ? Models.PatientCards.ValueObjects.InsurancePolicy.Empty() 
                     : new InsurancePolicy(InsurancePolicy),
                 placeOfWork: PlaceOfWork,
+                employmentPosition: EmploymentPosition,
                 precinct: Precinct);
 
             // This will pop the current page off the navigation stack

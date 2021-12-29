@@ -29,7 +29,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _lastName;
         private string _patronymic;
         private string _address;
-        private DateTime _birthday;
+        private DateTime? _birthday;
         private string _snils;
         private string _phoneNumber;
         private string _description;
@@ -75,7 +75,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _address, value);
         }
 
-        public DateTime Birthday 
+        public DateTime? Birthday 
         {
             get => _birthday;
             set => SetProperty(ref _birthday, value);
@@ -290,7 +290,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 LastName = patientCard.LastName;
                 Patronymic = patientCard.Patronymic;
                 Address = patientCard.Address?.ToString();
-                Birthday = patientCard.Birthday;
+                Birthday = patientCard?.Birthday;
                 Snils = patientCard.Snils?.ToReadableFormat();
                 PhoneNumber = patientCard.PhoneNumber?.Value;
                 Description = patientCard.Description;

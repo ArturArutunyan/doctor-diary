@@ -172,8 +172,21 @@
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
                        x:Name="House"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Apartment}"/>
+                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Entrance}"/>
                 
+                 <Label Text="Подъезд" FontSize="Medium" />
+                 <Entry Text="{Binding Entrance, Mode=TwoWay}"
+                        FontSize="Medium"
+                        TextColor="{StaticResource Key=TextColor}"
+                        x:Name="Entrance"
+                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Floor}"/>
+                
+                 <Label Text="Этаж" FontSize="Medium" />
+                 <Entry Text="{Binding Floor, Mode=TwoWay}"
+                        FontSize="Medium"
+                        TextColor="{StaticResource Key=TextColor}"
+                        x:Name="Floor"
+                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Apartment}"/>
                 <Label Text="Квартира" FontSize="Medium" />
                 <Entry Text="{Binding Apartment, Mode=TwoWay}"
                        FontSize="Medium"
@@ -186,7 +199,7 @@
                                      FontSize="Medium"
                                      TextColor="{StaticResource Key=TextColor}"
                                      x:Name="PhoneNumber"
-                                     xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Description}"
+                                     xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PlaceOfWork}"
                                      Mask="+7(XXX)-XXX-XXXX" Keyboard="Numeric">
                 </maskedEntry:MaskedEntry>
                 
@@ -195,15 +208,22 @@
                         AutoSize="TextChanges"
                         FontSize="Medium"
                         Margin="0"
-                        TextColor="{StaticResource Key=TextColor}"/>
+                        TextColor="{StaticResource Key=TextColor}"
+                        x:Name="PlaceOfWork"/>
                 
+                 <Label Text="Должность" FontSize="Medium" />
+                 <Editor Text="{Binding EmploymentPosition, Mode=TwoWay}"
+                         AutoSize="TextChanges"
+                         FontSize="Medium"
+                         Margin="0"
+                         TextColor="{StaticResource Key=TextColor}"/>
+                 
                 <Label Text="Описание" FontSize="Medium" />
                 <Editor Text="{Binding Description, Mode=TwoWay}"
                         AutoSize="TextChanges"
                         FontSize="Medium"
                         Margin="0"
-                        TextColor="{StaticResource Key=TextColor}"
-                        x:Name="Description"/>
+                        TextColor="{StaticResource Key=TextColor}"/>
                 
                 <Label Text="Участок" FontSize="Medium" />
                 <Entry Text="{Binding Precinct, Mode=TwoWay}"

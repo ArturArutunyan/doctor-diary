@@ -41,6 +41,14 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 xa.Property(x => x.House)
                     .HasColumnName(nameof(Address.House))
                     .HasColumnType("NVARCHAR(100)");
+                
+                xa.Property(x => x.Entrance)
+                    .HasColumnName(nameof(Address.Entrance))
+                    .HasColumnType("NVARCHAR(100)");
+                
+                xa.Property(x => x.Floor)
+                    .HasColumnName(nameof(Address.Floor))
+                    .HasColumnType("NVARCHAR(100)");
             });
 
             builder.Property(x => x.Birthday)
@@ -77,6 +85,9 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             
             builder.Property(x => x.PlaceOfWork)
                 .HasColumnName(nameof(PatientCard.PlaceOfWork));
+            
+            builder.Property(x => x.EmploymentPosition)
+                .HasColumnName(nameof(PatientCard.EmploymentPosition));
             
             builder.Property(x => x.Precinct)
                 .HasColumnName(nameof(PatientCard.Precinct));

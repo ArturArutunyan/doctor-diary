@@ -82,13 +82,14 @@ namespace DoctorDiary.Services.PatientCards
             string lastName, 
             string patronymic, 
             Address address, 
-            DateTime birthday, 
+            DateTime? birthday, 
             Snils snils,
             string description,
             PhoneNumber phoneNumber,
             string gender,
             InsurancePolicy insurancePolicy,
             string placeOfWork,
+            string employmentPosition,
             int precinct)
         {
             var patientCard = new PatientCard(
@@ -104,6 +105,7 @@ namespace DoctorDiary.Services.PatientCards
                 gender: gender,
                 insurancePolicy: insurancePolicy,
                 placeOfWork: placeOfWork,
+                employmentPosition: employmentPosition,
                 precinct: precinct);
             
             await _patientCardRepository.InsertAsync(patientCard);
@@ -117,13 +119,14 @@ namespace DoctorDiary.Services.PatientCards
             string lastName, 
             string patronymic, 
             Address address, 
-            DateTime birthday, 
+            DateTime? birthday, 
             Snils snils,
             string description,
             PhoneNumber phoneNumber,
             string gender,
             InsurancePolicy insurancePolicy,
             string placeOfWork,
+            string employmentPosition,
             int precinct)
         {
             var patientCard = await _patientCardRepository.GetAsync(id);
@@ -139,6 +142,7 @@ namespace DoctorDiary.Services.PatientCards
             patientCard.ChangeGender(gender);
             patientCard.ChangeInsurancePolicy(insurancePolicy);
             patientCard.ChangePlaceOfWork(placeOfWork);
+            patientCard.ChangeEmploymentPosition(employmentPosition);
             patientCard.ChangePrecinct(precinct);
 
             await _patientCardRepository.UpdateAsync(patientCard);
