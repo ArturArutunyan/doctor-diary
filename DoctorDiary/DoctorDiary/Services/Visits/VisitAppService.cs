@@ -25,25 +25,27 @@ namespace DoctorDiary.Services.Visits
             return await _visitRepository.VisitsByDate(date: date, asNoTracking: asNoTracking);
         }
 
-        public async Task Create(Guid patientCardId, DateTime date)
+        public async Task Create(Guid patientCardId, DateTime date, string typeOfAppeal)
         {
             var patientCard = await _patientCardRepository.GetAsync(patientCardId);
             var visit = new Visit(
                 id: Guid.NewGuid(),
                 time: date,
-                patientCard: patientCard);
+                patientCard: patientCard,
+                typeOfAppeal: typeOfAppeal);
 
             await _visitRepository.InsertAsync(visit);
         }
 
-        public async Task Update(Guid visitId, Guid patientCardId, DateTime time)
+        public async Task Update(Guid visitId, Guid patientCardId, DateTime time, string typeOfAppeal)
         {
             var patientCard = await _patientCardRepository.GetAsync(patientCardId);
             var visit = await _visitRepository.GetAsync(visitId);
             
             visit.ChangePatientCard(patientCard);
             visit.ChangeTime(time);
-
+            visit.ChangeTypeOfAppeal(typeOfAppeal);
+            
             await _visitRepository.UpdateAsync(visit);
         }
 

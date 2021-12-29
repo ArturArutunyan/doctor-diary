@@ -11,7 +11,8 @@ namespace DoctorDiary.ViewModels.Visits
     {
         private string _patientCardId;
         private DateTime _time;
-        
+        private string _typeOfAppeal;
+
         private readonly IVisitAppService _visitAppService;
 
         public string PatientCardId
@@ -24,6 +25,12 @@ namespace DoctorDiary.ViewModels.Visits
         {
             get => _time;
             set => SetProperty(ref _time, value);
+        }
+        
+        public string TypeOfAppeal
+        {
+            get => _typeOfAppeal;
+            set => SetProperty(ref _typeOfAppeal, value);
         }
         
         public AsyncCommand CreateDoctorVisitCommand { get; }
@@ -41,7 +48,8 @@ namespace DoctorDiary.ViewModels.Visits
         {
             await _visitAppService.Create(
                 patientCardId: Guid.Parse(PatientCardId), 
-                date: Time.Date);
+                date: Time.Date,
+                typeOfAppeal: TypeOfAppeal);
             
             await Shell.Current.GoToAsync("..");
         }

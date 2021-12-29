@@ -21,6 +21,9 @@ namespace DoctorDiary.EntityFrameworkCore.Visits
             builder.Property(x => x.CreationTime)
                 .HasColumnName(nameof(Visit.CreationTime));
 
+            builder.Property(x => x.TypeOfAppeal)
+                .HasColumnName(nameof(Visit.TypeOfAppeal));
+            
             builder.HasOne<PatientCard>()
                 .WithMany()
                 .HasForeignKey(x => x.PatientCardId)

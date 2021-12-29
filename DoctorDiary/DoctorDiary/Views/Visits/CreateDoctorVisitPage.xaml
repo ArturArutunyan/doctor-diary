@@ -8,6 +8,14 @@
     <ContentPage.Content>
         <Frame Padding="10">
             <StackLayout VerticalOptions="Center" Padding="20">
+                <Label Text="Тип обращения" FontSize="Medium" VerticalOptions="Center"/>
+                <Picker SelectedItem="{Binding Path=TypeOfAppeal}">
+                    <Picker.Items>
+                        <x:String>Первично</x:String>
+                        <x:String>Повторно</x:String>
+                    </Picker.Items>
+                </Picker>
+                
                 <Label Text="Дата визита врача" FontSize="Medium" VerticalOptions="Center"/>
                 <DatePicker Format="dd.MM.yyyy" Date="{Binding Time}"/>
                 
