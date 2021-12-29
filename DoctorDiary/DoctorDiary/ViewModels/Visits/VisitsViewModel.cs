@@ -49,7 +49,7 @@ namespace DoctorDiary.ViewModels.Visits
             _visitAppService = DependencyService.Get<IVisitAppService>();
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
 
-            Title = "Вызовы";
+            Title = "Дневник вызывов";
             Day = DateTime.Now;
             PatientCards = new ObservableRangeCollection<PatientCard>();
 
