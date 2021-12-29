@@ -45,11 +45,6 @@
                              HeightRequest="45" 
                              WidthRequest="40"
                              Command="{Binding NextDayCommand}"/>
-                       
-                <!-- <Button BackgroundColor="SeaGreen" Text="Item 1" HeightRequest="100" WidthRequest="90"/> -->
-                <!-- <Button BackgroundColor="LightBlue" Text="Item 2" HeightRequest="90" WidthRequest="100" /> -->
-                <!-- <Button BackgroundColor="LightPink" Text="Item 3" HeightRequest="90" WidthRequest="100" /> -->
-                <!-- <Button BackgroundColor="LightGreen" Text="Item 4" HeightRequest="100" WidthRequest="90"/> -->
             </FlexLayout>
             <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                          Command="{Binding LoadPatientCardsCommand}" >
