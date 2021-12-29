@@ -5,7 +5,8 @@
              xmlns:visitsViewModel="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
              xmlns:patientCards="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
              x:Class="DoctorDiary.Views.Visits.VisitsPage"
-             Shell.NavBarIsVisible="False"
+             x:DataType="visitsViewModel:VisitsViewModel"
+             Title="{Binding Title}"
              BackgroundColor="Silver">
 <ContentPage.Content>
         <StackLayout Margin="5" x:DataType="visitsViewModel:VisitsViewModel">
