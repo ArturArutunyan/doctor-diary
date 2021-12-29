@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards;
+using DoctorDiary.Models.Visits;
 using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.Visits;
 using DoctorDiary.ViewModels.PatientCards;
@@ -36,8 +39,8 @@ namespace DoctorDiary.ViewModels.Visits
             }
         }
         
-        public ObservableRangeCollection<PatientCard> PatientCards { get; }
-
+        public ObservableRangeCollection<VisitWithPatientCard> VisitWithPatientCards { get; }
+        
         public AsyncCommand LoadPatientCardsCommand { get; }
         public AsyncCommand<PatientCard> PatientCardTapped { get; set; }
         public AsyncCommand PreviousDayCommand { get; }
@@ -51,8 +54,8 @@ namespace DoctorDiary.ViewModels.Visits
 
             Title = "Дневник вызывов";
             Day = DateTime.Now;
-            PatientCards = new ObservableRangeCollection<PatientCard>();
-
+            VisitWithPatientCards = new ObservableRangeCollection<VisitWithPatientCard>();
+            
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             PreviousDayCommand = new AsyncCommand(PreviousDay);
@@ -72,11 +75,16 @@ namespace DoctorDiary.ViewModels.Visits
 
             try
             {
-                PatientCards.Clear();
-                
-                var patientCards = await _patientCardAppService.PatientCardsByVisits(date: Day, asNoTracking: true);
+                VisitWithPatientCards.Clear();
 
-                PatientCards.AddRange(patientCards);
+                var visits = await _visitAppService.VisitsByDate(date: Day, asNoTracking: true);
+                var patientCards = await _patientCardAppService.PatientCardsByVisits(date: Day, asNoTracking: true);
+                var visitsWithPatientCards = visits.Join(patientCards,
+                    v => v.PatientCardId,
+                    p => p.Id,
+                    (v, p) => new VisitWithPatientCard(v, p));
+                
+                VisitWithPatientCards.AddRange(visitsWithPatientCards);
             }
             catch (Exception ex)
             {
@@ -145,6 +153,19 @@ namespace DoctorDiary.ViewModels.Visits
             {
                 Console.WriteLine(ex);
             }
+        }
+    }
+
+    // TODO: remove
+    public class VisitWithPatientCard
+    {
+        public Visit Visit { get; }
+        public PatientCard PatientCard { get; }
+
+        public VisitWithPatientCard(Visit visit, PatientCard patientCard)
+        {
+            Visit = visit;
+            PatientCard = patientCard;
         }
     }
 }

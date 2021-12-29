@@ -48,7 +48,7 @@
             </FlexLayout>
             <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                          Command="{Binding LoadPatientCardsCommand}" >
-                <CollectionView ItemsSource="{Binding PatientCards}"
+                <CollectionView ItemsSource="{Binding VisitWithPatientCards}"
                                 SelectionMode="None"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
@@ -57,12 +57,12 @@
                         <DataTemplate>
                             <StackLayout HorizontalOptions="Center"
                                          VerticalOptions="Center"
-                                         Margin="5">
+                                         Margin="5"
+                                         x:DataType="visitsViewModel:VisitWithPatientCard">
                                 <Frame CornerRadius="10"
                                        HasShadow="False"
                                        HorizontalOptions="CenterAndExpand"
-                                       VerticalOptions="CenterAndExpand"
-                                       x:DataType="patientCards:PatientCard">
+                                       VerticalOptions="CenterAndExpand">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -73,6 +73,7 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="*" />
+                                            <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
                                         <Label FontSize="Large"
                                                FontAttributes="Bold"
@@ -80,13 +81,13 @@
                                                Grid.Row="0">
                                             <Label.FormattedText>
                                                 <FormattedString>
-                                                    <Span Text="{Binding LastName}"
+                                                    <Span Text="{Binding PatientCard.LastName}"
                                                           FontSize="Large" />
                                                     <Span Text=" " />
-                                                    <Span Text="{Binding FirstName}"
+                                                    <Span Text="{Binding PatientCard.FirstName}"
                                                           FontSize="Large" />
                                                     <Span Text=" " />
-                                                    <Span Text="{Binding Patronymic}"
+                                                    <Span Text="{Binding PatientCard.Patronymic}"
                                                           FontSize="Large" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -101,7 +102,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Дата рождения - " />
-                                                    <Span Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}"
+                                                    <Span Text="{Binding PatientCard.Birthday, StringFormat='{0:dd.MM.yyyy}'}"
                                                           TextColor="{StaticResource Key=TextColor}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
@@ -113,7 +114,7 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Телефон - " />
-                                                    <Span Text="{Binding PhoneNumber.Value}"
+                                                    <Span Text="{Binding PatientCard.PhoneNumber.Value}"
                                                           TextColor="Blue"
                                                           TextDecorations="Underline">
                                                         <Span.GestureRecognizers>
@@ -132,7 +133,19 @@
                                             <Label.FormattedText>
                                                 <FormattedString>
                                                     <Span Text="Адрес - " />
-                                                    <Span Text="{Binding Address, StringFormat='{0}'}"
+                                                    <Span Text="{Binding PatientCard.Address, StringFormat='{0}'}"
+                                                          TextColor="{StaticResource Key=TextColor}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="5"
+                                            LineBreakMode="CharacterWrap"
+                                            Style="{DynamicResource ListItemDetailTextStyle}"
+                                            FontSize="Medium">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Обращение - " />
+                                                    <Span Text="{Binding Visit.TypeOfAppeal, StringFormat='{0:dd.MM.yyyy}'}"
                                                           TextColor="{StaticResource Key=TextColor}" />
                                                 </FormattedString>
                                             </Label.FormattedText>
