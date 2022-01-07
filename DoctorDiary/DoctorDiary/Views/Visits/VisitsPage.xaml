@@ -3,7 +3,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:visitsViewModel="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
-             xmlns:patientCards="clr-namespace:DoctorDiary.Models.PatientCards;assembly=DoctorDiary"
              x:Class="DoctorDiary.Views.Visits.VisitsPage"
              x:DataType="visitsViewModel:VisitsViewModel"
              Title="{Binding Title}"
@@ -47,7 +46,7 @@
                              Command="{Binding NextDayCommand}"/>
             </FlexLayout>
             <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                         Command="{Binding LoadPatientCardsCommand}" >
+                         Command="{Binding LoadVisitsWithPatientCardsCommand}" >
                 <CollectionView ItemsSource="{Binding VisitWithPatientCards}"
                                 SelectionMode="None"
                                 HorizontalOptions="Center"
@@ -75,23 +74,57 @@
                                             <RowDefinition Height="*" />
                                             <RowDefinition Height="Auto" />
                                         </Grid.RowDefinitions>
-                                        <Label FontSize="Large"
-                                               FontAttributes="Bold"
-                                               TextColor="{StaticResource Key=TextColor}"
-                                               Grid.Row="0">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="{Binding PatientCard.LastName}"
-                                                          FontSize="Large" />
-                                                    <Span Text=" " />
-                                                    <Span Text="{Binding PatientCard.FirstName}"
-                                                          FontSize="Large" />
-                                                    <Span Text=" " />
-                                                    <Span Text="{Binding PatientCard.Patronymic}"
-                                                          FontSize="Large" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                                        <Grid Grid.Row="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Label FontSize="Large"
+                                                   FontAttributes="Bold"
+                                                   TextColor="{StaticResource Key=TextColor}"
+                                                   Grid.Row="0">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding PatientCard.LastName}"
+                                                              FontSize="Large" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding PatientCard.FirstName}"
+                                                              FontSize="Large" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding PatientCard.Patronymic}"
+                                                              FontSize="Large" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <ImageButton Grid.Column="1" 
+                                                         Source="pen.png" 
+                                                         BackgroundColor="Transparent"
+                                                         WidthRequest="20"
+                                                         HeightRequest="20"
+                                                         HorizontalOptions="End"
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=EditVisitCommand}"
+                                                         CommandParameter="{Binding .Visit}"
+                                                         Margin="0, 0, 2, 0"
+                                                         Padding="2"
+                                                         BorderColor="Gray">
+                                            </ImageButton>
+                                            <ImageButton Grid.Column="2" 
+                                                         Source="delete.png" 
+                                                         BackgroundColor="Transparent"
+                                                         WidthRequest="20"
+                                                         HeightRequest="20"
+                                                         HorizontalOptions="End"
+                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=DeleteVisitCommand}"
+                                                         CommandParameter="{Binding .Visit}"
+                                                         Margin="0"
+                                                         Padding="2"
+                                                         BorderColor="Gray">
+                                            </ImageButton>
+                                        </Grid>
                                         <BoxView Grid.Row="1"
                                                  HeightRequest="1"
                                                  BackgroundColor="#032d3d" />

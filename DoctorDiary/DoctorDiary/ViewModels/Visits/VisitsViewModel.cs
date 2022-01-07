@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.Visits;
@@ -9,6 +8,7 @@ using DoctorDiary.Services.PatientCards;
 using DoctorDiary.Services.Visits;
 using DoctorDiary.ViewModels.PatientCards;
 using DoctorDiary.Views.PatientCards;
+using DoctorDiary.Views.Visits;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Essentials;
 using Xamarin.Forms;
@@ -41,11 +41,13 @@ namespace DoctorDiary.ViewModels.Visits
         
         public ObservableRangeCollection<VisitWithPatientCard> VisitWithPatientCards { get; }
         
-        public AsyncCommand LoadPatientCardsCommand { get; }
+        public AsyncCommand LoadVisitsWithPatientCardsCommand { get; }
         public AsyncCommand<PatientCard> PatientCardTapped { get; set; }
         public AsyncCommand PreviousDayCommand { get; }
         public AsyncCommand NextDayCommand { get; }
         public Command<PatientCard> OpenPhoneDialerCommand { get;}
+        public AsyncCommand<Visit> EditVisitCommand { get; }
+        public AsyncCommand<Visit> DeleteVisitCommand { get; }
 
         public VisitsViewModel()
         {
@@ -56,11 +58,13 @@ namespace DoctorDiary.ViewModels.Visits
             Day = DateTime.Now;
             VisitWithPatientCards = new ObservableRangeCollection<VisitWithPatientCard>();
             
-            LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
+            LoadVisitsWithPatientCardsCommand = new AsyncCommand(LoadVisitsWithPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
             PreviousDayCommand = new AsyncCommand(PreviousDay);
             NextDayCommand = new AsyncCommand(NextDay);
             OpenPhoneDialerCommand = new Command<PatientCard>(OpenPhoneDialer);
+            EditVisitCommand = new AsyncCommand<Visit>(EditVisit);
+            DeleteVisitCommand = new AsyncCommand<Visit>(DeleteVisit);
         }
 
         public void OnAppearing()
@@ -69,7 +73,7 @@ namespace DoctorDiary.ViewModels.Visits
             SelectedPatientCard = null;
         }
         
-        private async Task LoadPatientCards()
+        private async Task LoadVisitsWithPatientCards()
         {
             IsBusy = true;
 
@@ -153,6 +157,23 @@ namespace DoctorDiary.ViewModels.Visits
             {
                 Console.WriteLine(ex);
             }
+        }
+        
+        private async Task EditVisit(Visit visit)
+        {
+            if (visit == null)
+                return;
+            
+            await Shell.Current.GoToAsync($"{nameof(EditDoctorVisitPage)}?VisitId={visit.Id}");
+        }
+
+        private async Task DeleteVisit(Visit visit)
+        {
+            if (visit == null)
+                return;
+
+            await _visitAppService.Delete(visit.Id);
+            VisitWithPatientCards.Remove(VisitWithPatientCards.Single(x => x.Visit.Id == visit.Id));
         }
     }
 
