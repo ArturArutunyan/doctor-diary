@@ -8,8 +8,6 @@ namespace DoctorDiary.Views.SickLeaves
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CloseSickLeaveWithThirtyOneCodePage : ContentPage
     {
-        public SickLeave SickLeave { get; set; }
-        
         public CloseSickLeaveWithThirtyOneCodePage()
         {
             InitializeComponent();

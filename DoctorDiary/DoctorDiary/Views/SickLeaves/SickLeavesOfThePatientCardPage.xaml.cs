@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 
 namespace DoctorDiary.Views.SickLeaves
 {
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SickLeavesOfThePatientCardPage : ContentPage
     {
         private readonly SickLeavesOfThePatientCardViewModel _sickLeavesOfThePatientCardViewModel;
