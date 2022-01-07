@@ -11,7 +11,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
     {
         private string _patientCardId;
         private Guid _id;
-        private long _number;
+        private long? _number;
         private DateTime _startDate;
         private DateTime _endDate;
         private DateTime? _lastClosedEndDate;
@@ -34,7 +34,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
             set => SetProperty(ref _id, value);
         }
 
-        public long Number
+        public long? Number
         {
             get => _number;
             set => SetProperty(ref _number, value);

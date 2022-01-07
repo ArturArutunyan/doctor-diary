@@ -62,7 +62,7 @@ namespace DoctorDiary.Services.SickLeaves
             return await _sickLeaveRepository.FindAsync(x => x.PatientCardId == patientCardId && x.IsActive);
         }
 
-        public async Task OpenSickLeave(Guid patientCardId, long number, Term term)
+        public async Task OpenSickLeave(Guid patientCardId, long? number, Term term)
         {
             var sickLeave = new SickLeave(
                 id: Guid.NewGuid(),
@@ -128,11 +128,11 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.UpdateAsync(sickLeave);
 
             // TODO: Validate - startDate & endDate of new sick leave should be greater than previous
-            if (number.HasValue && startDate.HasValue && endDate.HasValue)
+            if (startDate.HasValue && endDate.HasValue)
             {
                 await OpenSickLeave(
                     patientCardId: sickLeave.PatientCardId,
-                    number: number.Value,
+                    number: number,
                     term: Term.Create(startDate: startDate.Value, endDate: endDate.Value));
             }
         }
@@ -142,7 +142,7 @@ namespace DoctorDiary.Services.SickLeaves
             await _sickLeaveRepository.DeleteAsync(id);
         }
 
-        public async Task ChangeSickLeave(Guid id, long number)
+        public async Task ChangeSickLeave(Guid id, long? number)
         {
             var sickLeave = await _sickLeaveRepository.GetAsync(id);
 

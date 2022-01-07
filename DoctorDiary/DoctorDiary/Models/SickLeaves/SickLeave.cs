@@ -10,7 +10,7 @@ namespace DoctorDiary.Models.SickLeaves
 {
     public class SickLeave : FullAuditedAggregateRoot<Guid>
     {
-        public virtual long Number { get; protected set; }
+        public virtual long? Number { get; protected set; }
         public virtual Guid PatientCardId { get; protected set; }
         public virtual bool IsActive { get; protected set; }
         
@@ -23,7 +23,7 @@ namespace DoctorDiary.Models.SickLeaves
 
         public SickLeave(
             Guid id,
-            long number,
+            long? number,
             Guid patientCardId,
             Term term) : base(id)
         {
@@ -43,7 +43,7 @@ namespace DoctorDiary.Models.SickLeaves
            
         }
 
-        public void ChangeNumber(long number)
+        public void ChangeNumber(long? number)
         {
             // TODO: Add number validation. Should be 16? digits number.
             Number = number;

@@ -11,7 +11,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
     public class OpenSickLeaveViewModel : BaseViewModel
     {
         private string _patientCardId;
-        private long _number;
+        private long? _number;
         private DateTime _startDate;
         private DateTime _endDate;
         private DateTime? _lastClosedEndDate;
@@ -28,7 +28,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
             }
         }
 
-        public long Number
+        public long? Number
         {
             get => _number;
             set => SetProperty(ref _number, value);

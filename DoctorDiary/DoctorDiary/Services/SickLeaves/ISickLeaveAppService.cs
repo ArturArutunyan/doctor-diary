@@ -27,7 +27,7 @@ namespace DoctorDiary.Services.SickLeaves
 
         Task OpenSickLeave(
             Guid patientCardId,
-            long number,
+            long? number,
             Term term);
 
         Task ExtendSickLeave(
@@ -45,6 +45,6 @@ namespace DoctorDiary.Services.SickLeaves
         
         Task DeleteAsync(Guid id);
 
-        Task ChangeSickLeave(Guid id, long number);
+        Task ChangeSickLeave(Guid id, long? number);
     }
 }
