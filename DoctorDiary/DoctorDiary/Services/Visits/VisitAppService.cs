@@ -19,7 +19,12 @@ namespace DoctorDiary.Services.Visits
             _visitRepository = DependencyService.Get<IVisitRepository>();
             _patientCardRepository = DependencyService.Get<IPatientCardRepository>();
         }
-        
+
+        public async Task<Visit> GetAsync(Guid id)
+        {
+            return await _visitRepository.GetAsync(id);
+        }
+
         public async Task<List<Visit>> VisitsByDate(DateTime date, bool asNoTracking = false)
         {
             return await _visitRepository.VisitsByDate(date: date, asNoTracking: asNoTracking);
@@ -56,6 +61,11 @@ namespace DoctorDiary.Services.Visits
             visit.Complete();
 
             await _visitRepository.UpdateAsync(visit);
+        }
+
+        public async Task Delete(Guid visitId)
+        {
+            await _visitRepository.DeleteAsync(visitId);
         }
     }
 }
