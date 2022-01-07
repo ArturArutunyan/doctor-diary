@@ -15,6 +15,16 @@
                 <Label Text="Номер больничного" FontSize="Medium" />
                 <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
             
+                <Label Text="Дата начала текущего больничного" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker 
+                    Format="dd.MM.yyyy" 
+                    Date="{Binding StartDate}"/>
+            
+                <Label Text="Дата окончания текущего больничного" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker 
+                    Format="dd.MM.yyyy" 
+                    Date="{Binding EndDate}"/>
+                
                 <StackLayout Orientation="Horizontal">
                     <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                     <Button Text="Сохранить изменения" Command="{Binding EditSickLeaveCommand}" HorizontalOptions="FillAndExpand" />
