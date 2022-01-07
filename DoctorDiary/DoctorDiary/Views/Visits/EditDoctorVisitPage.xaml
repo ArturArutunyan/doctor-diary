@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:visits="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
+             x:Class="DoctorDiary.Views.Visits.EditDoctorVisitPage"
+             x:DataType="visits:EditVisitDoctorViewModel">
+    <ContentPage.Content>
+        <Frame Padding="10">
+            <StackLayout VerticalOptions="Center" Padding="20">
+                <Label Text="Тип обращения" FontSize="Medium" VerticalOptions="Center"/>
+                <Picker SelectedItem="{Binding Path=TypeOfAppeal}">
+                    <Picker.Items>
+                        <x:String>Первично</x:String>
+                        <x:String>Повторно</x:String>
+                    </Picker.Items>
+                </Picker>
+                
+                <Label Text="Дата визита врача" FontSize="Medium" VerticalOptions="Center"/>
+                <DatePicker Format="dd.MM.yyyy" Date="{Binding Time}"/>
+                
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Отменить" Command="{Binding CancelEditDoctorVisitCommand}" HorizontalOptions="FillAndExpand"/>
+                    <Button Text="Сохранить" Command="{Binding EditDoctorVisitCommand}" HorizontalOptions="FillAndExpand"/>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>
