@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Services.SickLeaves;
+using DoctorDiary.ViewModels.PatientCards;
+using DoctorDiary.Views.PatientCards;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -63,7 +65,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
                 number: Number,
                 term: Term.Create(startDate: StartDate, endDate: EndDate));        
                 
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync($"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={Guid.Parse(PatientCardId)}");
         }
 
         private async void InitPropertiesToDefaultValues()
