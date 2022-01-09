@@ -181,12 +181,12 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         #region Others
         // TODO: Move to another page
-        private bool _sickLeaveVisible;
+        private bool _sickLeaveIsVisible;
 
-        public bool SickLeaveVisible
+        public bool SickLeaveIsVisible
         {
-            get => _sickLeaveVisible;
-            set => SetProperty(ref _sickLeaveVisible, value);
+            get => _sickLeaveIsVisible;
+            set => SetProperty(ref _sickLeaveIsVisible, value);
         }
         #endregion
 
@@ -249,7 +249,7 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         private async Task EditSickLeave()
         {
-            if (!SickLeaveId.HasValue)
+            if (SickLeaveId == null)
                 return;
             
             await Shell.Current.GoToAsync($"{nameof(EditSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
@@ -263,12 +263,12 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         private async Task DeleteSickLeave()
         {
-            if (!SickLeaveId.HasValue)
+            if (SickLeaveId == null)
                 return;
 
             await _sickLeaveAppService.DeleteAsync(SickLeaveId.Value);
 
-            SickLeaveVisible = false;
+            SickLeaveIsVisible = false;
             OpenSickLeaveButtonIsEnabled = true;
             ExtendSickLeaveButtonIsEnabled = false;
             CloseSickLeaveWithCodeIsEnabled = false;
@@ -316,13 +316,13 @@ namespace DoctorDiary.ViewModels.PatientCards
                 if (sickLeave == null)
                 {
                     OpenSickLeaveButtonIsEnabled = true;
-                    SickLeaveVisible = false;
+                    SickLeaveIsVisible = false;
                     ExtendSickLeaveButtonIsEnabled = false;
                 }
                 else
                 {
                     OpenSickLeaveButtonIsEnabled = false;
-                    SickLeaveVisible = true;
+                    SickLeaveIsVisible = true;
                     ExtendSickLeaveButtonIsEnabled = true;
                     
                     SickLeaveId = sickLeave.Id;
@@ -360,7 +360,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 {
                     await _sickLeaveAppService.CloseSickLeave(SickLeaveId.Value);
                     
-                    SickLeaveVisible = false;
+                    SickLeaveIsVisible = false;
                     OpenSickLeaveButtonIsEnabled = true;
                 }
             }
