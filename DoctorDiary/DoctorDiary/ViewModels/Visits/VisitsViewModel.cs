@@ -17,17 +17,19 @@ namespace DoctorDiary.ViewModels.Visits
 {
     public class VisitsViewModel : BaseViewModel
     {
-        private DateTime _day;
+        private string _day;
         private PatientCard _selectedPatientCard;
-        
+
         private readonly IVisitAppService _visitAppService;
         private readonly IPatientCardAppService _patientCardAppService;
 
-        public DateTime Day
+        public string Day
         {
-            get => _day.Date;
+            get => _day;
             set => SetProperty(ref _day, value);
         }
+        
+        public DateTime? PageDatePicker { get; set; }
 
         public PatientCard SelectedPatientCard
         {
@@ -38,7 +40,7 @@ namespace DoctorDiary.ViewModels.Visits
                 OnPatientCardSelected(value);
             }
         }
-        
+
         public ObservableRangeCollection<VisitWithPatientCard> VisitWithPatientCards { get; }
         
         public AsyncCommand LoadVisitsWithPatientCardsCommand { get; }
@@ -55,7 +57,8 @@ namespace DoctorDiary.ViewModels.Visits
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
 
             Title = "Дневник вызывов";
-            Day = DateTime.Now;
+            Day = DateTime.Now.ToString("dd.MM.yyyy");
+            PageDatePicker = null;
             VisitWithPatientCards = new ObservableRangeCollection<VisitWithPatientCard>();
             
             LoadVisitsWithPatientCardsCommand = new AsyncCommand(LoadVisitsWithPatientCards);
@@ -81,8 +84,8 @@ namespace DoctorDiary.ViewModels.Visits
             {
                 VisitWithPatientCards.Clear();
 
-                var visits = await _visitAppService.VisitsByDate(date: Day, asNoTracking: true);
-                var patientCards = await _patientCardAppService.PatientCardsByVisits(date: Day, asNoTracking: true);
+                var visits = await _visitAppService.VisitsByDate(date: new DateTime(), asNoTracking: true);
+                var patientCards = await _patientCardAppService.PatientCardsByVisits(date: DateTime.ParseExact(s: Day, format: "dd.MM.yyyy", provider: null), asNoTracking: true);
                 var visitsWithPatientCards = visits.Join(patientCards,
                     v => v.PatientCardId,
                     p => p.Id,
@@ -114,7 +117,9 @@ namespace DoctorDiary.ViewModels.Visits
             if (IsBusy)
                 return;
 
-            Day = Day.AddDays(-1);
+            Day = DateTime.ParseExact(s: Day, format: "dd.MM.yyyy", provider: null)
+                .AddDays(-1)
+                .ToString("dd.MM.yyyy");
             IsBusy = true;
         }
 
@@ -122,8 +127,10 @@ namespace DoctorDiary.ViewModels.Visits
         {
             if (IsBusy)
                 return;
-
-            Day = Day.AddDays(1);
+            
+            Day = DateTime.ParseExact(s: Day, format: "dd.MM.yyyy", provider: null)
+                .AddDays(1)
+                .ToString("dd.MM.yyyy");
             IsBusy = true;
         }
         
@@ -132,7 +139,7 @@ namespace DoctorDiary.ViewModels.Visits
             if (IsBusy)
                 return;
 
-            Day = time;
+            Day = time.ToString("dd.MM.yyyy");;
             IsBusy = true;
         }
 

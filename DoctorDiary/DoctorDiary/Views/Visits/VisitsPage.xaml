@@ -20,20 +20,16 @@
                              CornerRadius="10"
                              HeightRequest="45" 
                              WidthRequest="40"/>
-                        
+                
                 <Frame BackgroundColor="White"
                        BorderColor="Black"
                        CornerRadius="10"
                        HorizontalOptions="Center"
-                       HeightRequest="45" 
-                       WidthRequest="100"
                        Margin="10, 0, 10, 0">
-                    <DatePicker Format="dd.MM.yyyy" 
-                                Date="{Binding Day}" DateSelected="DatePicker_OnDateSelected"
-                                TextColor="{StaticResource Key=TextColor}"
-                                FontSize="Medium"/>
+                    <Label FontSize="Medium"
+                           Text="{Binding Day, StringFormat='{0:dd.MM.yyyy}', Mode=TwoWay}"
+                           TextColor="{StaticResource Key=TextColor}"/>
                 </Frame>
-                
                 <ImageButton Source="next.png"
                              BackgroundColor="White"
                              HorizontalOptions="Start"
@@ -44,6 +40,22 @@
                              HeightRequest="45" 
                              WidthRequest="40"
                              Command="{Binding NextDayCommand}"/>
+                <ImageButton Source="calendar.png"
+                             BackgroundColor="White"
+                             HorizontalOptions="Start"
+                             Padding="0, 4, 0, 4"
+                             BorderWidth="1"
+                             BorderColor="Black"
+                             CornerRadius="10"
+                             HeightRequest="45" 
+                             WidthRequest="40"
+                             Clicked="CalendarButton_OnClicked"/>
+                <DatePicker x:Name="CalendarDatePicker"
+                            IsVisible="False"
+                            IsEnabled="False"
+                            Format="dd.MM.yyyy"
+                            DateSelected="CalendarDatePicker_OnDateSelected"
+                            Date="{Binding PageDatePicker}"/>
             </FlexLayout>
             <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                          Command="{Binding LoadVisitsWithPatientCardsCommand}" >
