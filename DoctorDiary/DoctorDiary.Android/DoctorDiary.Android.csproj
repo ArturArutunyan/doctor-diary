@@ -57,12 +57,17 @@
     <Reference Include="System.Numerics.Vectors" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.AndroidX.ConstraintLayout, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\.nuget\packages\xamarin.androidx.constraintlayout\2.1.0\lib\monoandroid90\Xamarin.AndroidX.ConstraintLayout.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +107,10 @@
     <AndroidResource Include="Resources\drawable\icon_feed.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DoctorDiary.Shared\DoctorDiary.Shared.csproj">
+      <Project>{c61e1f70-838b-467b-ae6b-b11adefa061f}</Project>
+      <Name>DoctorDiary.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoctorDiary\DoctorDiary.csproj">
       <Project>{CED7A004-B309-40A7-AED4-3F93BC1603DA}</Project>
       <Name>DoctorDiary</Name>

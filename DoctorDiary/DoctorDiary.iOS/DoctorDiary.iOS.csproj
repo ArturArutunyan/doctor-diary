@@ -63,6 +63,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -137,6 +138,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\DoctorDiary.Shared\DoctorDiary.Shared.csproj">
+      <Project>{c61e1f70-838b-467b-ae6b-b11adefa061f}</Project>
+      <Name>DoctorDiary.Shared</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoctorDiary\DoctorDiary.csproj">
       <Project>{CED7A004-B309-40A7-AED4-3F93BC1603DA}</Project>
       <Name>DoctorDiary</Name>
