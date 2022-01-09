@@ -1,14 +1,48 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:validations="clr-namespace:DoctorDiary.Shared.Validations;assembly=DoctorDiary.Shared"
+             xmlns:behaviors="clr-namespace:DoctorDiary.Shared.Behaviors;assembly=DoctorDiary.Shared"
              x:Class="DoctorDiary.App">
     <!--
         Define global resources and styles here, that apply to all pages in your app.
     -->
     <Application.Resources>
         <ResourceDictionary>
+            
+            <!-- FONT SIZES -->
+            <OnPlatform 
+                x:Key="LittleSize"
+                x:TypeArguments="x:Double"
+                iOS="11"
+                Android="12"
+                WinPhone="12"/>
+            
+            <OnPlatform 
+                x:Key="LargeSize"
+                x:TypeArguments="x:Double"
+                iOS="16"
+                Android="18"
+                WinPhone="18"/>
+            
+            <!-- COLORS -->
+            <Color x:Key="ErrorColor">#ff5252</Color>
             <Color x:Key="Primary">#2196F3</Color>
             <Color x:Key="TextColor">#032d3d</Color>
+            <Color x:Key="BlackColor">#000000</Color>
+            
+            <!-- FONTS -->
+            <!-- <OnPlatform  -->
+            <!--     x:Key="MontserratRegular" -->
+            <!--     x:TypeArguments="x:String" -->
+            <!--     iOS="Montserrat-Regular" -->
+            <!--     Android="Montserrat-Regular.ttf#Montserrat" -->
+            <!--     WinPhone="Assets/Fonts/Montserrat-Regular.ttf#Montserrat"/> -->
+            <!-- -->
+            <!-- CONVERTERS -->
+            <validations:FirstValidationErrorConverter x:Key="FirstValidationErrorConverter" />
+            
+            <!-- STYLES -->
             <Style TargetType="Button">
                 <Setter Property="TextColor" Value="White"></Setter>
                 <Setter Property="VisualStateManager.VisualStateGroups">
@@ -28,6 +62,44 @@
                     </VisualStateGroupList>
                 </Setter>
             </Style>
+            
+            <Style x:Key="ValidationErrorLabelStyle"
+                   TargetType="{x:Type Label}">
+                <Setter Property="TextColor"
+                        Value="{StaticResource ErrorColor}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource LittleSize}" />
+            </Style>
+            
+            <Style x:Key="EntryStyle"
+                   TargetType="{x:Type Entry}">
+                <!-- <Setter Property="FontFamily" -->
+                <!--         Value="{StaticResource MontserratRegular}" /> -->
+                <Setter Property="TextColor"
+                        Value="{StaticResource BlackColor}" />
+                <Setter Property="PlaceholderColor"
+                        Value="{StaticResource BlackColor}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource LargeSize}" />
+                <Setter Property="HorizontalOptions"
+                        Value="FillAndExpand" />
+                <Setter Property="FontAttributes"
+                        Value="Bold" />
+                <Setter Property="Opacity"
+                        Value="0.6" />
+                <Setter Property="behaviors:LineColorBehavior.ApplyLineColor"
+                        Value="True" />
+                <Setter Property="behaviors:LineColorBehavior.LineColor"
+                        Value="{StaticResource BlackColor}" />
+                <Style.Triggers>
+                    <Trigger TargetType="Entry"
+                             Property="IsFocused" 
+                             Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            
         </ResourceDictionary>        
     </Application.Resources>
 </Application>
