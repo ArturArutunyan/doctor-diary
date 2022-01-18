@@ -9,6 +9,7 @@
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              xmlns:control="clr-namespace:Xamarin.Forms.MaskedEntry;assembly=Xamarin.Forms.MaskedEntry"
+             xmlns:behaviors="clr-namespace:DoctorDiary.Shared.Behaviors;assembly=DoctorDiary.Shared"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <ScrollView>
@@ -43,10 +44,26 @@
                 </Entry>
                 
                 <Label Text="Отчество" FontSize="Medium" />
-                <Entry Text="{Binding Patronymic, Mode=TwoWay}"
+                <Entry Text="{Binding Patronymic.Value, Mode=TwoWay}"
                        FontSize="Medium"
                        TextColor="{StaticResource Key=TextColor}"
                        x:Name="Patronymic">
+                    <Entry.Style>
+                        <OnPlatform x:TypeArguments="Style"
+                                    iOS="{StaticResource EntryStyle}"
+                                    Android="{StaticResource EntryStyle}"/>
+                    </Entry.Style>
+                    <Entry.Behaviors>
+                        <xct:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding ValidatePatronymicCommand}" />
+                    </Entry.Behaviors>
+                    <Entry.Triggers>
+                        <DataTrigger TargetType="Entry"
+                                     Binding="{Binding Patronymic.IsValid}"
+                                     Value="False">
+                            <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                        </DataTrigger>
+                    </Entry.Triggers>
                     <Entry.Keyboard>
                         <Keyboard x:FactoryMethod="Create">
                             <x:Arguments>
@@ -55,6 +72,8 @@
                         </Keyboard>
                     </Entry.Keyboard>
                 </Entry>
+                <Label Text="{Binding Patronymic.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       Style="{StaticResource ValidationErrorLabelStyle}" Margin="0, 0, 0, 10"/>
                 
                 <Label Text="Пол" FontSize="Medium" />
                 <Picker SelectedItem="{Binding Path=Gender}">
@@ -91,7 +110,6 @@
                                      Margin="0, 0, 2, 0"
                                      Padding="2"
                                      BorderColor="Gray"/>
-
                         <Entry Grid.Row="1" 
                                Grid.Column="0" 
                                Grid.ColumnSpan="2" 

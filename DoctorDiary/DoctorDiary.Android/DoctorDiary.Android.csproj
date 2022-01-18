@@ -69,6 +69,7 @@
   <ItemGroup>
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -78,11 +79,14 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\address_card_regular.svg" />
     <AndroidResource Include="Resources\drawable\back.png" />
+    <AndroidResource Include="Resources\drawable\bell_solid.svg" />
     <AndroidResource Include="Resources\drawable\business_cards.png" />
     <AndroidResource Include="Resources\drawable\calendar.png" />
     <AndroidResource Include="Resources\drawable\cancel.png" />
     <AndroidResource Include="Resources\drawable\delete.png" />
+    <AndroidResource Include="Resources\drawable\house_user_solid.svg" />
     <AndroidResource Include="Resources\drawable\house.png" />
     <AndroidResource Include="Resources\drawable\next.png" />
     <AndroidResource Include="Resources\drawable\pen.png" />

@@ -16,12 +16,12 @@
     <Shell.Resources>
         <ResourceDictionary>
             <Style x:Key="BaseStyle" TargetType="Element">
-                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource SoftGreenColor}" />
                 <Setter Property="Shell.ForegroundColor" Value="White" />
                 <Setter Property="Shell.TitleColor" Value="White" />
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
-                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource SoftGreenColor}" />
                 <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
                 <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
                 <Setter Property="Shell.TabBarTitleColor" Value="White"/>
@@ -34,7 +34,7 @@
     <TabBar>
         <ShellContent x:Name="PatientCards" Icon="business_cards.png" ContentTemplate="{DataTemplate patientCards:PatientCardsPage}" />
         <ShellContent x:Name="Visits" Icon="house.png" ContentTemplate="{DataTemplate visits:VisitsPage}" />
-        <ShellContent x:Name="Reminders" Icon="reminder.png" ContentTemplate="{DataTemplate reminders:RemindersPage}" />
+        <ShellContent x:Name="Reminders" Icon="reminder.png" ContentTemplate="{DataTemplate reminders:RemindersPage}"  />
     </TabBar>
 
     <!--

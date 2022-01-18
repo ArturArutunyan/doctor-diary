@@ -1,8 +1,9 @@
 ﻿using System;
-using System.Globalization;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Services.PatientCards;
+using DoctorDiary.Shared.Validations;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -12,7 +13,7 @@ namespace DoctorDiary.ViewModels.PatientCards
     {
         private string _lastName;
         private string _firstName;
-        private string _patronymic;
+        private ValidatableObject<string> _patronymic;
         private string _city;
         private string _street;
         private string _apartment;
@@ -34,22 +35,42 @@ namespace DoctorDiary.ViewModels.PatientCards
         public NewPatientCardViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
+            _patronymic = new ValidatableObject<string>();
             BirthdayDatePicker = null;
-            SaveCommand = new AsyncCommand(OnSave, ValidateSave);
+            SaveCommand = new AsyncCommand(OnSave);
             CancelCommand = new AsyncCommand(OnCancel);
             PropertyChanged +=
                 (_, __) => SaveCommand.RaiseCanExecuteChanged();
+            
+            AddValidations();
         }
 
-        private bool ValidateSave(object arg)
+        private void AddValidations()
         {
-            return !String.IsNullOrWhiteSpace(_firstName)
-                   && !String.IsNullOrWhiteSpace(_lastName);
+            _patronymic.Validations.Add(new IsNotNullOrEmptyRule<string>
+            {
+                ValidationMessage = "A patronymic is required."
+            });
+        }
+        
+        
+        private bool Validate()
+        {
+            var isValidPatronymic = ValidatePatronymic();
+
+            return isValidPatronymic;
+        }
+
+        private bool ValidatePatronymic()
+        {
+            return _patronymic.Validate();
         }
 
         public AsyncCommand SaveCommand { get; }
+
         public AsyncCommand CancelCommand { get; }
 
+        public ICommand ValidatePatronymicCommand => new Command(() => ValidatePatronymic());
 
         public string LastName
         {
@@ -63,7 +84,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _firstName, value);
         }
 
-        public string Patronymic
+        public ValidatableObject<string> Patronymic
         {
             get => _patronymic;
             set => SetProperty(ref _patronymic, value);
@@ -161,6 +182,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _precinct, value);
         }
         
+
         private async Task OnCancel()
         {
             // This will pop the current page off the navigation stack
@@ -172,7 +194,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             await _patientCardAppService.CreateAsync(
                 firstName: FirstName,
                 lastName: LastName,
-                patronymic: Patronymic,
+                patronymic: Patronymic.Value,
                 address: new Address(city: City, street: Street, apartment: Apartment, house: House, entrance: Entrance, floor: Floor),
                 birthday: !string.IsNullOrEmpty(Birthday) 
                     ? DateTime.ParseExact(s: Birthday, format: "dd.MM.yyyy", provider: null)

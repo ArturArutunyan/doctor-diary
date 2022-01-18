@@ -8,6 +8,8 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
     {
         public string Value { get; }
 
+        public string ReadableFormat => ToReadableFormat();
+        
         protected PhoneNumber()
         {
         }
@@ -23,11 +25,11 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
             return $"+{pattern.Replace(value, string.Empty)}";
         }
 
-        public static string ToReadableFormat(string value)
+        public string ToReadableFormat()
         {
-            return string.IsNullOrEmpty(value) 
+            return string.IsNullOrEmpty(Value) 
                 ? string.Empty 
-                : $"+{value[0]}({value[1..4]})-{value[4..7]}-{value[7..9]}{value[9..11]}";
+                : $"{Value[..2]} {Value[3..6]} {Value[8..11]} {Value[12..]}";
         }
 
         protected override IEnumerable<object> GetAtomicValues()

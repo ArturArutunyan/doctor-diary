@@ -12,6 +12,7 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
         public string House { get; }
         public string Entrance { get; }
         public string Floor { get; }
+        public string InShortFormat => ToShortFormat();
 
         protected Address()
         {
@@ -58,6 +59,34 @@ namespace DoctorDiary.Models.PatientCards.ValueObjects
             return string.Join(", ", new[]
             {
                 formattedCity,
+                formattedStreet,
+                formattedHouse,
+                formattedEntrance,
+                formattedFloor,
+                formattedApartment
+            }.Where(x => !string.IsNullOrEmpty(x)));
+        }
+
+        public string ToShortFormat()
+        {
+            var formattedStreet = string.IsNullOrEmpty(Street)
+                ? string.Empty
+                : $"ул.{Street}";
+            var formattedHouse = string.IsNullOrEmpty(House)
+                ? string.Empty
+                : $"д.{House}";
+            var formattedEntrance = string.IsNullOrEmpty(Entrance)
+                ? string.Empty
+                : $"{Entrance} подъезд";
+            var formattedFloor = string.IsNullOrEmpty(Floor)
+                ? string.Empty
+                : $"{Floor} этаж";
+            var formattedApartment = string.IsNullOrEmpty(Apartment)
+                ? string.Empty
+                : $"кв.{Apartment}";
+            
+            return string.Join(", ", new[]
+            {
                 formattedStreet,
                 formattedHouse,
                 formattedEntrance,

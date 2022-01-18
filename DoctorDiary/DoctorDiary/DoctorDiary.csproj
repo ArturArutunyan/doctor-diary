@@ -23,4 +23,53 @@
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources\Fonts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\BeVietnamPro-Regular.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\CustomFont.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\CustomFont.ttf" />
+    <None Remove="Resources\Fonts\fa-brands-400.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-brands-400.ttf" />
+    <None Remove="Resources\Fonts\fa-regular-400.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-regular-400.ttf" />
+    <None Remove="Resources\Fonts\fa-solid-900.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-solid-900.ttf" />
+    <None Remove="Resources\Fonts\PTSansNarrow-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\PTSansNarrow-Bold.ttf" />
+    <None Remove="Resources\Fonts\PTSansNarrow-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\PTSansNarrow-Regular.ttf" />
+    <None Remove="Resources\Fonts\MoshitaMonoItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\MoshitaMonoItalic.ttf" />
+    <None Remove="Resources\Fonts\MoshitaMono.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\MoshitaMono.ttf" />
+    <None Remove="Resources\Fonts\MoshitaMonoBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\MoshitaMonoBold.ttf" />
+    <None Remove="Resources\Fonts\MoshitaMonoBoldItalic.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\MoshitaMonoBoldItalic.ttf" />
+    <None Remove="Resources\Fonts\Hauora-Bold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-Bold.ttf" />
+    <None Remove="Resources\Fonts\Hauora-ExtraBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-ExtraBold.ttf" />
+    <None Remove="Resources\Fonts\Hauora-ExtraLight.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-ExtraLight.ttf" />
+    <None Remove="Resources\Fonts\Hauora-Light.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-Light.ttf" />
+    <None Remove="Resources\Fonts\Hauora-Medium.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-Medium.ttf" />
+    <None Remove="Resources\Fonts\Hauora-Regular.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-Regular.ttf" />
+    <None Remove="Resources\Fonts\Hauora-SemiBold.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\Hauora-SemiBold.ttf" />
+    <None Remove="Resources\Fonts\fa-duotone-900.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-duotone-900.ttf" />
+    <None Remove="Resources\Fonts\fa-light-300.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\fa-light-300.ttf" />
+  </ItemGroup>
 </Project>
