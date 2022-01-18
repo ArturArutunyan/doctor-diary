@@ -32,17 +32,24 @@
     </Shell.Resources>
 
     <TabBar>
-        <ShellContent x:Name="PatientCards" Icon="business_cards.png" ContentTemplate="{DataTemplate patientCards:PatientCardsPage}" />
-        <ShellContent x:Name="Visits" Icon="house.png" ContentTemplate="{DataTemplate visits:VisitsPage}" />
-        <ShellContent x:Name="Reminders" Icon="reminder.png" ContentTemplate="{DataTemplate reminders:RemindersPage}"  />
+        <Tab x:Name="PatientCards">
+            <Tab.Icon>
+                <FontImageSource Glyph="{StaticResource PatientCardIcon}" FontFamily="FAS" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate patientCards:PatientCardsPage}"/>
+        </Tab>
+        <Tab x:Name="Visits">
+            <Tab.Icon>
+                <FontImageSource Glyph="{StaticResource VisitIcon}" FontFamily="FAS" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate visits:VisitsPage}"/>
+        </Tab>
+        <Tab x:Name="Reminders">
+            <Tab.Icon>
+                <FontImageSource Glyph="{StaticResource BellIcon}" FontFamily="FAS" />
+            </Tab.Icon>
+            <ShellContent ContentTemplate="{DataTemplate reminders:RemindersPage}"/>
+        </Tab>
     </TabBar>
-
-    <!--
-        If you would like to navigate to this content you can do so by calling
-        await Shell.Current.GoToAsync("//LoginPage");
-    -->
-    <!-- <TabBar> -->
-    <!--     <ShellContent Route="LoginPage" ContentTemplate="{DataTemplate local:LoginPage}" /> -->
-    <!-- </TabBar> -->
 
 </Shell>
