@@ -37,7 +37,6 @@ namespace DoctorDiary.ViewModels.PatientCards
         public PatientCardsFilter Filter { get; set; }
         public ObservableRangeCollection<PatientCard> PatientCards { get; }
         public AsyncCommand LoadPatientCardsCommand { get; }
-        public AsyncCommand AddPatientCardCommand { get; }
         public AsyncCommand<PatientCard> PatientCardTapped { get; }
         public AsyncCommand LoadMoreCommand { get; }
         public Command<PatientCard> OpenPhoneDialerCommand { get; }
@@ -54,7 +53,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             
             LoadPatientCardsCommand = new AsyncCommand(LoadPatientCards);
             PatientCardTapped = new AsyncCommand<PatientCard>(OnPatientCardSelected);
-            AddPatientCardCommand = new AsyncCommand(AddPatientCard);
             LoadMoreCommand = new AsyncCommand(OnPatientCardsThresholdReached);
             OpenPhoneDialerCommand = new Command<PatientCard>(OnOpenPhoneDialer);
         }
@@ -109,11 +107,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 Debug.WriteLine(ex);
             }
-        }
-
-        private async Task AddPatientCard()
-        {
-            await Shell.Current.GoToAsync(nameof(NewPatientCardPage));
         }
 
         public void OnAppearing()
