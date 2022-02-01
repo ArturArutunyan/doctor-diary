@@ -29,6 +29,7 @@
             <Color x:Key="ErrorColor">#ff5252</Color>
             <Color x:Key="Primary">#2196F3</Color>
             <Color x:Key="TextColor">#032d3d</Color>
+            <Color x:Key="BlueWhaleLight">#4f6c77</Color>
             <Color x:Key="BlackColor">#000000</Color>
             <Color x:Key="SoftGreenColor">#47b5ac</Color>
             
