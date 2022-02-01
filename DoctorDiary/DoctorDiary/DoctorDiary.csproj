@@ -6,7 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.123" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.0" />
+    <PackageReference Include="NinjaNye.SearchExtensions" Version="3.0.1" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.115.5" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="1.3.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />  
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />  
@@ -71,5 +75,16 @@
     <EmbeddedResource Include="Resources\Fonts\fa-duotone-900.ttf" />
     <None Remove="Resources\Fonts\fa-light-300.ttf" />
     <EmbeddedResource Include="Resources\Fonts\fa-light-300.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-Bold.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-BoldItalic.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-Heavy.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-HeavyItalic.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-Italic.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-Light.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-LightItalic.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-Medium.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-MediumItalic.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-Regular.ttf" />
+    <None Remove="Resources\Fonts\NoirPro-SemiBoldItalic.ttf" />
   </ItemGroup>
 </Project>

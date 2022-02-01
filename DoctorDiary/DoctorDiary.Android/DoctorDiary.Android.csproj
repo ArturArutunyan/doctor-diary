@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="Xamarin.AndroidX.ConstraintLayout" Version="2.1.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
@@ -69,7 +70,11 @@
   <ItemGroup>
     <Compile Include="Effects\EntryLineColorEffect.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Renderers\BorderlessEditorRenderer.cs" />
     <Compile Include="Renderers\BorderlessEntryRenderer.cs" />
+    <Compile Include="Renderers\BorderlessPickerRenderer.cs" />
+    <Compile Include="Renderers\MaterialButtonRenderer.cs" />
+    <Compile Include="Renderers\MaterialFrameRenderer.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
