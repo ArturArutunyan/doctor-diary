@@ -39,7 +39,7 @@ namespace DoctorDiary.DbMigrator.Migrations
                         .HasColumnName("EmploymentPosition");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("NVARCHAR(30)")
+                        .HasColumnType("TEXT COLLATE NOCASE")
                         .HasColumnName("FirstName");
 
                     b.Property<string>("Gender")
