@@ -1,6 +1,8 @@
 ﻿using System;
+using DoctorDiary.Models.PatientCards;
 using DoctorDiary.ViewModels.PatientCards;
 using Xamarin.CommunityToolkit.Extensions;
+using Xamarin.CommunityToolkit.UI.Views.Options;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -53,6 +55,37 @@ namespace DoctorDiary.Views.PatientCards
             await Shell.Current.GoToAsync(nameof(NewPatientCardPage));
 
             _addButtonIsTapped = false;
+        }
+
+        // Hint: this crap is necessary to get rid of the indicator when refreshing RefreshView
+        private async void SearchFilter_OnCompleted(object sender, EventArgs eventArgs)
+        {
+            await _patientCardsViewModel.LoadPatientCardsWithoutRefresh();
+        }
+
+        private async void PhoneButton_OnClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var patientCard = (PatientCard)button.CommandParameter;
+
+            if (patientCard.PhoneNumber != null)
+            {
+                _patientCardsViewModel.OnOpenPhoneDialer(patientCard);
+            }
+            else
+            {
+                await this.DisplayToastAsync(new ToastOptions()
+                {
+                    BackgroundColor = Color.DarkGray,
+                    CornerRadius = new Thickness(7, 7, 0, 0),
+                    MessageOptions = new MessageOptions()
+                    {
+                        Foreground = Color.Azure,
+                        Font = Font.OfSize("HEB", NamedSize.Medium),
+                        Message = $"У пациента не указан номер телефона"
+                    }
+                });   
+            }
         }
     }
 }

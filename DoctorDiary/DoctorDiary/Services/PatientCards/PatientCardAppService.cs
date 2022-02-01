@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper;
 using DoctorDiary.EntityFrameworkCore.PatientCards;
 using DoctorDiary.EntityFrameworkCore.Visits;
 using DoctorDiary.Models.PatientCards;
 using DoctorDiary.Models.PatientCards.ValueObjects;
 using DoctorDiary.Shared.ApplicationContracts;
+using Microsoft.Data.Sqlite;
 using Xamarin.Forms;
 
 namespace DoctorDiary.Services.PatientCards
@@ -46,6 +49,7 @@ namespace DoctorDiary.Services.PatientCards
                 takeCount: filter.TakeCount,
                 skipCount: filter.SkipCount,
                 asNoTracking: filter.AsNoTracking,
+                textFilter: filter.TextFilter,
                 firstName: filter.FirstName,
                 lastName: filter.LastName,
                 patronymic: filter.Patronymic,

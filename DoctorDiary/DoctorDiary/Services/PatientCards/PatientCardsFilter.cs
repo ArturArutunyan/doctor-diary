@@ -4,6 +4,7 @@ namespace DoctorDiary.Services.PatientCards
 {
     public class PatientCardsFilter
     {
+        public string TextFilter { get; set; }
         public int TakeCount { get; set; }
         public int SkipCount { get; set; }
         public bool AsNoTracking { get; set; }

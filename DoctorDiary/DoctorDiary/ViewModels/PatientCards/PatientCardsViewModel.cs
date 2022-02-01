@@ -41,7 +41,6 @@ namespace DoctorDiary.ViewModels.PatientCards
         public AsyncCommand LoadMoreCommand { get; }
         public Command<PatientCard> OpenPhoneDialerCommand { get; }
 
-
         public PatientCardsViewModel()
         {
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
@@ -57,7 +56,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             OpenPhoneDialerCommand = new Command<PatientCard>(OnOpenPhoneDialer);
         }
 
-        private void OnOpenPhoneDialer(PatientCard patientCard)
+        internal void OnOpenPhoneDialer(PatientCard patientCard)
         {
             try
             {
@@ -117,13 +116,11 @@ namespace DoctorDiary.ViewModels.PatientCards
         
         public async Task LoadPatientCards()
         {
-            IsBusy = true;
-
             try
             {
+                IsBusy = true;
                 PatientCards.Clear();
                 RemainingItemsThreshold = 1;
-
                 Filter.SkipCount = 0;
                 
                 var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(Filter);
@@ -140,6 +137,24 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
 
+        public async Task LoadPatientCardsWithoutRefresh()
+        {
+            try
+            {
+                PatientCards.Clear();
+                RemainingItemsThreshold = 1;
+                Filter.SkipCount = 0;
+                
+                var patientCards = await _patientCardAppService.GetLastCreatedPatientCards(Filter);
+
+                PatientCards.AddRange(patientCards);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
+        }
+        
         private async Task OnPatientCardSelected(PatientCard patientCard)
         {
             if (patientCard == null)
