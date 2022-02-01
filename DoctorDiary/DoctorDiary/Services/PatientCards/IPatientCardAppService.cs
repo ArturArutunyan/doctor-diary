@@ -30,7 +30,7 @@ namespace DoctorDiary.Services.PatientCards
             InsurancePolicy insurancePolicy,
             string placeOfWork,
             string employmentPosition,
-            int precinct);
+            int? precinct);
 
         Task UpdateAsync(
             Guid id,
@@ -46,7 +46,7 @@ namespace DoctorDiary.Services.PatientCards
             InsurancePolicy insurancePolicy,
             string placeOfWork,
             string employmentPosition,
-            int precinct);
+            int? precinct);
 
         Task DeleteAsync(Guid id);
     }

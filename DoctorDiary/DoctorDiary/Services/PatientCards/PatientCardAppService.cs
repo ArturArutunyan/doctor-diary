@@ -90,7 +90,7 @@ namespace DoctorDiary.Services.PatientCards
             InsurancePolicy insurancePolicy,
             string placeOfWork,
             string employmentPosition,
-            int precinct)
+            int? precinct)
         {
             var patientCard = new PatientCard(
                 id: Guid.NewGuid(),
@@ -127,7 +127,7 @@ namespace DoctorDiary.Services.PatientCards
             InsurancePolicy insurancePolicy,
             string placeOfWork,
             string employmentPosition,
-            int precinct)
+            int? precinct)
         {
             var patientCard = await _patientCardRepository.GetAsync(id);
             

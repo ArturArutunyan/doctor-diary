@@ -7,11 +7,10 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
 {
     public interface IPatientCardRepository : IRepository<PatientCard, Guid>
     {
-        Task<List<PatientCard>> PatientCardsByVisits(DateTime date, bool asNoTracking = false);
-        
         Task<List<PatientCard>> GetLastCreatedPatientCards(int takeCount,
             int skipCount,
             bool asNoTracking = false,
+            string textFilter = null,
             string firstName = null,
             string lastName = null,
             string patronymic = null,
@@ -28,7 +27,5 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
             string insurancePolicy = null,
             string placeOfWork = null,
             int? precinct = null);
-
-        Task<List<PatientCard>> GetListByFilterAsync(int takeCount, int skipCount, bool asNoTracking = false);
     }
 }

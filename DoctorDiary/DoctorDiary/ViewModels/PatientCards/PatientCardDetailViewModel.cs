@@ -36,7 +36,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _gender;
         private string _insurancePolicy;
         private string _placeOfWork;
-        private int _precinct;
+        private int? _precinct;
         
         public string PatientCardId
         {
@@ -116,7 +116,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _placeOfWork, value);
         }
         
-        public int Precinct 
+        public int? Precinct 
         {
             get => _precinct;
             set => SetProperty(ref _precinct, value);

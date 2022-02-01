@@ -29,7 +29,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private string _insurancePolicy;
         private string _placeOfWork;
         private string _employmentPosition;
-        private int _precinct;
+        private int? _precinct;
 
         private readonly IPatientCardAppService _patientCardAppService;
 
@@ -147,7 +147,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _employmentPosition, value);
         }
         
-        public int Precinct
+        public int? Precinct
         {
             get => _precinct;
             set => SetProperty(ref _precinct, value);

@@ -18,9 +18,9 @@ namespace DoctorDiary.Models.PatientCards
         public virtual InsurancePolicy InsurancePolicy { get; protected set; }
         public virtual string PlaceOfWork { get; protected set; }
         public virtual string EmploymentPosition { get; protected set; }
-        public virtual int Precinct { get; protected set; }
-        
-        protected PatientCard()
+        public virtual int? Precinct { get; protected set; }
+
+        public PatientCard()
         {
         }
 
@@ -38,7 +38,7 @@ namespace DoctorDiary.Models.PatientCards
             InsurancePolicy insurancePolicy,
             string placeOfWork,
             string employmentPosition,
-            int precinct) : base(id)
+            int? precinct) : base(id)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -115,7 +115,7 @@ namespace DoctorDiary.Models.PatientCards
             EmploymentPosition = employmentPosition;
         }
         
-        public void ChangePrecinct(int precinct)
+        public void ChangePrecinct(int? precinct)
         {
             Precinct = precinct;
         }
