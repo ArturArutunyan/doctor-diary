@@ -71,7 +71,6 @@ namespace DoctorDiary.ViewModels.PatientCards
             _phoneNumber.Validations.Add(new PhoneNumberRule());
         }
         
-        
         internal bool Validate()
         {
             var birthdayIsValid = ValidateBirthday();
@@ -89,7 +88,6 @@ namespace DoctorDiary.ViewModels.PatientCards
                    insurancePolicyIsValid;
         }
 
-        
         private bool ValidateLastName()
         {
             return _lastName.Validate();
@@ -119,8 +117,6 @@ namespace DoctorDiary.ViewModels.PatientCards
         {
             return _phoneNumber.Validate();
         }
-
-        public AsyncCommand SaveCommand { get; }
 
         public AsyncCommand CancelCommand { get; }
 

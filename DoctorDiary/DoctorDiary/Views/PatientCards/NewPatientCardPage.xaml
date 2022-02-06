@@ -8,7 +8,6 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:control="clr-namespace:Xamarin.Forms.MaskedEntry;assembly=Xamarin.Forms.MaskedEntry"
              xmlns:behaviors="clr-namespace:DoctorDiary.Shared.Behaviors;assembly=DoctorDiary.Shared"
              xmlns:entries="clr-namespace:DoctorDiary.Shared.Entries;assembly=DoctorDiary.Shared"
              xmlns:frames="clr-namespace:DoctorDiary.Shared.Frames;assembly=DoctorDiary.Shared"

@@ -39,7 +39,7 @@ namespace DoctorDiary.Migrations
                         .HasColumnName("EmploymentPosition");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("TEXT COLLATE NOCASE")
+                        .HasColumnType("NVARCHAR(30)")
                         .HasColumnName("FirstName");
 
                     b.Property<string>("Gender")
@@ -57,7 +57,7 @@ namespace DoctorDiary.Migrations
                         .HasColumnType("TEXT")
                         .HasColumnName("PlaceOfWork");
 
-                    b.Property<int>("Precinct")
+                    b.Property<int?>("Precinct")
                         .HasColumnType("INTEGER")
                         .HasColumnName("Precinct");
 

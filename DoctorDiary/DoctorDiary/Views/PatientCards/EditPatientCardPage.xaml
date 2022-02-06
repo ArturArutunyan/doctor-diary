@@ -8,62 +8,156 @@
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:patientCards="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             xmlns:maskedEntry="clr-namespace:Xamarin.Forms.MaskedEntry;assembly=Xamarin.Forms.MaskedEntry"
+             xmlns:frames="clr-namespace:DoctorDiary.Shared.Frames;assembly=DoctorDiary.Shared"
+             xmlns:entries="clr-namespace:DoctorDiary.Shared.Entries;assembly=DoctorDiary.Shared"
+             xmlns:editors="clr-namespace:DoctorDiary.Shared.Editors;assembly=DoctorDiary.Shared"
+             xmlns:behaviors="clr-namespace:DoctorDiary.Shared.Behaviors;assembly=DoctorDiary.Shared"
+             xmlns:pickers="clr-namespace:DoctorDiary.Shared.Pickers;assembly=DoctorDiary.Shared"
+             xmlns:fontAwesome="clr-namespace:FontAwesome;assembly=DoctorDiary"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView x:Name="PatientCardScrollView">
             <StackLayout Spacing="3" Padding="15">
-                 <Label Text="Фамилия" FontSize="Medium" />
-                <Entry Text="{Binding LastName, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FirstName}">
-                    <Entry.Keyboard>
-                        <Keyboard x:FactoryMethod="Create">
-                            <x:Arguments>
-                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
-                            </x:Arguments>
-                        </Keyboard>
-                    </Entry.Keyboard>
-                </Entry>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Фамилия" 
+                                  FontSize="Medium" 
+                                  FontFamily="HEB" />
+                            <Span Text=" " />
+                            <Span Text="*"
+                                  FontSize="Medium"
+                                  TextColor="Red" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="LastNameFrame">
+                    <entries:BorderlessEntry Text="{Binding LastName.Value, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference FirstName}"
+                                             Focused="LastNameEntry_OnFocused"
+                                             Unfocused="LastNameEntry_OnUnfocused">
+                        <Entry.Behaviors>
+                            <xct:EventToCommandBehavior EventName="TextChanged"
+                                                        Command="{Binding ValidateLastNameCommand}" />
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger TargetType="Entry"
+                                         Binding="{Binding LastName.IsValid}"
+                                         Value="False">
+                                <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
+                <Label Text="{Binding LastName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       Style="{StaticResource ValidationErrorLabelStyle}" 
+                       Margin="3, 0, 0, 10"
+                       FontFamily="HEB"/>
                 
-                <Label Text="Имя" FontSize="Medium"/>
-                <Entry Text="{Binding FirstName, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="FirstName"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Patronymic}">
-                    <Entry.Keyboard>
-                        <Keyboard x:FactoryMethod="Create">
-                            <x:Arguments>
-                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
-                            </x:Arguments>
-                        </Keyboard>
-                    </Entry.Keyboard>
-                </Entry>
+                <Label>
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Имя" 
+                                  FontSize="Medium" 
+                                  FontFamily="HEB" />
+                            <Span Text=" " />
+                            <Span Text="*"
+                                  FontSize="Medium"
+                                  TextColor="Red" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="FirstNameFrame">
+                    <entries:BorderlessEntry Text="{Binding FirstName.Value, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Patronymic}"
+                                             Focused="FirstNameEntry_OnFocused"
+                                             Unfocused="FirstNameEntry_OnUnfocused"
+                                             x:Name="FirstName">
+                        <Entry.Behaviors>
+                            <xct:EventToCommandBehavior EventName="TextChanged"
+                                                        Command="{Binding ValidateFirstNameCommand}" />
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger TargetType="Entry"
+                                         Binding="{Binding FirstName.IsValid}"
+                                         Value="False">
+                                <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
+                <Label Text="{Binding FirstName.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       Style="{StaticResource ValidationErrorLabelStyle}" 
+                       Margin="3, 0, 0, 10"
+                       FontFamily="HEB"/>
                 
-                <Label Text="Отчество" FontSize="Medium" />
-                <Entry Text="{Binding Patronymic, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="Patronymic">
-                    <Entry.Keyboard>
-                        <Keyboard x:FactoryMethod="Create">
-                            <x:Arguments>
-                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
-                            </x:Arguments>
-                        </Keyboard>
-                    </Entry.Keyboard>
-                </Entry>
+                <Label Text="Отчество" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="PatronymicFrame">
+                    <entries:BorderlessEntry Text="{Binding Patronymic, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="Patronymic"
+                                             Focused="PatronymicEntry_OnFocused"
+                                             Unfocused="PatronymicEntry_OnUnFocused">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                <Label Text="Пол" FontSize="Medium" />
-                <Picker SelectedItem="{Binding Path=Gender}">
-                    <Picker.Items>
-                        <x:String>Мужской</x:String>
-                        <x:String>Женский</x:String>
-                        <x:String>Другой</x:String>
-                    </Picker.Items>
-                </Picker>
+                <Label Text="Пол" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="10, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="GenderFrame"
+                                      HeightRequest="46">
+                    <pickers:BorderlessPicker SelectedItem="{Binding Path=Gender, Mode=TwoWay}"
+                                              FontFamily="HSB"
+                                              TextColor="{StaticResource Key=TextColor}"
+                                              Focused="GenderEntry_OnFocused"
+                                              Unfocused="GenderEntry_OnUnFocused">
+                        <pickers:BorderlessPicker.Items>
+                            <x:String>Мужской</x:String>
+                            <x:String>Женский</x:String>
+                            <x:String>Другой</x:String>
+                        </pickers:BorderlessPicker.Items>
+                    </pickers:BorderlessPicker>
+                </frames:MaterialFrame>
                 
                 <StackLayout>
                     <Grid>
@@ -74,167 +168,384 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label Grid.Row="0" 
-                               Grid.Column="0" 
-                               Text="Дата рождения" 
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Text="Дата рождения"
                                FontSize="Medium"
-                               HorizontalOptions="Start"/>
-                        <ImageButton Grid.Row="0" 
-                                     Grid.Column="1" 
-                                     Source="calendar.png" 
-                                     BackgroundColor="Transparent"
-                                     WidthRequest="20"
-                                     HeightRequest="20"
-                                     HorizontalOptions="End"
-                                     Clicked="CalendarButton_OnClicked"
-                                     Margin="0, 0, 2, 0"
-                                     Padding="2"
-                                     BorderColor="Gray"/>
-
-                        <Entry Grid.Row="1" 
-                               Grid.Column="0" 
-                               Grid.ColumnSpan="2" 
-                               x:Name="Birthday"
-                               FontSize="Medium"
-                               Keyboard="Numeric"
-                               Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}', Mode=TwoWay}"
-                               TextColor="{StaticResource Key=TextColor}">
-                            <Entry.Behaviors>
-                                <xct:MaskedBehavior Mask="XX.XX.XXXX"/>
-                            </Entry.Behaviors>
-                        </Entry>
+                               HorizontalOptions="Start"
+                               FontFamily="HEB"/>
+                        <Button Grid.Row="0"
+                                Grid.Column="1"
+                                Text="{x:Static fontAwesome:FontAwesomeIcons.CalendarAlt}"
+                                TextColor="DarkGray"
+                                FontFamily="FAS"
+                                FontSize="Medium"
+                                BackgroundColor="Transparent"
+                                WidthRequest="20"
+                                HeightRequest="20"
+                                HorizontalOptions="End"
+                                Clicked="CalendarButton_OnClicked"
+                                Margin="0, 0, 2, 0"
+                                Padding="2"
+                                BorderColor="Black"
+                                x:Name="Calendar"/>
+                        <frames:MaterialFrame Grid.Row="1"
+                                              Grid.Column="0"
+                                              Grid.ColumnSpan="2"
+                                              Padding="8, 0"
+                                              CornerRadius="4"
+                                              Margin="3, 2, 0, 0"
+                                              BorderColor="DarkGray"
+                                              x:Name="BirthdayFrame">
+                            <entries:BorderlessEntry Text="{Binding Birthday.Value, StringFormat='{0:dd.MM.yyyy}', Mode=TwoWay}"
+                                                     TextColor="{StaticResource Key=TextColor}"
+                                                     FontFamily="HSB"
+                                                     x:Name="Birthday"
+                                                     Keyboard="Numeric"
+                                                     xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference InsurancePolicy}"
+                                                     Focused="BirthdayEntry_OnFocused"
+                                                     Unfocused="BirthdayEntry_OnUnFocused">
+                                <Entry.Behaviors>
+                                    <xct:MaskedBehavior Mask="XX.XX.XXXX"/>
+                                    <xct:EventToCommandBehavior EventName="Unfocused"
+                                                                Command="{Binding ValidateBirthdayCommand}" />
+                                </Entry.Behaviors>
+                                <Entry.Triggers>
+                                    <DataTrigger TargetType="Entry"
+                                                 Binding="{Binding Birthday.IsValid}"
+                                                 Value="False">
+                                        <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                                    </DataTrigger>
+                                </Entry.Triggers>
+                            </entries:BorderlessEntry>
+                        </frames:MaterialFrame>
+                        <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                               Text="{Binding Birthday.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                               Style="{StaticResource ValidationErrorLabelStyle}"
+                               Margin="3, 0, 0, 10"
+                               FontFamily="HEB"/>
                     </Grid>
-                    <DatePicker x:Name="CalendarDatePicker" 
+                    <DatePicker x:Name="CalendarDatePicker"
                                 IsVisible="False"
                                 IsEnabled="False"
-                                Format="dd.MM.yyyy" 
+                                Format="dd.MM.yyyy"
                                 DateSelected="CalendarDatePicker_OnDateSelected"
                                 Date="{Binding BirthdayDatePicker}"/>
                 </StackLayout>
                 
-                <Label Text="Полис" FontSize="Medium" />
-                <Entry Text="{Binding InsurancePolicy, Mode=TwoWay}"
-                       FontSize="Medium"
-                       Keyboard="Numeric"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="InsurancePolicy"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Snils}">
-                    <Entry.Behaviors>
-                        <xct:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX"/>
-                    </Entry.Behaviors>
-                </Entry>
+                <Label Text="Полис" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="InsurancePolicyFrame">
+                    <entries:BorderlessEntry Text="{Binding InsurancePolicy.Value, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Snils}"
+                                             x:Name="InsurancePolicy"
+                                             Keyboard="Numeric"
+                                             Focused="InsurancePolicyEntry_OnFocused"
+                                             Unfocused="InsurancePolicyEntry_OnUnFocused">
+                        <Entry.Behaviors>
+                            <xct:MaskedBehavior Mask="XXXX-XXXX-XXXX-XXXX"/>
+                            <xct:EventToCommandBehavior EventName="Unfocused"
+                                                        Command="{Binding ValidateInsurancePolicyCommand}" />
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger TargetType="Entry"
+                                         Binding="{Binding InsurancePolicy.IsValid}"
+                                         Value="False">
+                                <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
+                <Label Text="{Binding InsurancePolicy.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       Style="{StaticResource ValidationErrorLabelStyle}"
+                       Margin="3, 0, 0, 10"
+                       FontFamily="HEB"/>
                 
-                <Label Text="СНИЛС" FontSize="Medium" />
-                <Entry Text="{Binding Snils, Mode=TwoWay}"
-                       FontSize="Medium"
-                       Keyboard="Numeric"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="Snils"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference City}">
-                    <Entry.Behaviors>
-                        <xct:MaskedBehavior Mask="XXX-XXX-XXX-XX" UnMaskedCharacter="X"/>
-                    </Entry.Behaviors>
-                </Entry>
+                <Label Text="СНИЛС" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="SnilsFrame">
+                    <entries:BorderlessEntry Text="{Binding Snils.Value, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="Snils"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference City}"
+                                             Keyboard="Numeric"
+                                             Focused="SnilsEntry_OnFocused"
+                                             Unfocused="SnilsEntry_OnUnFocused">
+                        <Entry.Behaviors>
+                            <xct:MaskedBehavior Mask="XXX-XXX-XXX-XX" UnMaskedCharacter="X"/>
+                            <xct:EventToCommandBehavior EventName="Unfocused"
+                                                        Command="{Binding ValidateSnilsCommand}" />
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger TargetType="Entry"
+                                         Binding="{Binding Snils.IsValid}"
+                                         Value="False">
+                                <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
+                <Label Text="{Binding Snils.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       Style="{StaticResource ValidationErrorLabelStyle}"
+                       Margin="3, 0, 0, 10"
+                       FontFamily="HEB"/>
                 
-                <Label Text="Город" FontSize="Medium" />
-                <Entry Text="{Binding City, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="City"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}">
-                    <Entry.Keyboard>
-                        <Keyboard x:FactoryMethod="Create">
-                            <x:Arguments>
-                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
-                            </x:Arguments>
-                        </Keyboard>
-                    </Entry.Keyboard>
-                </Entry>
+                <Label Text="Город" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="CityFrame">
+                    <entries:BorderlessEntry Text="{Binding City, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="City"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Street}"
+                                             Focused="CityEntry_OnFocused"
+                                             Unfocused="CityEntry_OnUnFocused">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                <Label Text="Улица" FontSize="Medium" />
-                <Entry Text="{Binding Street, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="Street"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference House}">
-                    <Entry.Keyboard>
-                        <Keyboard x:FactoryMethod="Create">
-                            <x:Arguments>
-                                <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
-                            </x:Arguments>
-                        </Keyboard>
-                    </Entry.Keyboard>
-                </Entry>
+                <Label Text="Улица" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="StreetFrame">
+                    <entries:BorderlessEntry Text="{Binding Street, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="Street"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference House}"
+                                             Focused="StreetEntry_OnFocused"
+                                             Unfocused="StreetEntry_OnUnFocused">
+                        <Entry.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Entry.Keyboard>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                <Label Text="Дом" FontSize="Medium" />
-                <Entry Text="{Binding House, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="House"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Entrance}"/>
+                <Label Text="Дом" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="HouseFrame">
+                    <entries:BorderlessEntry Text="{Binding House, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="House"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Entrance}"
+                                             Focused="HouseEntry_OnFocused"
+                                             Unfocused="HouseEntry_OnUnFocused">
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                 <Label Text="Подъезд" FontSize="Medium" />
-                 <Entry Text="{Binding Entrance, Mode=TwoWay}"
-                        FontSize="Medium"
-                        TextColor="{StaticResource Key=TextColor}"
-                        x:Name="Entrance"
-                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Floor}"/>
+                <Label Text="Подъезд" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="EntranceFrame">
+                    <entries:BorderlessEntry Text="{Binding Entrance, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="Entrance"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Floor}"
+                                             Focused="EntranceEntry_OnFocused"
+                                             Unfocused="EntranceEntry_OnUnFocused">
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                 <Label Text="Этаж" FontSize="Medium" />
-                 <Entry Text="{Binding Floor, Mode=TwoWay}"
-                        FontSize="Medium"
-                        TextColor="{StaticResource Key=TextColor}"
-                        x:Name="Floor"
-                        xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Apartment}"/>
-                <Label Text="Квартира" FontSize="Medium" />
-                <Entry Text="{Binding Apartment, Mode=TwoWay}"
-                       FontSize="Medium"
-                       TextColor="{StaticResource Key=TextColor}"
-                       x:Name="Apartment"
-                       xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PhoneNumber}"/>
+                <Label Text="Этаж" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="FloorFrame">
+                    <entries:BorderlessEntry Text="{Binding Floor, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="Floor"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference Apartment}"
+                                             Focused="FloorEntry_OnFocused"
+                                             Unfocused="FloorEntry_OnUnFocused">
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                <Label Text="Номер телефона" FontSize="Medium" />
-                <maskedEntry:MaskedEntry Text="{Binding PhoneNumber, Mode=TwoWay}"
-                                     FontSize="Medium"
-                                     TextColor="{StaticResource Key=TextColor}"
-                                     x:Name="PhoneNumber"
-                                     xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PlaceOfWork}"
-                                     Mask="+7(XXX)-XXX-XXXX" Keyboard="Numeric">
-                </maskedEntry:MaskedEntry>
+                <Label Text="Квартира" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="ApartmentFrame">
+                    <entries:BorderlessEntry Text="{Binding Apartment, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="Apartment"
+                                             xct:SetFocusOnEntryCompletedBehavior.NextElement="{x:Reference PhoneNumber}"
+                                             Focused="ApartmentEntry_OnFocused"
+                                             Unfocused="ApartmentEntry_OnUnFocused">
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
                 
-                <Label Text="Место работы" FontSize="Medium" />
-                <Editor Text="{Binding PlaceOfWork, Mode=TwoWay}"
-                        AutoSize="TextChanges"
-                        FontSize="Medium"
-                        Margin="0"
-                        TextColor="{StaticResource Key=TextColor}"
-                        x:Name="PlaceOfWork"/>
+                <Label Text="Номер телефона" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="PhoneNumberFrame">
+                    <entries:BorderlessEntry Text="{Binding PhoneNumber.Value, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             x:Name="PhoneNumber"
+                                             Mask="+7(XXX)-XXX-XXXX"
+                                             Keyboard="Numeric"
+                                             Focused="PhoneNumberEntry_OnFocused"
+                                             Unfocused="PhoneNumberEntry_OnUnFocused">
+                        <Entry.Behaviors>
+                            <xct:EventToCommandBehavior EventName="Unfocused"
+                                                        Command="{Binding ValidatePhoneNumberCommand}" />
+                        </Entry.Behaviors>
+                        <Entry.Triggers>
+                            <DataTrigger TargetType="Entry"
+                                         Binding="{Binding PhoneNumber.IsValid}"
+                                         Value="False">
+                                <Setter Property="behaviors:LineColorBehavior.LineColor" Value="{StaticResource ErrorColor}" />
+                            </DataTrigger>
+                        </Entry.Triggers>
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
+                <Label Text="{Binding PhoneNumber.Errors, Converter={StaticResource FirstValidationErrorConverter}}"
+                       Style="{StaticResource ValidationErrorLabelStyle}"
+                       Margin="3, 0, 0, 10"
+                       FontFamily="HEB"/>
                 
-                 <Label Text="Должность" FontSize="Medium" />
-                 <Editor Text="{Binding EmploymentPosition, Mode=TwoWay}"
-                         AutoSize="TextChanges"
-                         FontSize="Medium"
-                         Margin="0"
-                         TextColor="{StaticResource Key=TextColor}"/>
-                 
-                <Label Text="Описание" FontSize="Medium" />
-                <Editor Text="{Binding Description, Mode=TwoWay}"
-                        AutoSize="TextChanges"
-                        FontSize="Medium"
-                        Margin="0"
-                        TextColor="{StaticResource Key=TextColor}"/>
+                <Label Text="Место работы" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="13, 10"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      HeightRequest="65"
+                                      x:Name="PlaceOfWorkFrame">
+                    <editors:BorderlessEditor Text="{Binding PlaceOfWork, Mode=TwoWay}"
+                                      AutoSize="TextChanges"
+                                      FontFamily="HSB"
+                                      Margin="0"
+                                      TextColor="{StaticResource Key=TextColor}"
+                                      x:Name="PlaceOfWork"
+                                      Focused="PlaceOfWorkEntry_OnFocused"
+                                      Unfocused="PlaceOfWorkEntry_OnUnFocused">
+                        <Editor.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Editor.Keyboard>
+                    </editors:BorderlessEditor>
+                </frames:MaterialFrame>
                 
-                <Label Text="Участок" FontSize="Medium" />
-                <Entry Text="{Binding Precinct, Mode=TwoWay}"
-                       FontSize="Medium"
-                       Margin="0"
-                       TextColor="{StaticResource Key=TextColor}"
-                       Keyboard="Numeric"/>
-              
+                <Label Text="Должность" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="13, 10"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      HeightRequest="65"
+                                      x:Name="EmploymentPositionFrame">
+                    <editors:BorderlessEditor Text="{Binding EmploymentPosition, Mode=TwoWay}"
+                                              AutoSize="TextChanges"
+                                              FontFamily="HSB"
+                                              Margin="0"
+                                              TextColor="{StaticResource Key=TextColor}"
+                                              Focused="EmploymentPositionEntry_OnFocused"
+                                              Unfocused="EmploymentPositionEntry_OnUnFocused">
+                        <Editor.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Editor.Keyboard>
+                    </editors:BorderlessEditor>
+                </frames:MaterialFrame>
+                
+                <Label Text="Описание" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="13, 10"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      HeightRequest="65"
+                                      x:Name="DescriptionFrame">
+                    <editors:BorderlessEditor Text="{Binding Description, Mode=TwoWay}"
+                                              AutoSize="TextChanges"
+                                              FontFamily="HSB"
+                                              Margin="0"
+                                              TextColor="{StaticResource Key=TextColor}"
+                                              Focused="DescriptionEntry_OnFocused"
+                                              Unfocused="DescriptionEntry_OnUnFocused">
+                        <Editor.Keyboard>
+                            <Keyboard x:FactoryMethod="Create">
+                                <x:Arguments>
+                                    <KeyboardFlags>CapitalizeSentence</KeyboardFlags>
+                                </x:Arguments>
+                            </Keyboard>
+                        </Editor.Keyboard>
+                    </editors:BorderlessEditor>
+                </frames:MaterialFrame>
+                
+                <Label Text="Участок" FontSize="Medium" FontFamily="HEB"/>
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 25"
+                                      BorderColor="DarkGray"
+                                      x:Name="PrecinctFrame">
+                    <entries:BorderlessEntry Text="{Binding Precinct, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             Keyboard="Numeric"
+                                             Focused="PrecinctEntry_OnFocused"
+                                             Unfocused="PrecinctEntry_OnUnFocused"
+                                             TextChanged="PrecinctEntry_OnTextChanged"
+                                             x:Name="Precinct">
+                    </entries:BorderlessEntry>
+                </frames:MaterialFrame>
+                
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                    <Button Text="Сохранить" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>
+                    <Button Text="Отменить"
+                            CornerRadius="10"
+                            Command="{Binding CancelCommand}"
+                            HorizontalOptions="FillAndExpand"
+                            FontFamily="HEB"
+                            BackgroundColor="{StaticResource Key=SoftGreenColor}"></Button>
+                    <Button Text="Сохранить" 
+                            CornerRadius="10"
+                            Clicked="Save_OnClicked"
+                            HorizontalOptions="FillAndExpand"
+                            FontFamily="HEB"
+                            BackgroundColor="{StaticResource Key=SoftGreenColor}"></Button>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

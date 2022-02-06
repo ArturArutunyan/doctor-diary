@@ -90,7 +90,8 @@ namespace DoctorDiary.EntityFrameworkCore.PatientCards
                 .HasColumnName(nameof(PatientCard.EmploymentPosition));
             
             builder.Property(x => x.Precinct)
-                .HasColumnName(nameof(PatientCard.Precinct));
+                .HasColumnName(nameof(PatientCard.Precinct))
+                .IsRequired(false);
         }
     }
 }

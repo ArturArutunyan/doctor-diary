@@ -22,6 +22,16 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("Hauora-Medium.ttf", Alias = "HM")]
 [assembly: ExportFont("Hauora-SemiBold.ttf", Alias = "HSB")]
 
+[assembly: ExportFont("Montserrat-Black.ttf", Alias = "M-Bl")]
+[assembly: ExportFont("Montserrat-Bold.ttf", Alias = "M-B")]
+[assembly: ExportFont("Montserrat-ExtraBold.ttf", Alias = "M-EB")]
+[assembly: ExportFont("Montserrat-ExtraLight.ttf", Alias = "M-EL")]
+[assembly: ExportFont("Montserrat-Light.ttf", Alias = "M-L")]
+[assembly: ExportFont("Montserrat-Medium.ttf", Alias = "M-M")]
+[assembly: ExportFont("Montserrat-Regular.ttf", Alias = "M-R")]
+[assembly: ExportFont("Montserrat-SemiBold.ttf", Alias = "M-SM")]
+[assembly: ExportFont("Montserrat-Thin.ttf", Alias = "M-T")]
+
 
 
 
