@@ -87,23 +87,14 @@
     <None Remove="Resources\Fonts\NoirPro-Regular.ttf" />
     <None Remove="Resources\Fonts\NoirPro-SemiBoldItalic.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Black.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-Black.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Bold.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-Bold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-ExtraBold.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-ExtraBold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-ExtraLight.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-ExtraLight.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Italic.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-Italic.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Light.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-Light.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Medium.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-Medium.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Regular.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-Regular.ttf" />
     <None Remove="Resources\Fonts\Montserrat-SemiBold.ttf" />
-    <EmbeddedResource Include="Resources\Fonts\Montserrat-SemiBold.ttf" />
     <None Remove="Resources\Fonts\Montserrat-Thin.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Montserrat-Thin.ttf" />
   </ItemGroup>
