@@ -76,11 +76,11 @@ namespace DoctorDiary.Views.PatientCards
             {
                 await this.DisplayToastAsync(new ToastOptions()
                 {
-                    BackgroundColor = Color.DarkGray,
+                    BackgroundColor = Color.White,
                     CornerRadius = new Thickness(7, 7, 0, 0),
                     MessageOptions = new MessageOptions()
                     {
-                        Foreground = Color.Azure,
+                        Foreground = Color.Red,
                         Font = Font.OfSize("HEB", NamedSize.Medium),
                         Message = $"У пациента не указан номер телефона"
                     }

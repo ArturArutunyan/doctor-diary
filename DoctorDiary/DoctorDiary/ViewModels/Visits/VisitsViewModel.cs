@@ -55,8 +55,7 @@ namespace DoctorDiary.ViewModels.Visits
         {
             _visitAppService = DependencyService.Get<IVisitAppService>();
             _patientCardAppService = DependencyService.Get<IPatientCardAppService>();
-
-            Title = "Дневник вызывов";
+            
             Day = DateTime.Now.ToString("dd.MM.yyyy");
             PageDatePicker = null;
             VisitWithPatientCards = new ObservableRangeCollection<VisitWithPatientCard>();
@@ -84,7 +83,7 @@ namespace DoctorDiary.ViewModels.Visits
             {
                 VisitWithPatientCards.Clear();
 
-                var visits = await _visitAppService.VisitsByDate(date: new DateTime(), asNoTracking: true);
+                var visits = await _visitAppService.VisitsByDate(date: DateTime.ParseExact(s: Day, format: "dd.MM.yyyy", provider: null), asNoTracking: true);
                 var patientCards = await _patientCardAppService.PatientCardsByVisits(date: DateTime.ParseExact(s: Day, format: "dd.MM.yyyy", provider: null), asNoTracking: true);
                 var visitsWithPatientCards = visits.Join(patientCards,
                     v => v.PatientCardId,
@@ -143,7 +142,7 @@ namespace DoctorDiary.ViewModels.Visits
             IsBusy = true;
         }
 
-        private void OpenPhoneDialer(PatientCard patientCard)
+        public void OpenPhoneDialer(PatientCard patientCard)
         {
             try
             {

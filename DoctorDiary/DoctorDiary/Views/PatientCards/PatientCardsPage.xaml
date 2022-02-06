@@ -129,7 +129,7 @@
                                                     <RowDefinition Height="*" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
-                                                <Label TextColor="#032d3d"
+                                                <Label TextColor="{x:StaticResource Key=TextColor}"
                                                        FontFamily="HEB"
                                                        LineBreakMode="TailTruncation"
                                                        Grid.Row="0">

@@ -3,62 +3,92 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:visitsViewModel="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
+             xmlns:fontAwesome="clr-namespace:FontAwesome;assembly=DoctorDiary"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              x:Class="DoctorDiary.Views.Visits.VisitsPage"
              x:DataType="visitsViewModel:VisitsViewModel"
              Title="{Binding Title}"
-             BackgroundColor="Silver">
+             Shell.NavBarIsVisible="False">
 <ContentPage.Content>
-        <StackLayout Margin="5" x:DataType="visitsViewModel:VisitsViewModel">
-            <FlexLayout Direction="Row" AlignItems="Center" AlignContent="Center" JustifyContent="Center">
-                <ImageButton Source="back.png"
-                             BackgroundColor="White"
-                             HorizontalOptions="End"
-                             Command="{Binding PreviousDayCommand}"
-                             Padding="0, 4, 0, 4"
-                             BorderWidth="1"
-                             BorderColor="Black"
-                             CornerRadius="10"
-                             HeightRequest="45" 
-                             WidthRequest="40"/>
-                
-                <Frame BackgroundColor="White"
-                       BorderColor="Black"
-                       CornerRadius="10"
-                       HorizontalOptions="Center"
-                       Margin="10, 0, 10, 0">
-                    <Label FontSize="Medium"
-                           Text="{Binding Day, StringFormat='{0:dd.MM.yyyy}', Mode=TwoWay}"
-                           TextColor="{StaticResource Key=TextColor}"/>
-                </Frame>
-                <ImageButton Source="next.png"
-                             BackgroundColor="White"
-                             HorizontalOptions="Start"
-                             Padding="0, 4, 0, 4"
-                             BorderWidth="1"
-                             BorderColor="Black"
-                             CornerRadius="10"
-                             HeightRequest="45" 
-                             WidthRequest="40"
-                             Command="{Binding NextDayCommand}"/>
-                <ImageButton Source="calendar.png"
-                             BackgroundColor="White"
-                             HorizontalOptions="Start"
-                             Padding="0, 4, 0, 4"
-                             BorderWidth="1"
-                             BorderColor="Black"
-                             CornerRadius="10"
-                             HeightRequest="45" 
-                             WidthRequest="40"
-                             Clicked="CalendarButton_OnClicked"/>
-                <DatePicker x:Name="CalendarDatePicker"
-                            IsVisible="False"
-                            IsEnabled="False"
-                            Format="dd.MM.yyyy"
-                            DateSelected="CalendarDatePicker_OnDateSelected"
-                            Date="{Binding PageDatePicker}"/>
-            </FlexLayout>
-            <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
-                         Command="{Binding LoadVisitsWithPatientCardsCommand}" >
+    <StackLayout Margin="0" x:DataType="visitsViewModel:VisitsViewModel">
+        <StackLayout BackgroundColor="{StaticResource Key=SoftGreenColor}" 
+                     Padding="10, 20, 0, 20">
+            <StackLayout Orientation="Horizontal">
+                <Label TextColor="Azure" 
+                       FontSize="Large"
+                       FontFamily="HEB">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Дневник вызывов" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+        </StackLayout>
+        <Grid HorizontalOptions="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Button Grid.Column="0"
+                    Text="{x:Static fontAwesome:FontAwesomeIcons.ChevronLeft}"
+                    FontFamily="FAS"
+                    FontSize="28"
+                    TextColor="{StaticResource Key=TextColor}"
+                    BorderColor="Black"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="End"
+                    CornerRadius="2"
+                    Command="{Binding PreviousDayCommand}"
+                    Clicked="BackButton_OnClicked"
+                    x:Name="BackButton" />
+            <Frame Grid.Column="1"
+                   BackgroundColor="Transparent"
+                   HorizontalOptions="Center"
+                   Margin="10, 0, 10, 0"
+                   Padding="20, 11">
+                <Label FontFamily="HEB"
+                       FontSize="20"
+                       TextColor="{StaticResource Key=TextColor}"
+                       Text="{Binding Day, StringFormat='{0:dd.MM.yyyy}', Mode=TwoWay}" />
+            </Frame>
+            <Button Grid.Column="2"
+                    Text="{x:Static fontAwesome:FontAwesomeIcons.ChevronRight}"
+                    FontFamily="FAS"
+                    FontSize="28"
+                    TextColor="{StaticResource Key=TextColor}"
+                    BorderColor="Black"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="Start"
+                    Command="{Binding NextDayCommand}"
+                    Clicked="ForwardButton_OnClicked"
+                    x:Name="ForwardButton" />
+            <Button Grid.Column="3" Text="{x:Static fontAwesome:FontAwesomeIcons.CalendarAlt}"
+                    TextColor="{StaticResource Key=TextColor}"
+                    FontFamily="FAS"
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="EndAndExpand"
+                    Padding="0"
+                    Margin="0, 0, 10, 0"
+                    FontSize="28"
+                    Clicked="CalendarButton_OnClicked" 
+                    x:Name="CalendarAltButton"/>
+            <DatePicker Grid.Column="4"
+                        x:Name="CalendarDatePicker"
+                        IsVisible="False"
+                        IsEnabled="False"
+                        Format="dd.MM.yyyy"
+                        DateSelected="CalendarDatePicker_OnDateSelected"
+                        Date="{Binding PageDatePicker}" />
+        </Grid>
+        <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
+                     Command="{Binding LoadVisitsWithPatientCardsCommand}" >
                 <CollectionView ItemsSource="{Binding VisitWithPatientCards}"
                                 SelectionMode="None"
                                 HorizontalOptions="Center"
@@ -71,138 +101,170 @@
                                          Margin="5"
                                          x:DataType="visitsViewModel:VisitWithPatientCard">
                                 <Frame CornerRadius="10"
-                                       HasShadow="False"
+                                       HasShadow="True"
                                        HorizontalOptions="CenterAndExpand"
-                                       VerticalOptions="CenterAndExpand">
+                                       VerticalOptions="CenterAndExpand"
+                                       WidthRequest="340"
+                                       BorderColor="DarkGray"
+                                       x:DataType="visitsViewModel:VisitWithPatientCard"
+                                       Padding="20, 13, 20, 5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <Grid Grid.Row="0">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <Label FontSize="Large"
-                                                   FontAttributes="Bold"
-                                                   TextColor="{StaticResource Key=TextColor}"
-                                                   Grid.Row="0">
+                                        <StackLayout Grid.Row="0" 
+                                                     Grid.Column="0"
+                                                     Margin="10, 20, 20, 0"
+                                                     Padding="0">
+                                            <Label Text="{x:Static fontAwesome:FontAwesomeIcons.User}" 
+                                                   FontFamily="FAS"
+                                                   FontSize="66"
+                                                   TextColor="DarkGray"
+                                                   Margin="0"/>
+                                        </StackLayout>
+                                            <Grid Grid.Row="0"
+                                                  Grid.Column="1"
+                                                  Margin="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <Label TextColor="{x:StaticResource Key=TextColor}"
+                                                       FontFamily="HEB"
+                                                       LineBreakMode="TailTruncation"
+                                                       Grid.Row="0">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{Binding PatientCard.LastName}" />
+                                                            <Span Text=" " />
+                                                            <Span Text="{Binding PatientCard.FirstName}" />
+                                                            <Span Text=" " />
+                                                            <Span Text="{Binding PatientCard.Patronymic}" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Grid.Row="1"
+                                                       LineBreakMode="CharacterWrap"
+                                                       VerticalOptions="Start"
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       FontFamily="PTSR"
+                                                       FontSize="18">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span Text="{x:Static fontAwesome:FontAwesomeIcons.Calendar}"
+                                                                  FontFamily="FAS" />
+                                                            <Span Text="  " />
+                                                            <Span Text="Дата рождения: " />
+                                                            <Span Text="{Binding .PatientCard.Birthday, StringFormat='{0:dd.MM.yyyy}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}"
+                                                                  FontFamily="PTSB" 
+                                                                  FontSize="16"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Grid.Row="2"
+                                                       LineBreakMode="CharacterWrap"
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       FontSize="18"
+                                                       FontFamily="PTSR">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span
+                                                                Text="{x:Static fontAwesome:FontAwesomeIcons.PhoneSquareAlt}"
+                                                                FontFamily="FAS" />
+                                                            <Span Text="  " />
+                                                            <Span Text="Телефон: " />
+                                                            <Span
+                                                                Text="{Binding PatientCard.PhoneNumber.ReadableFormat, StringFormat='{0}'}"
+                                                                TextColor="{StaticResource Key=TextColor}"
+                                                                FontFamily="PTSB" 
+                                                                FontSize="16"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                                <Label Grid.Row="3"
+                                                       LineBreakMode="CharacterWrap"
+                                                       Style="{DynamicResource ListItemDetailTextStyle}"
+                                                       FontSize="18"
+                                                       FontFamily="PTSR">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span
+                                                                Text="{x:Static fontAwesome:FontAwesomeIcons.Genderless}"
+                                                                FontFamily="FAS" />
+                                                            <Span Text="  " />
+                                                            <Span Text="Тип обращения: " />
+                                                            <Span
+                                                                Text="{Binding Visit.TypeOfAppeal, StringFormat='{0}'}"
+                                                                TextColor="{StaticResource Key=TextColor}"
+                                                                FontFamily="PTSB" 
+                                                                FontSize="16" />
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </Grid>
+                                        <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                            <Label LineBreakMode="TailTruncation"
+                                                   Style="{DynamicResource ListItemDetailTextStyle}"
+                                                   FontSize="18"
+                                                   FontFamily="PTSR"
+                                                   Margin="0">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span Text="{Binding PatientCard.LastName}"
-                                                              FontSize="Large" />
-                                                        <Span Text=" " />
-                                                        <Span Text="{Binding PatientCard.FirstName}"
-                                                              FontSize="Large" />
-                                                        <Span Text=" " />
-                                                        <Span Text="{Binding PatientCard.Patronymic}"
-                                                              FontSize="Large" />
+                                                        <Span
+                                                            Text="{x:Static fontAwesome:FontAwesomeIcons.MapMarkerAlt}"
+                                                            FontFamily="FAS" />
+                                                        <Span Text="  " />
+                                                        <Span Text="Адрес: " />
+                                                        <Span
+                                                            Text="{Binding .PatientCard.Address.InShortFormat, StringFormat='{0}'}"
+                                                            TextColor="{StaticResource Key=TextColor}"
+                                                            FontFamily="PTSB"
+                                                            FontSize="16"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
-                                            <ImageButton Grid.Column="1" 
-                                                         Source="pen.png" 
-                                                         BackgroundColor="Transparent"
-                                                         WidthRequest="20"
-                                                         HeightRequest="20"
-                                                         HorizontalOptions="End"
-                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=EditVisitCommand}"
-                                                         CommandParameter="{Binding .Visit}"
-                                                         Margin="0, 0, 2, 0"
-                                                         Padding="2"
-                                                         BorderColor="Gray">
-                                            </ImageButton>
-                                            <ImageButton Grid.Column="2" 
-                                                         Source="delete.png" 
-                                                         BackgroundColor="Transparent"
-                                                         WidthRequest="20"
-                                                         HeightRequest="20"
-                                                         HorizontalOptions="End"
-                                                         Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=DeleteVisitCommand}"
-                                                         CommandParameter="{Binding .Visit}"
-                                                         Margin="0"
-                                                         Padding="2"
-                                                         BorderColor="Gray">
-                                            </ImageButton>
-                                        </Grid>
-                                        <BoxView Grid.Row="1"
-                                                 HeightRequest="1"
-                                                 BackgroundColor="#032d3d" />
-                                        <Label Grid.Row="2"
-                                               LineBreakMode="CharacterWrap"
-                                               Style="{DynamicResource ListItemDetailTextStyle}"
-                                               FontSize="Medium">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Дата рождения - " />
-                                                    <Span Text="{Binding PatientCard.Birthday, StringFormat='{0:dd.MM.yyyy}'}"
-                                                          TextColor="{StaticResource Key=TextColor}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="3"
-                                               LineBreakMode="CharacterWrap"
-                                               Style="{DynamicResource ListItemDetailTextStyle}"
-                                               FontSize="Medium">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Телефон - " />
-                                                    <Span Text="{Binding PatientCard.PhoneNumber.Value}"
-                                                          TextColor="Blue"
-                                                          TextDecorations="Underline">
-                                                        <Span.GestureRecognizers>
-                                                            <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                                Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=OpenPhoneDialerCommand}"
-                                                                CommandParameter="{Binding .}" />
-                                                        </Span.GestureRecognizers>
-                                                    </Span>
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="4"
-                                               LineBreakMode="CharacterWrap"
-                                               Style="{DynamicResource ListItemDetailTextStyle}"
-                                               FontSize="Medium">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Адрес - " />
-                                                    <Span Text="{Binding PatientCard.Address, StringFormat='{0}'}"
-                                                          TextColor="{StaticResource Key=TextColor}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label Grid.Row="5"
-                                            LineBreakMode="CharacterWrap"
-                                            Style="{DynamicResource ListItemDetailTextStyle}"
-                                            FontSize="Medium">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span Text="Обращение - " />
-                                                    <Span Text="{Binding Visit.TypeOfAppeal, StringFormat='{0:dd.MM.yyyy}'}"
-                                                          TextColor="{StaticResource Key=TextColor}" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
+                                        </StackLayout>
+                                        <BoxView BackgroundColor="DarkGray"
+                                                 Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1"
+                                                 Margin="0, 5, 0, 0" />
+                                        <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="End">
+                                            <Button WidthRequest="30"
+                                                    HeightRequest="20"
+                                                    Padding="0"
+                                                    Margin="0, 5"
+                                                    TextColor="Gray"
+                                                    BackgroundColor="Transparent"
+                                                    Text="{x:Static fontAwesome:FontAwesomeIcons.Phone}"
+                                                    FontSize="Medium"
+                                                    FontFamily="FAS"
+                                                    Clicked="PhoneButton_OnClicked"
+                                                    CommandParameter="{Binding .}"
+                                                    effects:TouchEffect.AnimationDuration="250"
+                                                    effects:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
+                                                    effects:TouchEffect.PressedScale="0.75"
+                                                    effects:TouchEffect.PressedOpacity="0.6" />
+                                        </StackLayout>
                                     </Grid>
-                                    <Frame.GestureRecognizers>
-                                        <TapGestureRecognizer
-                                            NumberOfTapsRequired="1"
-                                            Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=PatientCardTapped}"
-                                            CommandParameter="{Binding .}">
-                                        </TapGestureRecognizer>
-                                    </Frame.GestureRecognizers>
+                                     <Frame.GestureRecognizers>
+                                         <TapGestureRecognizer
+                                             NumberOfTapsRequired="1"
+                                             Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=PatientCardTapped}"
+                                             CommandParameter="{Binding .}">
+                                         </TapGestureRecognizer>
+                                     </Frame.GestureRecognizers>
                                 </Frame>
                             </StackLayout>
                         </DataTemplate>
