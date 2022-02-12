@@ -12,7 +12,7 @@
 <ContentPage.Content>
     <StackLayout Margin="0" x:DataType="visitsViewModel:VisitsViewModel">
         <StackLayout BackgroundColor="{StaticResource Key=SoftGreenColor}" 
-                     Padding="10, 20, 0, 20">
+                     Padding="10, 20, 0, 10">
             <StackLayout Orientation="Horizontal">
                 <Label TextColor="Azure" 
                        FontSize="Large"
@@ -23,6 +23,22 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
+                <Button Text="{x:Static fontAwesome:FontAwesomeIcons.CalendarAlt}"
+                        TextColor="White"
+                        FontFamily="FAS"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="EndAndExpand"
+                        Padding="0"
+                        Margin="0"
+                        FontSize="20"
+                        Clicked="CalendarButton_OnClicked" 
+                        x:Name="CalendarAltButton"/>
+                <DatePicker x:Name="CalendarDatePicker"
+                            IsVisible="False"
+                            IsEnabled="False"
+                            Format="dd.MM.yyyy"
+                            DateSelected="CalendarDatePicker_OnDateSelected"
+                            Date="{Binding PageDatePicker}" />
             </StackLayout>
         </StackLayout>
         <Grid HorizontalOptions="Center">
@@ -30,8 +46,6 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -69,23 +83,6 @@
                     Command="{Binding NextDayCommand}"
                     Clicked="ForwardButton_OnClicked"
                     x:Name="ForwardButton" />
-            <Button Grid.Column="3" Text="{x:Static fontAwesome:FontAwesomeIcons.CalendarAlt}"
-                    TextColor="{StaticResource Key=TextColor}"
-                    FontFamily="FAS"
-                    BackgroundColor="Transparent"
-                    HorizontalOptions="EndAndExpand"
-                    Padding="0"
-                    Margin="0, 0, 10, 0"
-                    FontSize="28"
-                    Clicked="CalendarButton_OnClicked" 
-                    x:Name="CalendarAltButton"/>
-            <DatePicker Grid.Column="4"
-                        x:Name="CalendarDatePicker"
-                        IsVisible="False"
-                        IsEnabled="False"
-                        Format="dd.MM.yyyy"
-                        DateSelected="CalendarDatePicker_OnDateSelected"
-                        Date="{Binding PageDatePicker}" />
         </Grid>
         <RefreshView IsRefreshing="{Binding IsBusy, Mode=TwoWay}"
                      Command="{Binding LoadVisitsWithPatientCardsCommand}" >

@@ -27,14 +27,9 @@ namespace DoctorDiary.Views.Visits
 
         private async void CalendarButton_OnClicked(object sender, EventArgs e)
         {
-            var originalColor = CalendarAltButton.TextColor;
-            CalendarAltButton.TextColor = Color.DarkGray;
-            await CalendarAltButton.ScaleTo(1.1, 100);
-            
+            await CalendarAltButton.ScaleTo(1.3, 100);
+            await CalendarAltButton.ScaleTo(1, 100);
             CalendarDatePicker.Focus();
-            
-            await BackButton.ScaleTo(1, 100);
-            CalendarAltButton.TextColor = originalColor;
         }
 
         private void CalendarDatePicker_OnDateSelected(object sender, DateChangedEventArgs e)
