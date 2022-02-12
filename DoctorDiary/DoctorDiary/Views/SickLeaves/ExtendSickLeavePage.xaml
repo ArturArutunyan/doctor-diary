@@ -7,26 +7,54 @@
              Shell.PresentationMode="ModalAnimated"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
+             xmlns:frames="clr-namespace:DoctorDiary.Shared.Frames;assembly=DoctorDiary.Shared"
+             xmlns:datePickers="clr-namespace:DoctorDiary.Shared.DatePickers;assembly=DoctorDiary.Shared"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" Padding="20">
+                <Label Text="Дата с которой нужно продлить" 
+                       FontSize="Medium" 
+                       FontFamily="HEB" 
+                       VerticalOptions="Center"/>
+                
+                <frames:MaterialFrame Padding="10, 11"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="StartDate">
+                    <datePickers:BorderlessDatePicker Format="dd.MM.yyyy"
+                                                      Date="{Binding StartDate}"
+                                                      FontFamily="HSB"
+                                                      TextColor="{StaticResource Key=TextColor}"
+                                                      Focused="StartDatePicker_OnFocused"
+                                                      Unfocused="StartDatePicker_OnUnfocused"/>
+                </frames:MaterialFrame>
             
-            <Label Text="Дата с которой нужно продлить" FontSize="Medium" VerticalOptions="Center"/>
-            <DatePicker 
-                MinimumDate="{Binding StartDate}"
-                Format="dd.MM.yyyy" 
-                Date="{Binding StartDate}"/>
+                <Label Text="Дата окончания больничного" 
+                       FontSize="Medium" 
+                       FontFamily="HEB"  
+                       VerticalOptions="Center"/>
+                <frames:MaterialFrame Padding="10, 11"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="EndDate">
+                    <datePickers:BorderlessDatePicker Format="dd.MM.yyyy" 
+                                                      Date="{Binding EndDate}"
+                                                      FontFamily="HSB"
+                                                      TextColor="{StaticResource Key=TextColor}"
+                                                      Focused="EndDatePicker_OnFocused"
+                                                      Unfocused="EndDatePicker_OnUnfocused"/>
+                </frames:MaterialFrame>
             
-            <Label Text="Дата окончания больничного" FontSize="Medium" VerticalOptions="Center"/>
-            <DatePicker 
-                MinimumDate="{Binding StartDate}"
-                Format="dd.MM.yyyy" 
-                Date="{Binding EndDate}"/>
-            
-            <StackLayout Orientation="Horizontal" Padding="40">
-                <Button Text="Продлить больничный" Command="{Binding ExtendSickLeaveAsyncCommand}" HorizontalOptions="FillAndExpand"></Button>
+                <Button Margin="3, 14, 0, 0"
+                        Text="Продлить" 
+                        Command="{Binding ExtendSickLeaveAsyncCommand}" 
+                        HorizontalOptions="FillAndExpand"
+                        FontFamily="HEB"
+                        BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
+                
             </StackLayout>
             
-        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

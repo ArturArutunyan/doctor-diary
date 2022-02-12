@@ -53,22 +53,22 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         private void AddValidations()
         {
-            _firstName.Validations.Add(new IsNotNullOrEmptyRule<string>
+            FirstName.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = "Поле имя обязательное"
             });
-            _lastName.Validations.Add(new IsNotNullOrEmptyRule<string>
+            LastName.Validations.Add(new IsNotNullOrEmptyRule<string>
             {
                 ValidationMessage = "Поле фамилия обязательное"
             });
-            _birthday.Validations.Add(new DateTimeAsStringRule());
-            _snils.Validations.AddRange(new List<IValidationRule<string>>()
+            Birthday.Validations.Add(new DateTimeAsStringRule());
+            Snils.Validations.AddRange(new List<IValidationRule<string>>()
             {
                 new SnilsLengthRule(),
                 new SnilsContainsOnlyDigitsRule()
             });
-            _insurancePolicy.Validations.Add(new InsurancePolicyRuleLength());
-            _phoneNumber.Validations.Add(new PhoneNumberRule());
+            InsurancePolicy.Validations.Add(new InsurancePolicyRuleLength());
+            PhoneNumber.Validations.Add(new PhoneNumberRule());
         }
         
         internal bool Validate()

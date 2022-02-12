@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using DoctorDiary.Models.SickLeaves.ValueObjects;
 using DoctorDiary.Services.SickLeaves;
+using DoctorDiary.Shared.Validations;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -11,9 +12,9 @@ namespace DoctorDiary.ViewModels.SickLeaves
     public class ExtendSickLeaveViewModel : BaseViewModel
     {
         private string _patientCardId;
+        private DateTime _lastClosedEndDate;
         private DateTime _startDate;
         private DateTime _endDate;
-        private DateTime _lastClosedEndDate;
 
         private readonly ISickLeaveAppService _sickLeaveAppService;
 
@@ -45,7 +46,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
             
-            ExtendSickLeaveAsyncCommand = new AsyncCommand(OnExtendSickLeave, ValidateInput);
+            ExtendSickLeaveAsyncCommand = new AsyncCommand(OnExtendSickLeave);
             PropertyChanged += (_, __) => ExtendSickLeaveAsyncCommand.RaiseCanExecuteChanged();
         }
 
@@ -57,11 +58,10 @@ namespace DoctorDiary.ViewModels.SickLeaves
             {
                 throw new InvalidCastException("Больничный лист для продления не найден");
             }
-
-            _lastClosedEndDate = sickLeave.LastTermEndDate();
             
+            _lastClosedEndDate = sickLeave.LastTermEndDate();
             StartDate = _lastClosedEndDate.AddDays(1);
-            EndDate = StartDate.AddDays(14);
+            EndDate = _lastClosedEndDate.AddDays(14);
         }
 
         private async Task OnExtendSickLeave()
@@ -73,6 +73,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
             await Shell.Current.GoToAsync("..");
         }
         
+        // TODO: Move to validate objects
         private bool ValidateInput(object arg)
         {
             return StartDate > _lastClosedEndDate && EndDate >= StartDate;

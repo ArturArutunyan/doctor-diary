@@ -8,26 +8,77 @@
              Title="New PatientCard"
              xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              xmlns:sickLeaves="clr-namespace:DoctorDiary.ViewModels.SickLeaves;assembly=DoctorDiary"
+             xmlns:frames="clr-namespace:DoctorDiary.Shared.Frames;assembly=DoctorDiary.Shared"
+             xmlns:datePickers="clr-namespace:DoctorDiary.Shared.DatePickers;assembly=DoctorDiary.Shared"
+             xmlns:entries="clr-namespace:DoctorDiary.Shared.Entries;assembly=DoctorDiary.Shared"
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <Frame Padding="10">
             <StackLayout VerticalOptions="Center" Padding="20">
-                <Label Text="Номер больничного" FontSize="Medium" />
-                <Entry Text="{Binding Number, Mode=TwoWay}" FontSize="Medium" />
+                <Label Text="Номер больничного" 
+                       FontSize="Medium" 
+                       FontFamily="HEB" />
+                <frames:MaterialFrame Padding="8, 0"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="NumberFrame">
+                    <entries:BorderlessEntry Text="{Binding Number, Mode=TwoWay}"
+                                             FontFamily="HSB"
+                                             TextColor="{StaticResource Key=TextColor}"
+                                             Focused="Number_OnFocused"
+                                             Unfocused="Number_OnUnfocused"
+                                             Keyboard="Numeric"/>
+                </frames:MaterialFrame>
             
-                <Label Text="Дата начала текущего больничного" FontSize="Medium" VerticalOptions="Center"/>
-                <DatePicker 
-                    Format="dd.MM.yyyy" 
-                    Date="{Binding StartDate}"/>
-            
-                <Label Text="Дата окончания текущего больничного" FontSize="Medium" VerticalOptions="Center"/>
-                <DatePicker 
-                    Format="dd.MM.yyyy" 
-                    Date="{Binding EndDate}"/>
+                <Label Text="Дата начала" 
+                       FontSize="Medium" 
+                       FontFamily="HEB" 
+                       VerticalOptions="Center"/>
                 
+                <frames:MaterialFrame Padding="10, 11"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="StartDate">
+                    <datePickers:BorderlessDatePicker Format="dd.MM.yyyy" 
+                                                      Date="{Binding StartDate}"
+                                                      FontFamily="HSB"
+                                                      TextColor="{StaticResource Key=TextColor}"
+                                                      Focused="StartDatePicker_OnFocused"
+                                                      Unfocused="StartDatePicker_OnUnfocused"/>
+                </frames:MaterialFrame>
+            
+                <Label Text="Дата окончания" 
+                       FontSize="Medium" 
+                       FontFamily="HEB"  
+                       VerticalOptions="Center"/>
+                <frames:MaterialFrame Padding="10, 11"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="EndDate">
+                    <datePickers:BorderlessDatePicker Format="dd.MM.yyyy" 
+                                                      Date="{Binding EndDate}"
+                                                      FontFamily="HSB"
+                                                      TextColor="{StaticResource Key=TextColor}"
+                                                      Focused="EndDatePicker_OnFocused"
+                                                      Unfocused="EndDatePicker_OnUnfocused"/>
+                </frames:MaterialFrame>
+            
                 <StackLayout Orientation="Horizontal">
-                    <Button Text="Отменить" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
-                    <Button Text="Сохранить изменения" Command="{Binding EditSickLeaveCommand}" HorizontalOptions="FillAndExpand" />
+                    <Button Margin="3, 14, 0, 0"
+                            Text="Отменить" 
+                            Command="{Binding CancelCommand}" 
+                            HorizontalOptions="FillAndExpand"
+                            FontFamily="HEB"
+                            BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
+                    <Button Margin="3, 14, 0, 0"
+                            Text="Сохранить изменения" 
+                            Command="{Binding EditSickLeaveCommand}" 
+                            HorizontalOptions="FillAndExpand" 
+                            FontFamily="HEB"
+                            BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
                 </StackLayout>
             </StackLayout>
         </Frame>
