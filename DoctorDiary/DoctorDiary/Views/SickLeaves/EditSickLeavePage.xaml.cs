@@ -4,7 +4,7 @@ using Xamarin.Forms.Xaml;
 
 namespace DoctorDiary.Views.SickLeaves
 {
-    // [XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditSickLeavePage : ContentPage
     {
         public EditSickLeavePage()

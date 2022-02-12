@@ -65,20 +65,16 @@
                                                       Focused="EndDatePicker_OnFocused"
                                                       Unfocused="EndDatePicker_OnUnfocused"/>
                 </frames:MaterialFrame>
-            
+                
                 <StackLayout Orientation="Horizontal">
                     <Button Margin="3, 14, 0, 0"
                             Text="Отменить" 
                             Command="{Binding CancelCommand}" 
-                            HorizontalOptions="FillAndExpand"
-                            FontFamily="HEB"
-                            BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
+                            HorizontalOptions="FillAndExpand"/>
                     <Button Margin="3, 14, 0, 0"
                             Text="Сохранить изменения" 
                             Command="{Binding EditSickLeaveCommand}" 
-                            HorizontalOptions="FillAndExpand" 
-                            FontFamily="HEB"
-                            BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
+                            HorizontalOptions="FillAndExpand" />
                 </StackLayout>
             </StackLayout>
         </Frame>

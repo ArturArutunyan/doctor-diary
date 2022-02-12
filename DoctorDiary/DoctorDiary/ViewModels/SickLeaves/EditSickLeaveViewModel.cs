@@ -61,7 +61,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
 
             CancelCommand = new AsyncCommand(OnCancel);
-            EditSickLeaveCommand = new AsyncCommand(OnEditSickLeave, ValidateInput);
+            EditSickLeaveCommand = new AsyncCommand(OnEditSickLeave);
             PropertyChanged += (_, __) => EditSickLeaveCommand.RaiseCanExecuteChanged();
         }
 

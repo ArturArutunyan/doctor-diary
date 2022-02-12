@@ -257,6 +257,7 @@ namespace DoctorDiary.ViewModels.PatientCards
 
         private async Task DeletePatientCard()
         {
+            SickLeaveId = null;
             await _patientCardAppService.DeleteAsync(id: Id);
             await Shell.Current.GoToAsync("..");
         }
@@ -360,6 +361,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 {
                     await _sickLeaveAppService.CloseSickLeave(SickLeaveId.Value);
                     
+                    SickLeaveId = null;
                     SickLeaveIsVisible = false;
                     OpenSickLeaveButtonIsEnabled = true;
                 }
@@ -394,6 +396,8 @@ namespace DoctorDiary.ViewModels.PatientCards
                         }
                         
                         break;
+                    case "Отменить":
+                        return;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }

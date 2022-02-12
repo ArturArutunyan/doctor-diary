@@ -12,7 +12,7 @@
              ios:Page.UseSafeArea="true">
     <ContentPage.Content>
         <StackLayout VerticalOptions="Center" Padding="20">
-                <Label Text="Дата с которой нужно продлить" 
+                <Label Text="Дата продления" 
                        FontSize="Medium" 
                        FontFamily="HEB" 
                        VerticalOptions="Center"/>
@@ -30,7 +30,7 @@
                                                       Unfocused="StartDatePicker_OnUnfocused"/>
                 </frames:MaterialFrame>
             
-                <Label Text="Дата окончания больничного" 
+                <Label Text="Дата окончания" 
                        FontSize="Medium" 
                        FontFamily="HEB"  
                        VerticalOptions="Center"/>
@@ -50,9 +50,7 @@
                 <Button Margin="3, 14, 0, 0"
                         Text="Продлить" 
                         Command="{Binding ExtendSickLeaveAsyncCommand}" 
-                        HorizontalOptions="FillAndExpand"
-                        FontFamily="HEB"
-                        BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
+                        HorizontalOptions="FillAndExpand"/>
                 
             </StackLayout>
             

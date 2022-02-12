@@ -30,7 +30,7 @@
                                              Keyboard="Numeric"/>
                 </frames:MaterialFrame>
             
-                <Label Text="Дата начала больничного" 
+                <Label Text="Дата начала" 
                        FontSize="Medium" 
                        FontFamily="HEB" 
                        VerticalOptions="Center"/>
@@ -48,7 +48,7 @@
                                                       Unfocused="StartDatePicker_OnUnfocused"/>
                 </frames:MaterialFrame>
             
-                <Label Text="Дата окончания больничного" 
+                <Label Text="Дата окончания" 
                        FontSize="Medium" 
                        FontFamily="HEB"  
                        VerticalOptions="Center"/>
@@ -68,9 +68,7 @@
                 <Button Margin="3, 14, 0, 0"
                         Text="Открыть" 
                         Command="{Binding OpenSickLeaveAsyncCommand}" 
-                        HorizontalOptions="FillAndExpand"
-                        FontFamily="HEB"
-                        BackgroundColor="{StaticResource Key=SoftGreenColor}"/>
+                        HorizontalOptions="FillAndExpand"/>
             </StackLayout>
         </Frame>
     </ContentPage.Content>

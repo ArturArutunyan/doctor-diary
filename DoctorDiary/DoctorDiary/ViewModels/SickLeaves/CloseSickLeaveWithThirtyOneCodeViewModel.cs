@@ -44,15 +44,23 @@ namespace DoctorDiary.ViewModels.SickLeaves
             get => _number;
             set => SetProperty(ref _number, value);
         }
-        
+
+        public AsyncCommand CancelCommand { get; }
         public AsyncCommand CloseSickLeaveWithCodeCommand { get; }
-        
+
+
         public CloseSickLeaveWithThirtyOneCodeViewModel()
         {
             _sickLeaveAppService = DependencyService.Get<ISickLeaveAppService>();
             
-            CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode, ValidateInput);
+            CancelCommand = new AsyncCommand(OnCancel);
+            CloseSickLeaveWithCodeCommand = new AsyncCommand(OnCloseSickLeaveWithCode);
             PropertyChanged += (_, __) => CloseSickLeaveWithCodeCommand.RaiseCanExecuteChanged();
+        }
+
+        private async Task OnCancel()
+        {
+            await Shell.Current.GoToAsync("..");
         }
 
         private async void InitPropertiesToDefaultValues()

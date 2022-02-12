@@ -5,7 +5,7 @@ using Xamarin.Forms.Xaml;
 
 namespace DoctorDiary.Views.SickLeaves
 {
-    // [XamlCompilation(XamlCompilationOptions.Compile)]
+    [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ExtendSickLeavePage : ContentPage
     {
         public ExtendSickLeavePage()
