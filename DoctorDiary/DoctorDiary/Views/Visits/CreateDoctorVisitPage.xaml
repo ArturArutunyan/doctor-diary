@@ -3,24 +3,54 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:visits="clr-namespace:DoctorDiary.ViewModels.Visits;assembly=DoctorDiary"
+             xmlns:frames="clr-namespace:DoctorDiary.Shared.Frames;assembly=DoctorDiary.Shared"
+             xmlns:datePickers="clr-namespace:DoctorDiary.Shared.DatePickers;assembly=DoctorDiary.Shared"
+             xmlns:pickers="clr-namespace:DoctorDiary.Shared.Pickers;assembly=DoctorDiary.Shared"
              x:Class="DoctorDiary.Views.Visits.CreateDoctorVisitPage"
              x:DataType="visits:CreateDoctorVisitViewModel">
     <ContentPage.Content>
         <Frame Padding="10">
             <StackLayout VerticalOptions="Center" Padding="20">
-                <Label Text="Тип обращения" FontSize="Medium" VerticalOptions="Center"/>
-                <Picker SelectedItem="{Binding Path=TypeOfAppeal}">
-                    <Picker.Items>
-                        <x:String>Первично</x:String>
-                        <x:String>Повторно</x:String>
-                    </Picker.Items>
-                </Picker>
-                
-                <Label Text="Дата визита врача" FontSize="Medium" VerticalOptions="Center"/>
-                <DatePicker Format="dd.MM.yyyy" Date="{Binding Time}"/>
-                
-                <Button Text="Записать" 
-                        Command="{Binding CreateDoctorVisitCommand}" HorizontalOptions="Center" />
+                <Label Text="Тип обращения" 
+                       FontSize="Medium" 
+                       FontFamily="HEB" 
+                       VerticalOptions="Center"/>
+                <frames:MaterialFrame Padding="10, 11"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="TypeOfAppeal">
+                    <pickers:BorderlessPicker FontFamily="HSB"
+                                              TextColor="{StaticResource Key=TextColor}"
+                                              Focused="TypeOfAppeal_OnFocused"
+                                              Unfocused="TypeOfAppeal_OnUnfocused"
+                                              SelectedItem="{Binding Path=TypeOfAppeal}">
+                        <pickers:BorderlessPicker.Items>
+                            <x:String>Первично</x:String>
+                            <x:String>Повторно</x:String>
+                        </pickers:BorderlessPicker.Items>
+                    </pickers:BorderlessPicker>
+                </frames:MaterialFrame>
+                <Label Text="Дата визита врача" 
+                       FontSize="Medium" 
+                       FontFamily="HEB"  
+                       VerticalOptions="Center"/>
+                <frames:MaterialFrame Padding="10, 11"
+                                      CornerRadius="4"
+                                      Margin="3, 2, 0, 0"
+                                      BorderColor="DarkGray"
+                                      x:Name="Time">
+                    <datePickers:BorderlessDatePicker Format="dd.MM.yyyy"
+                                                      Date="{Binding Time}"
+                                                      FontFamily="HSB"
+                                                      TextColor="{StaticResource Key=TextColor}"
+                                                      Focused="TimeDatePicker_OnFocused"
+                                                      Unfocused="TimeDatePicker_OnUnfocused"/>
+                </frames:MaterialFrame>
+                <Button Margin="3, 14, 0, 0"
+                        Text="Записать" 
+                        Command="{Binding CreateDoctorVisitCommand}" 
+                        HorizontalOptions="FillAndExpand" />
             </StackLayout>
         </Frame>
     </ContentPage.Content>

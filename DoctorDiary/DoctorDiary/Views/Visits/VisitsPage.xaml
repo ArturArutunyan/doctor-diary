@@ -237,7 +237,21 @@
                                         <BoxView BackgroundColor="DarkGray"
                                                  Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" HeightRequest="1"
                                                  Margin="0, 5, 0, 0" />
-                                        <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalOptions="End">
+                                        <StackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                     HorizontalOptions="End"
+                                                     Orientation="Horizontal">
+                                            <Button WidthRequest="30"
+                                                    HeightRequest="20"
+                                                    Padding="0"
+                                                    Margin="0, 5"
+                                                    TextColor="Gray"
+                                                    BackgroundColor="Transparent"
+                                                    Text="{x:Static fontAwesome:FontAwesomeIcons.TrashAlt}"
+                                                    FontSize="Medium"
+                                                    FontFamily="FAS"
+                                                    Clicked="TrashButton_OnClicked"
+                                                    Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=DeleteVisitCommand}"
+                                                    CommandParameter="{Binding .Visit}"/>
                                             <Button WidthRequest="30"
                                                     HeightRequest="20"
                                                     Padding="0"
@@ -248,18 +262,14 @@
                                                     FontSize="Medium"
                                                     FontFamily="FAS"
                                                     Clicked="PhoneButton_OnClicked"
-                                                    CommandParameter="{Binding .}"
-                                                    effects:TouchEffect.AnimationDuration="250"
-                                                    effects:TouchEffect.AnimationEasing="{x:Static Easing.CubicInOut}"
-                                                    effects:TouchEffect.PressedScale="0.75"
-                                                    effects:TouchEffect.PressedOpacity="0.6" />
+                                                    CommandParameter="{Binding .}" />
                                         </StackLayout>
                                     </Grid>
                                      <Frame.GestureRecognizers>
                                          <TapGestureRecognizer
                                              NumberOfTapsRequired="1"
                                              Command="{Binding Source={RelativeSource AncestorType={x:Type visitsViewModel:VisitsViewModel}}, Path=PatientCardTapped}"
-                                             CommandParameter="{Binding .}">
+                                             CommandParameter="{Binding .PatientCard}">
                                          </TapGestureRecognizer>
                                      </Frame.GestureRecognizers>
                                 </Frame>

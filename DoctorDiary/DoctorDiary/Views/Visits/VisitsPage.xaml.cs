@@ -60,6 +60,9 @@ namespace DoctorDiary.Views.Visits
         private async void PhoneButton_OnClicked(object sender, EventArgs e)
         {
             var button = (Button)sender;
+            await button.ScaleTo(1.2, 100);
+            await button.ScaleTo(1, 100);
+            
             var visitWithPatientCard = (VisitWithPatientCard)button.CommandParameter;
 
             if (visitWithPatientCard.PatientCard.PhoneNumber != null)
@@ -80,6 +83,13 @@ namespace DoctorDiary.Views.Visits
                     }
                 });   
             }
+        }
+
+        private async void TrashButton_OnClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            await button.ScaleTo(1.2, 100);
+            await button.ScaleTo(1, 100);
         }
     }
 }
