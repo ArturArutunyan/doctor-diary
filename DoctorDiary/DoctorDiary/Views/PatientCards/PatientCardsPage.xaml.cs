@@ -47,6 +47,9 @@ namespace DoctorDiary.Views.PatientCards
 
         private async void AddButton_OnClicked(object sender, EventArgs e)
         {
+            await AddButton.ScaleTo(1.2, 100);
+            await AddButton.ScaleTo(1, 100);
+            
             if(_addButtonIsTapped)
                 return;
 
@@ -58,14 +61,20 @@ namespace DoctorDiary.Views.PatientCards
         }
 
         // Hint: this crap is necessary to get rid of the indicator when refreshing RefreshView
-        private async void SearchFilter_OnCompleted(object sender, EventArgs eventArgs)
+        private async void SearchFilter_OnClicked(object sender, EventArgs eventArgs)
         {
+            await SearchFilter.ScaleTo(1.2, 100);
+            await SearchFilter.ScaleTo(1, 100);
+            
             await _patientCardsViewModel.LoadPatientCardsWithoutRefresh();
         }
 
-        private async void PhoneButton_OnClicked(object sender, EventArgs e)
+        private async void PhoneNumberButton_OnClicked(object sender, EventArgs eventArgs)
         {
             var button = (Button)sender;
+            await button.ScaleTo(1.2, 100);
+            await button.ScaleTo(1, 100);
+            
             var patientCard = (PatientCard)button.CommandParameter;
 
             if (patientCard.PhoneNumber != null)
