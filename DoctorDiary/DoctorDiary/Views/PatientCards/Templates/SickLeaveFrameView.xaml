@@ -121,7 +121,7 @@
                                         <FormattedString>
                                             <Span Text="Всего дней: "
                                                   FontSize="Medium" />
-                                            <Span Text="{Binding  TotalOfDaysOnSickLeave, StringFormat='{0}'}"
+                                            <Span Text="{Binding  TotalDaysOnSickLeave, StringFormat='{0}'}"
                                                   FontSize="Medium"
                                                   TextColor="{StaticResource Key=TextColor}" />
                                         </FormattedString>

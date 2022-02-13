@@ -70,6 +70,11 @@ namespace DoctorDiary.Models.SickLeaves
             IsActive = false;
         }
 
+        public DateTime LastTermStartDate()
+        {
+            return Terms.Last().StartDate;
+        }
+        
         public DateTime LastTermEndDate()
         {
             return Terms.Last().EndDate;
@@ -80,7 +85,7 @@ namespace DoctorDiary.Models.SickLeaves
             return Terms.Last();
         }
 
-        public int TotalOfDaysOnSickLeave()
+        public int TotalDaysOnSickLeave()
         {
             return Terms.Sum(x => x.Days);
         }

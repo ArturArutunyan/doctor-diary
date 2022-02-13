@@ -128,7 +128,7 @@ namespace DoctorDiary.ViewModels.PatientCards
         private Guid? _sickLeaveId;
         private long? _number;
         private List<Term> _terms;
-        private int _totalOfDaysOnSickLeave;
+        private int _totalDaysOnSickLeave;
         
         public Guid? SickLeaveId
         {
@@ -148,10 +148,10 @@ namespace DoctorDiary.ViewModels.PatientCards
             set => SetProperty(ref _terms, value);
         }
 
-        public int TotalOfDaysOnSickLeave
+        public int TotalDaysOnSickLeave
         {
-            get => _totalOfDaysOnSickLeave;
-            set => SetProperty(ref _totalOfDaysOnSickLeave, value);
+            get => _totalDaysOnSickLeave;
+            set => SetProperty(ref _totalDaysOnSickLeave, value);
         }
         #endregion
 
@@ -182,11 +182,74 @@ namespace DoctorDiary.ViewModels.PatientCards
         #region Others
         // TODO: Move to another page
         private bool _sickLeaveIsVisible;
+        private DateTime? _firstStartDate;
+        private DateTime? _firstEndDate;
+        private int? _firstDays;
+        private DateTime? _secondStartDate;
+        private DateTime? _secondEndDate;
+        private int? _secondDays;
+        private DateTime? _thirdStartDate;
+        private DateTime? _thirdEndDate;
+        private int? _thirdDays;
 
         public bool SickLeaveIsVisible
         {
             get => _sickLeaveIsVisible;
             set => SetProperty(ref _sickLeaveIsVisible, value);
+        }
+        
+        public DateTime? FirstStartDate
+        {
+            get => _firstStartDate;
+            set => SetProperty(ref _firstStartDate, value);
+        }
+        
+        public DateTime? FirstEndDate
+        {
+            get => _firstEndDate;
+            set => SetProperty(ref _firstEndDate, value);
+        }
+        
+        public int? FirstDays
+        {
+            get => _firstDays;
+            set => SetProperty(ref _firstDays, value);
+        }
+        
+        public DateTime? SecondStartDate
+        {
+            get => _secondStartDate;
+            set => SetProperty(ref _secondStartDate, value);
+        }
+        
+        public DateTime? SecondEndDate
+        {
+            get => _secondEndDate;
+            set => SetProperty(ref _secondEndDate, value);
+        }
+        
+        public int? SecondDays 
+        {
+            get => _secondDays;
+            set => SetProperty(ref _secondDays, value);
+        }
+        
+        public DateTime? ThirdStartDate
+        {
+            get => _thirdStartDate;
+            set => SetProperty(ref _thirdStartDate, value);
+        }
+        
+        public DateTime? ThirdEndDate
+        {
+            get => _thirdEndDate;
+            set => SetProperty(ref _thirdEndDate, value);
+        }
+        
+        public int? ThirdDays
+        {
+            get => _thirdDays;
+            set => SetProperty(ref _thirdDays, value);
         }
         #endregion
 
@@ -268,11 +331,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 return;
 
             await _sickLeaveAppService.DeleteAsync(SickLeaveId.Value);
-
-            SickLeaveIsVisible = false;
-            OpenSickLeaveButtonIsEnabled = true;
-            ExtendSickLeaveButtonIsEnabled = false;
-            CloseSickLeaveWithCodeIsEnabled = false;
+            ResetSickLeave();
         }
 
         public async Task CreateDoctorVisit()
@@ -328,15 +387,41 @@ namespace DoctorDiary.ViewModels.PatientCards
                     
                     SickLeaveId = sickLeave.Id;
                     Number = sickLeave.Number;
-
-                    Terms = sickLeave.Terms.ToList();
-                    TotalOfDaysOnSickLeave = sickLeave.TotalOfDaysOnSickLeave();
+                    TotalDaysOnSickLeave = sickLeave.TotalDaysOnSickLeave();
                     
                     // TODO: Removed this shit!
                     if (sickLeave.Terms.Count == 3)
                     {
                         ExtendSickLeaveButtonIsEnabled = false;
                         CloseSickLeaveWithCodeIsEnabled = true;
+                        
+                        FirstStartDate = sickLeave.Terms[0].StartDate;
+                        FirstEndDate = sickLeave.Terms[0].EndDate;
+                        FirstDays = sickLeave.Terms[0].Days;
+                        
+                        SecondStartDate = sickLeave.Terms[1].StartDate;
+                        SecondEndDate = sickLeave.Terms[1].EndDate;
+                        SecondDays = sickLeave.Terms[1].Days;
+                        
+                        ThirdStartDate = sickLeave.Terms[2].StartDate;
+                        ThirdEndDate = sickLeave.Terms[2].EndDate;
+                        ThirdDays = sickLeave.Terms[2].Days;
+                    }
+                    else if (sickLeave.Terms.Count == 2)
+                    {
+                        FirstStartDate = sickLeave.Terms[0].StartDate;
+                        FirstEndDate = sickLeave.Terms[0].EndDate;
+                        FirstDays = sickLeave.Terms[0].Days;
+                        
+                        SecondStartDate = sickLeave.Terms[1].StartDate;
+                        SecondEndDate = sickLeave.Terms[1].EndDate;
+                        SecondDays = sickLeave.Terms[1].Days;
+                    }
+                    else if (sickLeave.Terms.Count == 1)
+                    {
+                        FirstStartDate = sickLeave.Terms[0].StartDate;
+                        FirstEndDate = sickLeave.Terms[0].EndDate;
+                        FirstDays = sickLeave.Terms[0].Days;
                     }
                 }
             }
@@ -344,6 +429,27 @@ namespace DoctorDiary.ViewModels.PatientCards
             {
                 Debug.WriteLine("Failed to Load patient Card");
             }
+        }
+
+        private void ResetSickLeave()
+        {
+            SickLeaveId = null;
+            SickLeaveIsVisible = false;
+            ExtendSickLeaveButtonIsEnabled = false;
+            CloseSickLeaveWithCodeIsEnabled = false;
+            OpenSickLeaveButtonIsEnabled = true;
+
+            FirstStartDate = null;
+            FirstEndDate = null;
+            FirstDays = null;
+                        
+            SecondStartDate = null;
+            SecondEndDate = null;
+            SecondDays = null;
+                        
+            ThirdStartDate = null;
+            ThirdEndDate = null;
+            ThirdDays = null;
         }
 
         public async Task OpenSickLeave()
@@ -360,10 +466,6 @@ namespace DoctorDiary.ViewModels.PatientCards
                 if (SickLeaveId != null)
                 {
                     await _sickLeaveAppService.CloseSickLeave(SickLeaveId.Value);
-                    
-                    SickLeaveId = null;
-                    SickLeaveIsVisible = false;
-                    OpenSickLeaveButtonIsEnabled = true;
                 }
             }
             catch (Exception e)
@@ -374,6 +476,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             finally
             {
                 IsBusy = false;
+                ResetSickLeave();
             }
         }
 
@@ -391,7 +494,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 {
                     case "31":
                         if (SickLeaveId.HasValue)
-                        {
+                        {                  
                             await Shell.Current.GoToAsync($"{nameof(CloseSickLeaveWithThirtyOneCodePage)}?{nameof(PatientCardDetailViewModel.SickLeaveId)}={SickLeaveId.Value.ToString()}");
                         }
                         
@@ -407,8 +510,10 @@ namespace DoctorDiary.ViewModels.PatientCards
                 Console.WriteLine(e);
                 throw;
             }
-
-            CloseSickLeaveWithCodeIsEnabled = false;
+            finally
+            {
+                ResetSickLeave();
+            }
         }
 
         private async Task ExtendSickLeave()

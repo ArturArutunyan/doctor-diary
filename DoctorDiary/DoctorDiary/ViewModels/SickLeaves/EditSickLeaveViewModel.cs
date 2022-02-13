@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using DoctorDiary.Services.SickLeaves;
 using Xamarin.CommunityToolkit.ObjectModel;
@@ -84,12 +85,17 @@ namespace DoctorDiary.ViewModels.SickLeaves
             var activeSickLeave = await _sickLeaveAppService.LastOrDefaultSickLeaveForPatientCard(Guid.Parse(PatientCardId));
             var lastClosedSickLeave = await _sickLeaveAppService.LastOrDefaultClosedSickLeaveForPatientCard(Guid.Parse(PatientCardId));
 
-            if (lastClosedSickLeave != null)
+            if (!activeSickLeave.Terms.Any() && lastClosedSickLeave != null)
             {
                 _lastClosedEndDate = lastClosedSickLeave.LastTerm().EndDate;
                 
                 StartDate = lastClosedSickLeave.LastTermEndDate().AddDays(1);
                 EndDate = StartDate.AddDays(14);
+            }
+            else if (activeSickLeave.Terms.Any())
+            {
+                StartDate = activeSickLeave.LastTermStartDate();
+                EndDate = activeSickLeave.LastTermEndDate();
             }
             else
             {

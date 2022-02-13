@@ -2,6 +2,8 @@
 using System.Threading.Tasks;
 using DoctorDiary.Services.SickLeaves;
 using DoctorDiary.Shared.SickLeaves;
+using DoctorDiary.ViewModels.PatientCards;
+using DoctorDiary.Views.PatientCards;
 using Xamarin.CommunityToolkit.ObjectModel;
 using Xamarin.Forms;
 
@@ -16,6 +18,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
         private DateTime _endDate;
         private DateTime _lastClosedEndDate;
         private readonly ISickLeaveAppService _sickLeaveAppService;
+        private Guid _patientCardId;
 
         public string SickLeaveId
         {
@@ -45,6 +48,12 @@ namespace DoctorDiary.ViewModels.SickLeaves
             set => SetProperty(ref _number, value);
         }
 
+        public Guid PatientCardId
+        {
+            get => _patientCardId;
+            set => SetProperty(ref _patientCardId, value);
+        }
+        
         public AsyncCommand CancelCommand { get; }
         public AsyncCommand CloseSickLeaveWithCodeCommand { get; }
 
@@ -71,6 +80,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
 
             StartDate = _lastClosedEndDate.AddDays(1);
             EndDate = StartDate.AddDays(14);
+            PatientCardId = lastSickLeave.PatientCardId;
         }
 
         private async Task OnCloseSickLeaveWithCode()
@@ -84,7 +94,7 @@ namespace DoctorDiary.ViewModels.SickLeaves
                     startDate: StartDate,
                     endDate: EndDate);
                 
-                await Shell.Current.GoToAsync("..");
+                await Shell.Current.GoToAsync($"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={PatientCardId}");
             }
             catch (Exception e)
             {
