@@ -8,7 +8,8 @@
              x:Class="DoctorDiary.Views.Visits.VisitsPage"
              x:DataType="visitsViewModel:VisitsViewModel"
              Title="{Binding Title}"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="WhiteSmoke">
 <ContentPage.Content>
     <StackLayout Margin="0" x:DataType="visitsViewModel:VisitsViewModel">
         <StackLayout BackgroundColor="{StaticResource Key=SoftGreenColor}" 
@@ -139,7 +140,8 @@
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
                                                 <Label TextColor="{x:StaticResource Key=TextColor}"
-                                                       FontFamily="HEB"
+                                                       FontFamily="HSB"
+                                                       FontSize="16"
                                                        LineBreakMode="TailTruncation"
                                                        Grid.Row="0">
                                                     <Label.FormattedText>
@@ -155,59 +157,58 @@
                                                 <Label Grid.Row="1"
                                                        LineBreakMode="CharacterWrap"
                                                        VerticalOptions="Start"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       FontFamily="PTSR"
-                                                       FontSize="18">
+                                                       Style="{DynamicResource ListItemDetailTextStyle}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{x:Static fontAwesome:FontAwesomeIcons.Calendar}"
-                                                                  FontFamily="FAS" />
+                                                                  FontFamily="FAS" 
+                                                                  FontSize="16" />
                                                             <Span Text="  " />
-                                                            <Span Text="Дата рождения: " />
-                                                            <Span Text="{Binding .PatientCard.Birthday, StringFormat='{0:dd.MM.yyyy}'}"
-                                                                  TextColor="{StaticResource Key=TextColor}"
-                                                                  FontFamily="PTSB" 
-                                                                  FontSize="16"/>
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="16"
+                                                                  Text="Дата рождения: " />
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="16"
+                                                                  Text="{Binding .PatientCard.Birthday, StringFormat='{0:dd.MM.yyyy}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                                 <Label Grid.Row="2"
                                                        LineBreakMode="CharacterWrap"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       FontSize="18"
-                                                       FontFamily="PTSR">
+                                                       Style="{DynamicResource ListItemDetailTextStyle}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span
-                                                                Text="{x:Static fontAwesome:FontAwesomeIcons.PhoneSquareAlt}"
-                                                                FontFamily="FAS" />
+                                                            <Span FontSize="16"
+                                                                  Text="{x:Static fontAwesome:FontAwesomeIcons.PhoneSquareAlt}"
+                                                                  FontFamily="FAS"/>
                                                             <Span Text="  " />
-                                                            <Span Text="Телефон: " />
-                                                            <Span
-                                                                Text="{Binding PatientCard.PhoneNumber.ReadableFormat, StringFormat='{0}'}"
-                                                                TextColor="{StaticResource Key=TextColor}"
-                                                                FontFamily="PTSB" 
-                                                                FontSize="16"/>
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="16"
+                                                                  Text="Телефон: " />
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="16"
+                                                                  Text="{Binding PatientCard.PhoneNumber.ReadableFormat, StringFormat='{0}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                                 <Label Grid.Row="3"
                                                        LineBreakMode="CharacterWrap"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       FontSize="18"
-                                                       FontFamily="PTSR">
+                                                       Style="{DynamicResource ListItemDetailTextStyle}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
-                                                            <Span
-                                                                Text="{x:Static fontAwesome:FontAwesomeIcons.Genderless}"
-                                                                FontFamily="FAS" />
+                                                            <Span FontSize="16"
+                                                                  Text="{x:Static fontAwesome:FontAwesomeIcons.Genderless}"
+                                                                  FontFamily="FAS" />
                                                             <Span Text="  " />
-                                                            <Span Text="Тип обращения: " />
-                                                            <Span
-                                                                Text="{Binding Visit.TypeOfAppeal, StringFormat='{0}'}"
-                                                                TextColor="{StaticResource Key=TextColor}"
-                                                                FontFamily="PTSB" 
-                                                                FontSize="16" />
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="16"
+                                                                  Text="Тип обращения: " />
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="16"
+                                                                  Text="{Binding Visit.TypeOfAppeal, StringFormat='{0}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
@@ -215,21 +216,20 @@
                                         <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                                             <Label LineBreakMode="TailTruncation"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                                   FontSize="18"
-                                                   FontFamily="PTSR"
                                                    Margin="0">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span
-                                                            Text="{x:Static fontAwesome:FontAwesomeIcons.MapMarkerAlt}"
-                                                            FontFamily="FAS" />
+                                                        <Span FontSize="16"
+                                                              Text="{x:Static fontAwesome:FontAwesomeIcons.MapMarkerAlt}"
+                                                              FontFamily="FAS" />
                                                         <Span Text="  " />
-                                                        <Span Text="Адрес: " />
-                                                        <Span
-                                                            Text="{Binding .PatientCard.Address.InShortFormat, StringFormat='{0}'}"
-                                                            TextColor="{StaticResource Key=TextColor}"
-                                                            FontFamily="PTSB"
-                                                            FontSize="16"/>
+                                                        <Span FontFamily="HM" 
+                                                              FontSize="16"
+                                                              Text="Адрес: " />
+                                                        <Span FontFamily="HSB"
+                                                              FontSize="16"
+                                                              Text="{Binding .PatientCard.Address.InShortFormat, StringFormat='{0}'}"
+                                                              TextColor="{StaticResource Key=TextColor}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>
