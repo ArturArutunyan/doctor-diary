@@ -4,15 +4,14 @@
              x:Class="DoctorDiary.Views.PatientCards.PatientCardDetailPage"
              xmlns:viewmodel="clr-namespace:DoctorDiary.ViewModels.PatientCards;assembly=DoctorDiary"
              xmlns:templates="clr-namespace:DoctorDiary.Views.PatientCards.Templates;assembly=DoctorDiary"
+             xmlns:fontAwesome="clr-namespace:FontAwesome;assembly=DoctorDiary"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
              xmlns:valueObjects="clr-namespace:DoctorDiary.Models.SickLeaves.ValueObjects;assembly=DoctorDiary"
+             xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
              Title="{Binding Title}"
              x:DataType="viewmodel:PatientCardDetailViewModel"
-             ControlTemplate="{DynamicResource OpenSickLeaveView}">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Записать на прием" Command="{Binding CreateDoctorVisitCommand}" />
-    </ContentPage.ToolbarItems>
-    
+             ControlTemplate="{DynamicResource OpenSickLeaveView}"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Triggers>
         <DataTrigger TargetType="ContentPage"
                      Binding="{Binding SickLeaveIsVisible}"
@@ -21,8 +20,36 @@
         </DataTrigger>
     </ContentPage.Triggers>
     <ScrollView>
-        <StackLayout VerticalOptions="StartAndExpand" Padding="20" >
-            <StackLayout>
+        <StackLayout VerticalOptions="StartAndExpand">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Button Grid.Column="0"
+                        Text="{x:Static fontAwesome:FontAwesomeIcons.LongArrowLeft}"
+                        FontSize="22"
+                        FontFamily="FAS"
+                        HorizontalOptions="Start"
+                        BackgroundColor="Transparent"
+                        TextColor="Gray"
+                        Margin="0, 10, 0, 0"
+                        Padding="0"
+                        Clicked="BackButton_OnClicked"
+                        x:Name="BackButton"/>
+                <Button Grid.Column="1"
+                        FontFamily="HEB"
+                        FontSize="15"
+                        Text="Записать на прием" 
+                        TextColor="Gray"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="End"
+                        Clicked="VisitButton_OnClicked"/>
+            </Grid>
+            <StackLayout Margin="15, 0, 15, 0">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -37,158 +64,386 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
-                        <Label FontSize="Large"
-                               FontAttributes="Bold"
-                               TextColor="#032d3d"
+                        <Label FontSize="30"
+                               FontFamily="HEB"
+                               TextColor="{StaticResource Key=TextColor}"
                                Grid.Row="0">
                             <Label.FormattedText>
                                 <FormattedString>
-                                    <Span Text="Общая информация"
-                                          FontSize="Large" />
+                                    <Span Text="Общая" />
+                                    <Span Text="{x:Static system:Environment.NewLine}"/>
+                                    <Span Text="информация"/>
                                 </FormattedString>
                             </Label.FormattedText>
                         </Label>
-                        <ImageButton Grid.Column="1" 
-                                     Source="pen.png" 
-                                     BackgroundColor="Transparent"
-                                     WidthRequest="20"
-                                     HeightRequest="20"
-                                     HorizontalOptions="End"
-                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PatientCardDetailViewModel}}, Path=EditPatientCardCommand}"
-                                     CommandParameter="{Binding .}"
-                                     Margin="0, 0, 2, 0"
-                                     Padding="2"
-                                     BorderColor="Gray">
-                        </ImageButton>
-                        <ImageButton Grid.Column="2" 
-                                     Source="delete.png" 
-                                     BackgroundColor="Transparent"
-                                     WidthRequest="20"
-                                     HeightRequest="20"
-                                     HorizontalOptions="End"
-                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PatientCardDetailViewModel}}, Path=DeletePatientCardCommand}"
-                                     CommandParameter="{Binding .}"
-                                     Margin="0"
-                                     Padding="2"
-                                     BorderColor="Gray">
-                        </ImageButton>
+                        <Button Grid.Column="1"
+                                Padding="0"
+                                WidthRequest="30"
+                                HeightRequest="20"
+                                Text="{x:Static fontAwesome:FontAwesomeIcons.TrashAlt}"
+                                FontSize="Medium"
+                                FontFamily="FAS"
+                                TextColor="Gray"
+                                HorizontalOptions="End"
+                                BackgroundColor="Transparent"
+                                x:Name="TrashButton"
+                                Clicked="TrashButton_OnClicked"/>
+                        <Button Grid.Column="2"
+                                Padding="0"
+                                WidthRequest="30"
+                                HeightRequest="20"
+                                Text="{x:Static fontAwesome:FontAwesomeIcons.Edit}"
+                                FontSize="Medium"
+                                FontFamily="FAS"
+                                TextColor="Gray"
+                                HorizontalOptions="End"
+                                BackgroundColor="Transparent"
+                                x:Name="EditButton"
+                                Clicked="EditButton_OnClicked"/>
+                        <Button Grid.Column="3"
+                                Padding="0"
+                                WidthRequest="30"
+                                HeightRequest="20"
+                                Text="{x:Static fontAwesome:FontAwesomeIcons.Phone}"
+                                FontSize="Medium"
+                                FontFamily="FAS"
+                                TextColor="Gray"
+                                HorizontalOptions="End"
+                                BackgroundColor="Transparent"
+                                Clicked="PhoneButton_OnClicked"/>
                     </Grid>
-                    <BoxView Grid.Row="1"
-                             HeightRequest="1"
-                             BackgroundColor="#032d3d" />
-                    <StackLayout Grid.Row="2" Margin="0, 10, 0, 0">
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Фамилия: " />
-                                    <Span Text="{Binding LastName}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Имя: " />
-                                    <Span Text="{Binding FirstName}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium" >
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Отчество: " />
-                                    <Span Text="{Binding Patronymic}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Пол: " />
-                                    <Span Text="{Binding Gender}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Дата рождения: " />
-                                    <Span Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Полис: " />
-                                    <Span Text="{Binding InsurancePolicy, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="СНИЛС: " />
-                                    <Span Text="{Binding Snils, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Адрес: " />
-                                    <Span Text="{Binding Address}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Номер телефона: " />
-                                    <Span Text="{Binding PhoneNumber}"
-                                          TextColor="Blue"
-                                          TextDecorations="Underline">
-                                        <Span.GestureRecognizers>
-                                            <TapGestureRecognizer NumberOfTapsRequired="1"
-                                                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:PatientCardDetailViewModel}}, Path=OpenPhoneDialerCommand}" />
-                                        </Span.GestureRecognizers>
-                                    </Span>
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Место работы: " />
-                                    <Span Text="{Binding PlaceOfWork, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Участок: " />
-                                    <Span Text="{Binding Precinct, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                        <Label FontSize="Medium">
-                            <Label.FormattedText>
-                                <FormattedString>
-                                    <Span Text="Описание: " />
-                                    <Span Text="{Binding Description, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
-                                </FormattedString>
-                            </Label.FormattedText>
-                        </Label>
-                    </StackLayout>
+                    <Frame Grid.Row="2" 
+                           CornerRadius="10"
+                           HasShadow="True">
+                        <StackLayout>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Фамилия: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding LastName}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Имя: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding FirstName}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Отчество: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Patronymic}" TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Пол: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Gender}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Дата рождения: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Полис: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding InsurancePolicy, StringFormat='{0}'}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="СНИЛС: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Snils, StringFormat='{0}'}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Участок: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Precinct, StringFormat='{0}'}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span  FontFamily="HM" 
+                                               FontSize="18"
+                                               Text="Номер телефона: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding PhoneNumber}"
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Адрес: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Address}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Место работы: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding PlaceOfWork, StringFormat='{0}'}" 
+                                              TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span FontFamily="HM" 
+                                              FontSize="18"
+                                              Text="Описание: " />
+                                        <Span FontFamily="HSB"
+                                              FontSize="18"
+                                              Text="{Binding Description, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </StackLayout>
+                    </Frame>
                 </Grid>
             </StackLayout>
-            <templates:SickLeaveFrameView></templates:SickLeaveFrameView>
+            <StackLayout Margin="15, 20, 15, 0">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0"
+                           FontSize="30"
+                           FontFamily="HEB"
+                           TextColor="{StaticResource Key=TextColor}"
+                           Grid.Row="0">
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Больничный" />
+                                <Span Text="{x:Static system:Environment.NewLine}" />
+                                <Span Text="лист" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Button Grid.Column="1"
+                            Padding="0"
+                            WidthRequest="30"
+                            HeightRequest="20"
+                            Text="{x:Static fontAwesome:FontAwesomeIcons.TrashAlt}"
+                            FontSize="Medium"
+                            FontFamily="FAS"
+                            TextColor="Gray"
+                            HorizontalOptions="End"
+                            BackgroundColor="Transparent"
+                            x:Name="SickLeaveTrashButton"
+                            Clicked="SickLeaveTrashButton_OnClicked" />
+                    <Button Grid.Column="2"
+                            Padding="0"
+                            WidthRequest="30"
+                            HeightRequest="20"
+                            Text="{x:Static fontAwesome:FontAwesomeIcons.Edit}"
+                            FontSize="Medium"
+                            FontFamily="FAS"
+                            TextColor="Gray"
+                            HorizontalOptions="End"
+                            BackgroundColor="Transparent"
+                            x:Name="SickLeaveEditButton"
+                            Clicked="SickLeaveEditButton_OnClicked" />
+                </Grid>
+                <Button Text="Открыть больничный"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding Path=OpenSickLeaveCommand}"
+                        IsVisible="{Binding OpenSickLeaveButtonIsEnabled}"
+                        Margin="60, 10, 60, 20"/>
+                <StackLayout IsVisible="{Binding SickLeaveIsVisible}"
+                             HorizontalOptions="StartAndExpand">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <StackLayout Grid.Row="0">
+                            <Frame CornerRadius="10"
+                                   HasShadow="True"
+                                   Margin="0, 10, 0, 10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontFamily="HM" 
+                                                      FontSize="18"
+                                                      Text="№ " />
+                                                <Span FontFamily="HSB"
+                                                      FontSize="18"
+                                                      Text="{Binding Number, StringFormat='{0}'}" 
+                                                      TextColor="{StaticResource Key=TextColor}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <CollectionView Grid.Row="1"
+                                                    ItemsSource="{Binding Terms}"
+                                                    SelectionMode="None"
+                                                    HorizontalOptions="Center"
+                                                    VerticalOptions="Center"
+                                                    HeightRequest="90"
+                                                    Margin="0, 10">
+                                        <CollectionView.ItemTemplate>
+                                            <DataTemplate x:DataType="valueObjects:Term">
+                                                <Label Margin="1">
+                                                    <Label.FormattedText>
+                                                        <FormattedString>
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="18"
+                                                                  Text="c "/>
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="18"
+                                                                  Text="{Binding StartDate, StringFormat='{0:dd.MM.yyyy}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="18"
+                                                                  Text=" по "/>
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="18"
+                                                                  Text="{Binding EndDate, StringFormat='{0:dd.MM.yyyy}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="18"
+                                                                  Text=" - "/>
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="18"
+                                                                  Text="{Binding Days, StringFormat=' {0}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="18"
+                                                                  Text=" дней"/>
+                                                        </FormattedString>
+                                                    </Label.FormattedText>
+                                                </Label>
+                                            </DataTemplate>
+                                        </CollectionView.ItemTemplate>
+                                    </CollectionView>
+                                    <Label Grid.Row="2">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontFamily="HM" 
+                                                      FontSize="18"
+                                                      Text="Всего дней: " />
+                                                <Span FontFamily="HSB"
+                                                      FontSize="18"
+                                                      Text="{Binding  TotalOfDaysOnSickLeave, StringFormat='{0}'}"
+                                                      TextColor="{StaticResource Key=TextColor}" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                            </Frame>
+                        </StackLayout>
+                        <StackLayout Grid.Row="1"
+                                     Orientation="Horizontal"
+                                     Margin="10, 0, 0, 20">
+                            <Button Text="Закрыть"
+                                    Command="{Binding CloseSickLeaveCommand}"
+                                    HorizontalOptions="FillAndExpand"/>
+                            <Button Text="Продлить"
+                                    Command="{Binding ExtendSickLeaveCommand}"
+                                    IsVisible="{Binding ExtendSickLeaveButtonIsEnabled}"
+                                    HorizontalOptions="FillAndExpand"/>
+                            <Button Text="Закрыть с кодом"
+                                    Command="{Binding CloseSickLeaveWithCodeCommand}"
+                                    IsVisible="{Binding CloseSickLeaveWithCodeIsEnabled}"
+                                    HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
         </StackLayout>
     </ScrollView>
-    
 </ContentPage>

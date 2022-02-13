@@ -93,7 +93,7 @@
                                                 SelectionMode="None"
                                                 HorizontalOptions="Center"
                                                 VerticalOptions="Center"
-                                                HeightRequest="75">
+                                                MinimumHeightRequest="100">
                                     <CollectionView.ItemTemplate>
                                         <DataTemplate x:DataType="valueObjects:Term">
                                             <Label Margin="1">
@@ -116,7 +116,6 @@
                                         </DataTemplate>
                                     </CollectionView.ItemTemplate>
                                 </CollectionView>
-
                                 <Label Grid.Row="2">
                                     <Label.FormattedText>
                                         <FormattedString>

@@ -219,7 +219,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             OpenPhoneDialerCommand = new Xamarin.Forms.Command(OnOpenPhoneDialer);
         }
         
-        private void OnOpenPhoneDialer()
+        public void OnOpenPhoneDialer()
         {
             try
             {
@@ -242,12 +242,12 @@ namespace DoctorDiary.ViewModels.PatientCards
             }
         }
         
-        private async Task EditPatientCard()
+        public async Task EditPatientCard()
         {
             await Shell.Current.GoToAsync($"{nameof(EditPatientCardPage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
 
-        private async Task EditSickLeave()
+        public async Task EditSickLeave()
         {
             if (SickLeaveId == null)
                 return;
@@ -255,14 +255,14 @@ namespace DoctorDiary.ViewModels.PatientCards
             await Shell.Current.GoToAsync($"{nameof(EditSickLeavePage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
 
-        private async Task DeletePatientCard()
+        public async Task DeletePatientCard()
         {
             SickLeaveId = null;
             await _patientCardAppService.DeleteAsync(id: Id);
             await Shell.Current.GoToAsync("..");
         }
 
-        private async Task DeleteSickLeave()
+        public async Task DeleteSickLeave()
         {
             if (SickLeaveId == null)
                 return;
@@ -275,7 +275,7 @@ namespace DoctorDiary.ViewModels.PatientCards
             CloseSickLeaveWithCodeIsEnabled = false;
         }
 
-        private async Task CreateDoctorVisit()
+        public async Task CreateDoctorVisit()
         {
             await Shell.Current.GoToAsync($"{nameof(CreateDoctorVisitPage)}?{nameof(PatientCardId)}={PatientCardId}");
         }
@@ -293,7 +293,7 @@ namespace DoctorDiary.ViewModels.PatientCards
                 Address = patientCard.Address?.ToString();
                 Birthday = patientCard?.Birthday;
                 Snils = patientCard.Snils?.ToReadableFormat();
-                PhoneNumber = patientCard.PhoneNumber?.Value;
+                PhoneNumber = patientCard.PhoneNumber.ToReadableFormat();
                 Description = patientCard.Description;
                 Gender = patientCard.Gender;
                 InsurancePolicy = patientCard.InsurancePolicy?.ToReadableFormat();
