@@ -15,7 +15,6 @@ using Xamarin.Forms.Xaml;
 [assembly: ExportFont("MoshitaMonoBoldItalic.ttf", Alias = "MMBI")]
 [assembly: ExportFont("MoshitaMonoItalic.ttf", Alias = "MMI")]
 [assembly: ExportFont("Hauora-Bold.ttf", Alias = "HB")]
-[assembly: ExportFont("Hauora-SemiBold.ttf", Alias = "HSB")]
 [assembly: ExportFont("Hauora-ExtraBold.ttf", Alias = "HEB")]
 [assembly: ExportFont("Hauora-ExtraLight.ttf", Alias = "HEL")]
 [assembly: ExportFont("Hauora-Light.ttf", Alias = "HL")]
