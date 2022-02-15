@@ -390,7 +390,7 @@
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
                                                       FontSize="Medium"
-                                                      Text=" " />
+                                                      Text=" - " />
                                                 <Span FontFamily="HSB"
                                                       FontSize="Medium"
                                                       Text="{Binding FirstDays, StringFormat=' {0}'}"
