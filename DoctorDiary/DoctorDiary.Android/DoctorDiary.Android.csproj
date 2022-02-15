@@ -85,36 +85,16 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\address_card_regular.svg" />
-    <AndroidResource Include="Resources\drawable\back.png" />
-    <AndroidResource Include="Resources\drawable\bell_solid.svg" />
-    <AndroidResource Include="Resources\drawable\business_cards.png" />
-    <AndroidResource Include="Resources\drawable\calendar.png" />
-    <AndroidResource Include="Resources\drawable\cancel.png" />
-    <AndroidResource Include="Resources\drawable\delete.png" />
-    <AndroidResource Include="Resources\drawable\house_user_solid.svg" />
-    <AndroidResource Include="Resources\drawable\house.png" />
-    <AndroidResource Include="Resources\drawable\next.png" />
-    <AndroidResource Include="Resources\drawable\pen.png" />
-    <AndroidResource Include="Resources\drawable\reminder.png" />
     <AndroidResource Include="Resources\mipmap-hdpi\health_check_icon.png" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\values\colors.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon.xml" />
     <AndroidResource Include="Resources\mipmap-anydpi-v26\icon_round.xml" />
-    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-hdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-mdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-mdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xhdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
-    <AndroidResource Include="Resources\drawable\xamarin_logo.png" />
-    <AndroidResource Include="Resources\drawable\icon_about.png" />
-    <AndroidResource Include="Resources\drawable\icon_feed.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DoctorDiary.Shared\DoctorDiary.Shared.csproj">
@@ -125,6 +105,9 @@
       <Project>{CED7A004-B309-40A7-AED4-3F93BC1603DA}</Project>
       <Name>DoctorDiary</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\drawable" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
