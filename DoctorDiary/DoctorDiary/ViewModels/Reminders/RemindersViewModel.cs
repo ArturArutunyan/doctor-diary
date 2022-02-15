@@ -39,10 +39,10 @@ namespace DoctorDiary.ViewModels.Reminders
             Reminders = new ObservableRangeCollection<Reminder>();
             LoadRemindersCommand = new AsyncCommand(LoadReminders);
             ReminderTapped = new AsyncCommand<Reminder>(OnReminderSelected);
-            CloseReminderCommand = new AsyncCommand<Reminder>(OnCloseReminderCommand);
+            CloseReminderCommand = new AsyncCommand<Reminder>(CloseReminder);
         }
 
-        private async Task OnCloseReminderCommand(Reminder reminder)
+        public async Task CloseReminder(Reminder reminder)
         {
             try
             {

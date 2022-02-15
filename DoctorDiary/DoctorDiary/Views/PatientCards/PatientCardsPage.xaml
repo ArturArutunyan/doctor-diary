@@ -141,59 +141,56 @@
                                                 <Label Grid.Row="1"
                                                        LineBreakMode="CharacterWrap"
                                                        VerticalOptions="Start"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       FontFamily="PTSR"
-                                                       FontSize="18">
+                                                       Style="{DynamicResource ListItemDetailTextStyle}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span Text="{x:Static fontAwesome:FontAwesomeIcons.Calendar}"
                                                                   FontFamily="FAS" />
                                                             <Span Text="  " />
-                                                            <Span Text="Дата рождения: " />
-                                                            <Span Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}"
-                                                                  TextColor="{StaticResource Key=TextColor}"
-                                                                  FontFamily="PTSB" 
-                                                                  FontSize="16"/>
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="Small"
+                                                                  Text="Дата рождения: " />
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="Small"
+                                                                  Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                                 <Label Grid.Row="2"
                                                        LineBreakMode="CharacterWrap"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       FontSize="18"
-                                                       FontFamily="PTSR">
+                                                       Style="{DynamicResource ListItemDetailTextStyle}">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span
                                                                 Text="{x:Static fontAwesome:FontAwesomeIcons.PhoneSquareAlt}"
                                                                 FontFamily="FAS" />
                                                             <Span Text="  " />
-                                                            <Span Text="Телефон: " />
-                                                            <Span
-                                                                Text="{Binding PhoneNumber.ReadableFormat, StringFormat='{0}'}"
-                                                                TextColor="{StaticResource Key=TextColor}"
-                                                                FontFamily="PTSB" 
-                                                                FontSize="16"/>
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="Small"
+                                                                  Text="Телефон: " />
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="Small"
+                                                                  Text="{Binding PhoneNumber.ReadableFormat, StringFormat='{0}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}"/>
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
                                                 <Label Grid.Row="3"
-                                                       LineBreakMode="CharacterWrap"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}"
-                                                       FontSize="18"
-                                                       FontFamily="PTSR">
+                                                       LineBreakMode="CharacterWrap">
                                                     <Label.FormattedText>
                                                         <FormattedString>
                                                             <Span
                                                                 Text="{x:Static fontAwesome:FontAwesomeIcons.Genderless}"
                                                                 FontFamily="FAS" />
                                                             <Span Text="  " />
-                                                            <Span Text="Пол: " />
-                                                            <Span
-                                                                Text="{Binding Gender, StringFormat='{0}'}"
-                                                                TextColor="{StaticResource Key=TextColor}"
-                                                                FontFamily="PTSB" 
-                                                                FontSize="16" />
+                                                            <Span FontFamily="HM" 
+                                                                  FontSize="Small"
+                                                                  Text="Пол: " />
+                                                            <Span FontFamily="HSB"
+                                                                  FontSize="Small"
+                                                                  Text="{Binding Gender, StringFormat='{0}'}"
+                                                                  TextColor="{StaticResource Key=TextColor}" />
                                                         </FormattedString>
                                                     </Label.FormattedText>
                                                 </Label>
@@ -201,21 +198,20 @@
                                         <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                                             <Label LineBreakMode="TailTruncation"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
-                                                   FontSize="18"
-                                                   FontFamily="PTSR"
                                                    Margin="0">
                                                 <Label.FormattedText>
                                                     <FormattedString>
-                                                        <Span
+                                                        <Span 
                                                             Text="{x:Static fontAwesome:FontAwesomeIcons.MapMarkerAlt}"
                                                             FontFamily="FAS" />
                                                         <Span Text="  " />
-                                                        <Span Text="Адрес: " />
-                                                        <Span
-                                                            Text="{Binding Address.InShortFormat, StringFormat='{0}'}"
-                                                            TextColor="{StaticResource Key=TextColor}"
-                                                            FontFamily="PTSB"
-                                                            FontSize="16"/>
+                                                        <Span FontFamily="HM" 
+                                                              FontSize="Small"
+                                                              Text="Адрес: " />
+                                                        <Span FontFamily="HSB"
+                                                              FontSize="Small"
+                                                              Text="{Binding Address.InShortFormat, StringFormat='{0}'}"
+                                                              TextColor="{StaticResource Key=TextColor}"/>
                                                     </FormattedString>
                                                 </Label.FormattedText>
                                             </Label>

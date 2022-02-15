@@ -126,10 +126,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Фамилия: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding LastName}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -139,10 +139,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Имя: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding FirstName}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -152,10 +152,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Отчество: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Patronymic}" TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -164,10 +164,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Пол: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Gender}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -177,10 +177,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Дата рождения: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -190,10 +190,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Полис: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding InsurancePolicy, StringFormat='{0}'}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -203,10 +203,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="СНИЛС: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Snils, StringFormat='{0}'}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -216,10 +216,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Участок: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Precinct, StringFormat='{0}'}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -229,10 +229,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span  FontFamily="HM" 
-                                               FontSize="18"
+                                               FontSize="Medium"
                                                Text="Номер телефона: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding PhoneNumber}"
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -242,10 +242,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Адрес: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Address}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -255,10 +255,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Место работы: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding PlaceOfWork, StringFormat='{0}'}" 
                                               TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
@@ -268,10 +268,10 @@
                                 <Label.FormattedText>
                                     <FormattedString>
                                         <Span FontFamily="HM" 
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="Описание: " />
                                         <Span FontFamily="HSB"
-                                              FontSize="18"
+                                              FontSize="Medium"
                                               Text="{Binding Description, StringFormat='{0}'}" TextColor="{StaticResource Key=TextColor}" />
                                     </FormattedString>
                                 </Label.FormattedText>
@@ -362,10 +362,10 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontFamily="HM" 
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="№ " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding Number, StringFormat='{0}'}" 
                                                       TextColor="{StaticResource Key=TextColor}" />
                                             </FormattedString>
@@ -375,29 +375,29 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="c " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding FirstStartDate, StringFormat='{0:dd.MM.yyyy}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text=" по " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding FirstEndDate, StringFormat='{0:dd.MM.yyyy}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
-                                                      Text=" - " />
+                                                      FontSize="Medium"
+                                                      Text=" " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding FirstDays, StringFormat=' {0}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
-                                                      Text=" дней" />
+                                                      FontSize="Medium"
+                                                      Text=" д." />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -405,29 +405,29 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="c " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding SecondStartDate, StringFormat='{0:dd.MM.yyyy}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text=" по " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding SecondEndDate, StringFormat='{0:dd.MM.yyyy}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text=" - " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding SecondDays, StringFormat=' {0}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
-                                                      Text=" дней" />
+                                                      FontSize="Medium"
+                                                      Text=" д." />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -435,29 +435,29 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="c " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding ThirdStartDate, StringFormat='{0:dd.MM.yyyy}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text=" по " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding ThirdEndDate, StringFormat='{0:dd.MM.yyyy}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text=" - " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding ThirdDays, StringFormat=' {0}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                                 <Span FontFamily="HM"
-                                                      FontSize="18"
-                                                      Text=" дней" />
+                                                      FontSize="Medium"
+                                                      Text=" д." />
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
@@ -465,10 +465,10 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span FontFamily="HM" 
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="Всего дней: " />
                                                 <Span FontFamily="HSB"
-                                                      FontSize="18"
+                                                      FontSize="Medium"
                                                       Text="{Binding  TotalDaysOnSickLeave, StringFormat='{0}'}"
                                                       TextColor="{StaticResource Key=TextColor}" />
                                             </FormattedString>

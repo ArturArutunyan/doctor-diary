@@ -35,6 +35,7 @@ namespace DoctorDiary
             Routing.RegisterRoute(nameof(CloseSickLeaveWithThirtyOneCodePage), typeof(CloseSickLeaveWithThirtyOneCodePage));
             Routing.RegisterRoute(nameof(CreateDoctorVisitPage), typeof(CreateDoctorVisitPage));
             Routing.RegisterRoute(nameof(EditDoctorVisitPage), typeof(EditDoctorVisitPage));
+            Routing.RegisterRoute(nameof(PatientCardsPage), typeof(PatientCardsPage)); // TODO: bullshit
         }
     }
 }

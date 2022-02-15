@@ -4070,6 +4070,8 @@ namespace FontAwesome
         /// </summary>
         public const string ClosedCaptioning = "\uf20a";
 
+        public const string XMark = "\uf00d";
+
         /// <summary>
         /// fa-cloud unicode value ("\uf0c2").
         /// <para/>

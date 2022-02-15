@@ -3,88 +3,116 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:DoctorDiary.ViewModels.Reminders;assembly=DoctorDiary"  
-             xmlns:model="clr-namespace:DoctorDiary.Models.Reminders;assembly=DoctorDiary"  
+             xmlns:model="clr-namespace:DoctorDiary.Models.Reminders;assembly=DoctorDiary"
+             xmlns:fontAwesome="clr-namespace:FontAwesome;assembly=DoctorDiary"
              x:Class="DoctorDiary.Views.Reminders.RemindersPage"
-             BackgroundColor="Silver"
-             Title="{Binding Title}">
+             BackgroundColor="WhiteSmoke"
+             Shell.NavBarIsVisible="False">
     <ContentPage.Content>
-        <RefreshView x:DataType="local:RemindersViewModel" 
-                     Command="{Binding LoadRemindersCommand}" 
-                     IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
-            <CollectionView ItemsSource="{Binding Reminders}"
-                            SelectionMode="None"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Center"
-                            Margin="5">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <StackLayout HorizontalOptions="Center"
-                                     VerticalOptions="Center"
-                                     Margin="5"
-                                     Padding="5">
-                            <Frame CornerRadius="10"
-                                   HasShadow="False"
-                                   HorizontalOptions="CenterAndExpand"
-                                   VerticalOptions="CenterAndExpand"
-                                   x:DataType="model:Reminder">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <ImageButton Grid.Row="0" 
-                                                 Source="cancel.png" 
-                                                 BackgroundColor="Transparent"
-                                                 WidthRequest="9"
-                                                 HeightRequest="9"
-                                                 HorizontalOptions="End"
-                                                 Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=CloseReminderCommand}"
-                                                 CommandParameter="{Binding .}">
-                                    </ImageButton>
-                                    <Label FontSize="Large"
-                                           FontAttributes="Bold"
-                                           TextColor="#032d3d"
-                                           Grid.Row="1">
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="{Binding Title}"
-                                                      FontSize="Large" />
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <BoxView  Grid.Row="2"
-                                              HeightRequest="1"
-                                              BackgroundColor="#032d3d" />
-                                    <Label Grid.Row="3" 
-                                           Text="{Binding Description}"
-                                           LineBreakMode="CharacterWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="Medium" />
-                                    <Label Grid.Row="4" 
-                                           Text="{Binding Time, StringFormat='{0:dd.MM.yyyy}'}"
-                                           LineBreakMode="CharacterWrap"
-                                           Style="{DynamicResource ListItemDetailTextStyle}"
-                                           FontSize="Small" 
-                                           HorizontalOptions="End"/>
-                                </Grid>
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=ReminderTapped}"
-                                        CommandParameter="{Binding .}">
-                                    </TapGestureRecognizer>
-                                </Frame.GestureRecognizers>
-                            </Frame>
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </RefreshView>
+        <StackLayout>
+            <StackLayout BackgroundColor="{StaticResource Key=SoftGreenColor}" 
+                         Padding="10, 20, 0, 23">
+                <Label TextColor="White" 
+                       FontSize="Large"
+                       FontFamily="HEB">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="Напоминания" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </StackLayout>
+            <RefreshView x:DataType="local:RemindersViewModel"
+                         Command="{Binding LoadRemindersCommand}"
+                         IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView ItemsSource="{Binding Reminders}"
+                                SelectionMode="None"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                Margin="5">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout HorizontalOptions="Center"
+                                         VerticalOptions="Center"
+                                         Margin="5"
+                                         Padding="5">
+                                <Frame CornerRadius="10"
+                                       HasShadow="True"
+                                       HorizontalOptions="CenterAndExpand"
+                                       VerticalOptions="CenterAndExpand"
+                                       BorderColor="DarkGray"
+                                       x:DataType="model:Reminder">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <Button Grid.Row="0"
+                                                Text="{x:Static fontAwesome:FontAwesomeIcons.XMark}"
+                                                TextColor="DarkGray"
+                                                FontFamily="FAS"
+                                                BackgroundColor="Transparent"
+                                                HorizontalOptions="End"
+                                                Padding="1"
+                                                Margin="0"
+                                                FontSize="Medium"
+                                                HeightRequest="20"
+                                                WidthRequest="30"
+                                                x:Name="CrossButton"
+                                                Clicked="CrossButton_OnClicked"
+                                                CommandParameter="{Binding .}"/>
+                                        <!-- <ImageButton Grid.Row="0" -->
+                                        <!--              Source="cancel.png" -->
+                                        <!--              BackgroundColor="Transparent" -->
+                                        <!--              WidthRequest="9" -->
+                                        <!--              HeightRequest="9" -->
+                                        <!--              HorizontalOptions="End" -->
+                                        <!--              Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=CloseReminderCommand}" -->
+                                        <!--              CommandParameter="{Binding .}"> -->
+                                        <!-- </ImageButton> -->
+                                        <Label FontFamily="HSB"
+                                               FontSize="Large"
+                                               TextColor="{x:StaticResource Key=TextColor}"
+                                               Grid.Row="1">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="{Binding Title}"/>
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label Grid.Row="2"
+                                               Text="{Binding Description}"
+                                               LineBreakMode="CharacterWrap"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontFamily="HM" 
+                                               FontSize="Medium"
+                                               Margin="5, 0"/>
+                                        <Label Grid.Row="3"
+                                               Text="{Binding Time, StringFormat='{0:dd.MM.yyyy}'}"
+                                               LineBreakMode="CharacterWrap"
+                                               Style="{DynamicResource ListItemDetailTextStyle}"
+                                               FontFamily="HSB"
+                                               FontSize="Small"
+                                               HorizontalOptions="End" />
+                                    </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer
+                                            NumberOfTapsRequired="1"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type local:RemindersViewModel}}, Path=ReminderTapped}"
+                                            CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>

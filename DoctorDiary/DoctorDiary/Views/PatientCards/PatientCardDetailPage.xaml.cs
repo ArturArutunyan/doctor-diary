@@ -66,7 +66,7 @@ namespace DoctorDiary.Views.PatientCards
             await BackButton.ScaleTo(1, 50);
             BackButton.TextColor = originalColor;
             
-            await Shell.Current.GoToAsync("..");
+            await Shell.Current.GoToAsync($"{nameof(PatientCardsPage)}");
         }
 
         private async void VisitButton_OnClicked(object sender, EventArgs e)
