@@ -167,7 +167,7 @@ namespace DoctorDiary.Services.SickLeaves
                 title: $@"Заканчивается больничный",
                 description: $"У пациента {fullName} сегодня заканчивается больничный лист",
                 navigationLinkOnClick: $"{nameof(PatientCardDetailPage)}?{nameof(PatientCardDetailViewModel.PatientCardId)}={patientCard.Id}",
-                time: DateTime.Now.Date);
+                time: time);
         }
     }
 }
