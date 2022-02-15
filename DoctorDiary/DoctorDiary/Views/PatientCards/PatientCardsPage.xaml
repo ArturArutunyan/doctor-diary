@@ -15,7 +15,7 @@
         <StackLayout>
             <StackLayout BackgroundColor="{StaticResource Key=SoftGreenColor}" Padding="0, 20, 0, 10">
                 <StackLayout Orientation="Horizontal">
-                    <Label TextColor="Azure" 
+                    <Label TextColor="White" 
                            FontSize="Large"
                            FontFamily="HEB"
                            Margin="10, 15, 10, 0">
@@ -125,7 +125,8 @@
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
                                                 <Label TextColor="{x:StaticResource Key=TextColor}"
-                                                       FontFamily="HEB"
+                                                       FontFamily="HSB"
+                                                       FontSize="16"
                                                        LineBreakMode="TailTruncation"
                                                        Grid.Row="0">
                                                     <Label.FormattedText>
