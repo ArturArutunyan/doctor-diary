@@ -82,18 +82,16 @@
                         <DataTemplate>
                             <StackLayout HorizontalOptions="Center"
                                          VerticalOptions="Center"
-                                         Margin="5, 0, 5, 7">
+                                         Margin="5, 7, 5, 7">
                                 <Frame CornerRadius="10"
                                        HasShadow="True"
                                        HorizontalOptions="CenterAndExpand"
                                        VerticalOptions="CenterAndExpand"
-                                       WidthRequest="340"
                                        BorderColor="DarkGray"
                                        x:DataType="patientCard:PatientCard"
                                        Padding="20, 13, 20, 5">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
@@ -102,101 +100,90 @@
                                             <RowDefinition Height="Auto" />
                                             <RowDefinition />
                                         </Grid.RowDefinitions>
-                                        <StackLayout Grid.Row="0" 
-                                                     Grid.Column="0"
-                                                     Margin="10, 20, 20, 0"
-                                                     Padding="0">
-                                            <Label Text="{x:Static fontAwesome:FontAwesomeIcons.User}" 
-                                                   FontFamily="FAS"
-                                                   FontSize="66"
-                                                   TextColor="DarkGray"
-                                                   Margin="0"/>
-                                        </StackLayout>
-                                            <Grid Grid.Row="0"
-                                                  Grid.Column="1"
-                                                  Margin="0">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="*" />
-                                                    <RowDefinition Height="*" />
-                                                </Grid.RowDefinitions>
-                                                <Label TextColor="{x:StaticResource Key=TextColor}"
-                                                       FontFamily="HSB"
-                                                       FontSize="16"
-                                                       LineBreakMode="TailTruncation"
-                                                       Grid.Row="0">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span Text="{Binding LastName}" />
-                                                            <Span Text=" " />
-                                                            <Span Text="{Binding FirstName}" />
-                                                            <Span Text=" " />
-                                                            <Span Text="{Binding Patronymic}" />
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                                <Label Grid.Row="1"
-                                                       LineBreakMode="CharacterWrap"
-                                                       VerticalOptions="Start"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span Text="{x:Static fontAwesome:FontAwesomeIcons.Calendar}"
-                                                                  FontFamily="FAS" />
-                                                            <Span Text="  " />
-                                                            <Span FontFamily="HM" 
-                                                                  FontSize="Small"
-                                                                  Text="Дата рождения: " />
-                                                            <Span FontFamily="HSB"
-                                                                  FontSize="Small"
-                                                                  Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}"
-                                                                  TextColor="{StaticResource Key=TextColor}"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                                <Label Grid.Row="2"
-                                                       LineBreakMode="CharacterWrap"
-                                                       Style="{DynamicResource ListItemDetailTextStyle}">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span
-                                                                Text="{x:Static fontAwesome:FontAwesomeIcons.PhoneSquareAlt}"
-                                                                FontFamily="FAS" />
-                                                            <Span Text="  " />
-                                                            <Span FontFamily="HM" 
-                                                                  FontSize="Small"
-                                                                  Text="Телефон: " />
-                                                            <Span FontFamily="HSB"
-                                                                  FontSize="Small"
-                                                                  Text="{Binding PhoneNumber.ReadableFormat, StringFormat='{0}'}"
-                                                                  TextColor="{StaticResource Key=TextColor}"/>
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                                <Label Grid.Row="3"
-                                                       LineBreakMode="CharacterWrap">
-                                                    <Label.FormattedText>
-                                                        <FormattedString>
-                                                            <Span
-                                                                Text="{x:Static fontAwesome:FontAwesomeIcons.Genderless}"
-                                                                FontFamily="FAS" />
-                                                            <Span Text="  " />
-                                                            <Span FontFamily="HM" 
-                                                                  FontSize="Small"
-                                                                  Text="Пол: " />
-                                                            <Span FontFamily="HSB"
-                                                                  FontSize="Small"
-                                                                  Text="{Binding Gender, StringFormat='{0}'}"
-                                                                  TextColor="{StaticResource Key=TextColor}" />
-                                                        </FormattedString>
-                                                    </Label.FormattedText>
-                                                </Label>
-                                            </Grid>
-                                        <StackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                                        <Grid Grid.Row="0"
+                                              Margin="0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="*" />
+                                            </Grid.RowDefinitions>
+                                            <Label TextColor="{x:StaticResource Key=TextColor}"
+                                                   FontFamily="HSB"
+                                                   FontSize="Medium"
+                                                   LineBreakMode="TailTruncation"
+                                                   Grid.Row="0">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{Binding LastName}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding FirstName}" />
+                                                        <Span Text=" " />
+                                                        <Span Text="{Binding Patronymic}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="1"
+                                                   LineBreakMode="CharacterWrap"
+                                                   VerticalOptions="Start"
+                                                   Style="{DynamicResource ListItemDetailTextStyle}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span Text="{x:Static fontAwesome:FontAwesomeIcons.Calendar}"
+                                                              FontFamily="FAS" />
+                                                        <Span Text="  " />
+                                                        <Span FontFamily="HM"
+                                                              FontSize="Small"
+                                                              Text="Дата рождения: " />
+                                                        <Span FontFamily="HSB"
+                                                              FontSize="Small"
+                                                              Text="{Binding Birthday, StringFormat='{0:dd.MM.yyyy}'}"
+                                                              TextColor="{StaticResource Key=TextColor}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="2"
+                                                   LineBreakMode="CharacterWrap"
+                                                   Style="{DynamicResource ListItemDetailTextStyle}">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            Text="{x:Static fontAwesome:FontAwesomeIcons.PhoneSquareAlt}"
+                                                            FontFamily="FAS" />
+                                                        <Span Text="  " />
+                                                        <Span FontFamily="HM"
+                                                              FontSize="Small"
+                                                              Text="Телефон: " />
+                                                        <Span FontFamily="HSB"
+                                                              FontSize="Small"
+                                                              Text="{Binding PhoneNumber.ReadableFormat, StringFormat='{0}'}"
+                                                              TextColor="{StaticResource Key=TextColor}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                            <Label Grid.Row="3"
+                                                   LineBreakMode="CharacterWrap">
+                                                <Label.FormattedText>
+                                                    <FormattedString>
+                                                        <Span
+                                                            Text="{x:Static fontAwesome:FontAwesomeIcons.Genderless}"
+                                                            FontFamily="FAS" />
+                                                        <Span Text="  " />
+                                                        <Span FontFamily="HM"
+                                                              FontSize="Small"
+                                                              Text="Пол: " />
+                                                        <Span FontFamily="HSB"
+                                                              FontSize="Small"
+                                                              Text="{Binding Gender, StringFormat='{0}'}"
+                                                              TextColor="{StaticResource Key=TextColor}" />
+                                                    </FormattedString>
+                                                </Label.FormattedText>
+                                            </Label>
+                                        </Grid>
+                                        <StackLayout Grid.Row="1">
                                             <Label LineBreakMode="TailTruncation"
                                                    Style="{DynamicResource ListItemDetailTextStyle}"
                                                    Margin="0">
@@ -219,13 +206,9 @@
                                         </StackLayout>
                                         <BoxView BackgroundColor="DarkGray"
                                                  Grid.Row="2" 
-                                                 Grid.Column="0" 
-                                                 Grid.ColumnSpan="2" 
                                                  HeightRequest="1"
                                                  Margin="0, 5, 0, 0" />
                                         <Button Grid.Row="3" 
-                                                Grid.Column="0" 
-                                                Grid.ColumnSpan="2"
                                                 WidthRequest="30"
                                                 HeightRequest="20"
                                                 Padding="0"
